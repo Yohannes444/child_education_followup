@@ -15,8 +15,6 @@ class Header extends Component {
         this.state = {
             isNavOpen: false,
             isModalOpen: false,
-            isAuthenticated:false,
-            isFetching:false
         };
         this.toggleNav = this.toggleNav.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
@@ -42,7 +40,7 @@ class Header extends Component {
         event.preventDefault();
 
     }
-
+    
     handleLogout() {
         this.props.logoutUser();
     }
@@ -77,11 +75,11 @@ class Header extends Component {
                             </Nav>
                             <Nav className="ml-auto" navbar>
                                 <NavItem>
-                                    { !this.props.isAuthenticated ?
+                                    { !this.props.auth.isAuthenticated ?
                                         <div>
                                           <Button outline className="btn" style={{backgroundColor: yellow}} onClick={this.toggleModal}>
                                             <span className="fa fa-sign-in fa-lg"></span> Login
-                                            {this.props.isFetching ?
+                                            {this.props.auth.isFetching ?
                                                 <span className="fa fa-spinner fa-pulse fa-fw"></span>
                                                 : null
                                             }

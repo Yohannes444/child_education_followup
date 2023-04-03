@@ -5,6 +5,8 @@ import { baseURL } from "../shared/beasURL";
 import {Loading} from "./loadingComponent"
 import { useState } from "react";
 import styles from "./styles.module.css";
+import { Input } from "reactstrap"
+import {  Control,LocalForm } from 'react-redux-form';
 
 //import RenderLeader from './RenderLeader'
 
@@ -18,32 +20,27 @@ class Signup extends Component {
             email: "",
             password: "",
         };
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         
     }
-	
 
-    handleChange(event) {
-        const target = event.target;
-        const name = target.name;
-        const value = target.value;
-        this.setState({
-            [name]: value
-        });
-    }
+    handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+      }
     
 
     async handleSubmit(event) {
-        event.preventDefault();
-        const { firstName, lastName, email, password } = this.state;
-        // You can now use the form data to make API requests or update the state of the component
-        console.log(firstName, lastName, email, password);
-        // Reset the form inputs
+        const { firstName,lastName,email,username, password} = this.state;
+
+        const parent = { firstName,lastName,email,username, password};
+      console.log(parent)
+        
+      this.props.parentSignup(parent);
         this.setState({
             firstName: "",
             lastName: "",
             email: "",
+            username:"",
             password: "",
         });
     }
@@ -72,49 +69,64 @@ class Signup extends Component {
                         
                     </div>
                     <div className={styles.right}>
-                        <form className={styles.form_container} onSubmit={this.handleSubmit}>
+                     
+                        <LocalForm className={styles.form_container} onSubmit={(values) => this.handleSubmit(values)}>
                             <h1 style={{color:'#f1d21c'}}>Create Account</h1>
-                            <input
+                            <Control.text
                                 type = "text"
-                                placeholder="First Name"
                                 name="firstName"
+                                id = "firstName"
+                                placeholder="First Name"
+                                model=".firstName"
                                 onChange={this.handleChange}
-                                value='yared'
                                 required
                                 className={styles.input}
                             />
-                            <input
+                           <Control.text
                                 type="text"
-                                placeholder="Last Name"
                                 name="lastName"
+                                id="lastName"
+                                placeholder="Last Name"
+                                model=".lastName"
                                 onChange={this.handleChange}
-                                value='Mekonen'
                                 required
                                 className={styles.input}
                             />
-                            <input
+                            <Control.text
                                 type="email"
-                                placeholder="Email"
                                 name="email"
+                                id="email"
+                                placeholder="Email"
+                                model=".email"
                                 onChange={this.handleChange}
-                                value="loremEpsom@gmail.com"
                                 required
                                 className={styles.input}
                             />
-                            <input
+                            <Control.text
+                                name="username"
+                                type="text"
+                                placeholder="username"
+                                model=".username"
+                                id="username"
+                                onChange={this.handleChange}
+                                required
+                                className={styles.input}
+                            />
+                            <Control.password
                                 type="password"
+                                name='password'
+                                 id="password"
                                 placeholder="Password"
-                                name="password"
+                                model='.password'
                                 onChange={this.handleChange}
-                                value="......"
                                 required
                                 className={styles.input}
-                            />
+                            /> 
                              <div >this is sopust to be an error</div>
                             <button type="submit" className={styles.green_btn}>
                                 Sing Up
                             </button>
-                        </form>
+                        </LocalForm>
                     </div>
                 </div>
             </div>

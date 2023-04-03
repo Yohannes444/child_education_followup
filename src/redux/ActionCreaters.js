@@ -9,6 +9,7 @@ export const requestLogin = (creds) => {
         creds
     }
 }
+
   
 export const receiveLogin = (response) => {
     return {
@@ -23,6 +24,7 @@ export const loginError = (message) => {
         message
     }
 }
+
 
 export const loginUser = (creds) => (dispatch) => {
     // We dispatch requestLogin to kickoff the call to the API
@@ -113,16 +115,17 @@ export const postFeedback = (feedback) => (dispatch) => {
   .catch(error =>  { console.log('Feedback', error.message); alert('Your feedback could not be posted\nError: '+error.message); });
 };
 
-export const parentSignup = (creds) => (dispatch) => {
-  // We dispatch requestLogin to kickoff the call to the API
-  dispatch(requestLogin(creds))
+export const parentSignup = (parent) => (dispatch) => {
+console.log(parent)
+    
 
+    dispatch(requestparentSignup(true))
   return fetch(baseUrl + 'users/signup', {
       method: 'POST',
+      body: JSON.stringify(parent),
       headers: { 
           'Content-Type':'application/json' 
-      },
-      body: JSON.stringify(creds)
+      }
   })
   .then(response => {
       console.log(response)
@@ -141,7 +144,7 @@ export const parentSignup = (creds) => (dispatch) => {
   .then(response => {
       if (response.success) {
           
-          dispatch(receiveLogin(response));
+          dispatch(receiveparentSignup(response));
       }
       else {
           var error = new Error('Error ' + response.status);
@@ -149,8 +152,25 @@ export const parentSignup = (creds) => (dispatch) => {
           throw error;
       }
   })
-  .catch(error => dispatch(loginError(error.message)))
+  .catch(error => dispatch(parentSignupError(error.message)))
 };
-export const handleChange=()=>{
 
+export const requestparentSignup= ()=>{
+    return{
+        type: ActionTypes.SIGNUP_REQUEST,
+        
+    }
 }
+export const receiveparentSignup =(user)=>{
+    return{
+        type:ActionTypes.SIGNUP_SUCCESS,
+        user
+    }
+}
+export const parentSignupError =(message)=>{
+    return{
+        type:ActionTypes.SIGNUP_FAILURE,
+        message
+    }
+}
+
