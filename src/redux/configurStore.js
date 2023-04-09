@@ -5,6 +5,9 @@ import { User } from './user';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { InitialFeedback } from './forms';
+import  { TeachSignup } from './teacherSignup'
+import { cashiSignup } from './cashierADD'
+import { ParentSignup } from './parentSignup';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -12,6 +15,9 @@ export const ConfigureStore = () => {
             
             user: User,
             auth: Auth,
+            teacher:TeachSignup,
+            cashier:cashiSignup,
+            parent:ParentSignup,
             ...createForms({
                 feedback: InitialFeedback
             })

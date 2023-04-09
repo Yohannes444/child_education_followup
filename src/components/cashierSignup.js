@@ -3,7 +3,7 @@ import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'r
 import { Link } from 'react-router-dom';
 import styles from "./styles.module.css";
 import {  Control,LocalForm } from 'react-redux-form';
-
+import {Loading} from "./loadingComponent"
 //import RenderLeader from './RenderLeader'
 
 class Signup extends Component {
@@ -39,6 +39,52 @@ class Signup extends Component {
 
 
     render() {
+        if (this.props.cashierSign.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>add cashier</BreadcrumbItem>
+                    </Breadcrumb>
+                </div>
+                    <div className="row">
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if (this.props.cashierSign.errMess) {
+            return(
+                <div className="container">
+                    <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>add cashier</BreadcrumbItem>
+                    </Breadcrumb>
+                </div>
+                    <div className="row">
+                        <h4>{this.props.cashierADD.errMess}</h4>
+                    </div>
+                </div>
+            )
+        }
+        else if (this.props.cashierSign.cashierADD){
+            return(
+                <div className="container">
+                    <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>add cashier</BreadcrumbItem>
+                    </Breadcrumb>
+                </div>
+                    <div className="row">
+                        <h4>cashier account has been add</h4>
+                    </div>
+                </div>
+            )
+        }
+        else{
         return(
         <div className="container bg-f5f5f5">
            <div className="row">
@@ -116,7 +162,7 @@ class Signup extends Component {
             </div>
             </div>
         </div>
-    )
+    )}
         };
 }
 

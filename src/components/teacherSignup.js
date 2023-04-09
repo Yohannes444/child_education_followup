@@ -47,6 +47,52 @@ class Signup extends Component {
     
     
     render() {
+        if (this.props.teacherSign.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Breadcrumb>
+                            <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                            <BreadcrumbItem active>add teacher </BreadcrumbItem>
+                        </Breadcrumb>
+                    </div>
+                    <div className="row">
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if (this.props.teacherSign.errMess) {
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Breadcrumb>
+                            <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                            <BreadcrumbItem active>add teacher </BreadcrumbItem>
+                        </Breadcrumb>
+                    </div>
+                    <div className="row">
+                        <h4>{this.props.cashierADD.errMess}</h4>
+                    </div>
+                </div>
+            )
+        }
+        else if (this.props.teacherSign.teacherADD){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Breadcrumb>
+                            <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                            <BreadcrumbItem active>add teacher </BreadcrumbItem>
+                        </Breadcrumb>
+                    </div>
+                <div className="row">
+                    <h4> teacher account has been add</h4>
+                </div>
+            </div>
+            )
+        }
+        else{
         return(
         <div className="container bg-f5f5f5">
             <div className="row">
@@ -124,7 +170,7 @@ class Signup extends Component {
             </div>
             </div>
         </div>
-    )
+    )}
         };
 }
 

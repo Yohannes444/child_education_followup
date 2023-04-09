@@ -35,7 +35,7 @@ const User = (props) => {
         return (
           <div className='container'>
             
-          <AdminView />
+          <AdminView cashierSign={props.cashierSign} teacherSign={props.teacherSign}  />
           </div>
           );
       } else if (props.user.user.teacher) {

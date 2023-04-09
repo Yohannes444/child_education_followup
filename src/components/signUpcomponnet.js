@@ -3,7 +3,7 @@ import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'r
 import { Link } from 'react-router-dom';
 import styles from "./styles.module.css";
 import {  Control,LocalForm } from 'react-redux-form';
-
+import { Loading } from './loadingComponent'
 //import RenderLeader from './RenderLeader'
 
 class Signup extends Component {
@@ -44,6 +44,52 @@ class Signup extends Component {
     
     
     render() {
+        if (this.props.parentSign.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Breadcrumb>
+                            <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                            <BreadcrumbItem active>add parent account </BreadcrumbItem>
+                        </Breadcrumb>
+                    </div>
+                    <div className="row">
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if (this.props.parentSign.errMess) {
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Breadcrumb>
+                            <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                            <BreadcrumbItem active>add parent account </BreadcrumbItem>
+                        </Breadcrumb>
+                    </div>
+                    <div className="row">
+                        <h4>{this.props.parentSign.errMess}</h4>
+                    </div>
+                </div>
+            )
+        }
+        else if (this.props.parentSign.parentADD){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Breadcrumb>
+                            <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                            <BreadcrumbItem active>add parent account </BreadcrumbItem>
+                        </Breadcrumb>
+                    </div>
+                <div className="row">
+                    <h4> parent account has been add</h4>
+                </div>
+            </div>
+            )
+        }
+        else{
         return(
         <div className="container bg-f5f5f5">
             <div className="row">
@@ -128,7 +174,7 @@ class Signup extends Component {
             </div>
             </div>
         </div>
-    )
+    )}
         };
 }
 

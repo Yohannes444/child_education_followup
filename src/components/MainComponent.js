@@ -17,7 +17,10 @@ import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group
 const mapStateToProps = state => {
   return {
     auth:state.auth,
-    user:state.user
+    user:state.user,
+    teacherSign:state.teacher,
+    cashierSign:state.cashier,
+    parent:state.parent
   }
   
 }
@@ -42,11 +45,7 @@ componentDidMount(){
 }
 
   render(){
-    const userView = () => {
-      return(
-        <User user={this.props.user}/>
-      );
-    }
+  
     console.log(this.props.user)
    
     return (
@@ -62,11 +61,19 @@ componentDidMount(){
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
          <Switch>
             <Route exact path='/contactus' component={()=><Contact resetFeedbackForm={this.props.resetFeedbackForm}/>  }/>
-            <Route path='/signup' component={()=> <Signup  parentSignup={this.props.parentSignup}/>} />
-            <Route path= '/signupCashier' component={()=><SignupCash cashierSignup={this.props.cashierSignup}/>}/>
-            <Route path='/signupTeacher' component={()=> <SignupTeach teacherSignup={this.props.teacherSignup}/>}/>
+            <Route path='/signup' component={()=> <Signup parentSign={this.props.parent} parentSignup={this.props.parentSignup}/>} />
+            <Route path= '/signupCashier' component={()=><SignupCash cashierSignup={this.props.cashierSignup} cashierSign={this.props.cashierSign}/>}/>
+            <Route path='/signupTeacher' component={()=> <SignupTeach teacherSignup={this.props.teacherSignup} teacherSign={this.props.teacherSign}/>}/>
             <Route path="/aboutus" component={()=> <About/>}/>
-            <Route path='/home' auth={this.props.auth}   component={()=>this.props.auth.isAuthenticated ?  <User user={this.props.user}/> :<HOME  user={this.props.user}/>} />
+            <Route path='/home' auth={this.props.auth}   
+              component={()=>this.props.auth.isAuthenticated ?  
+                <User user={this.props.user}
+                  teacherSign={this.props.teacherSign}
+                  cashierSign={this.props.cashierSign}
+                /> 
+                :
+                <HOME  user={this.props.user}/>} 
+            />
             <Route path='/users'   render={()=> <User user={this.props.user} />}/>
 
           
