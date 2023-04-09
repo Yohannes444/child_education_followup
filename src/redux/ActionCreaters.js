@@ -1,6 +1,5 @@
 import * as ActionTypes from './ActionsType';
-import { baseUrl } from '../shared/baseUrl';
-
+import { baseUrl } from '../shared/beasURL'
 
 
 export const requestLogin = (creds) => {
@@ -59,6 +58,8 @@ export const loginUser = (creds) => (dispatch) => {
             // Dispatch the success action
             
             dispatch(receiveLogin(response));
+            dispatch(fetchuser())
+
         }
         else {
             var error = new Error('Error ' + response.status);
@@ -86,6 +87,7 @@ export const logoutUser = () => (dispatch) => {
     dispatch(requestLogout())
     localStorage.removeItem('token');
     localStorage.removeItem('creds');
+    dispatch(fetchuser())
     dispatch(receiveLogout())
 }
 export const postFeedback = (feedback) => (dispatch) => {
@@ -174,3 +176,45 @@ export const parentSignupError =(message)=>{
     }
 }
 
+export const fetchuser = () => {
+    return async (dispatch) => {
+      dispatch(userLoding());
+      const bearer = 'Bearer ' + localStorage.getItem('token');
+      try {
+        const response = await fetch(baseUrl + 'users', {
+            headers: {
+                'Authorization': bearer
+            },
+        });
+        if (!response.ok) {
+          throw new Error('Error ' + response.status + ': ' + response.statusText);
+        }
+        const user = await response.json();
+        dispatch(userLoaded(user));
+        
+      } catch (error) {
+        dispatch(userFaild(error.message));
+      }
+    };
+  };
+  
+export const userLoaded = (user) => {
+    console.log(user)
+    return {
+    type: ActionTypes.USER_LOADED,
+    payload: user,
+  }
+};
+export const userLoding= () => {
+    return {
+        type: ActionTypes.USER_REQUEST,
+    }
+}
+
+  export const userFaild =(message)=>{
+    return{
+        type:ActionTypes.USER_ERROR,
+        message
+    }
+}
+  

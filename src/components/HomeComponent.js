@@ -1,21 +1,30 @@
-import React from 'react';
-import {Loading} from "./loadingComponent"
-import { baseURL } from "../shared/beasURL";
-import { FadeTransform } from 'react-animation-components'
-import { Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle} from 'reactstrap';
+import React, { Component } from 'react';
+import User from './usercomponent'
 
 
 
- function Home(props) {
+class Home extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+           
+        };
+        
+    }
     
-    return(
-        <div className="container">
-            <div className="row align-items-start">
-                This is from the home component
-            </div>
+    // check the user account type and render the appropriate component
+    render(){
+        return(
+        <div> 
+            <p>this is from home page</p>
+            {/* <User user={this.props.user} /> */}
+                
+              
         </div>
-    );
-}
-
-export default Home;
+     )}
+    
+  };
+  
+  export default Home;
+  

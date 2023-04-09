@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { createForms } from 'react-redux-form';
 import { Auth } from './auth';
+import { User } from './user';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { InitialFeedback } from './forms';
@@ -8,6 +9,8 @@ import { InitialFeedback } from './forms';
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
+            
+            user: User,
             auth: Auth,
             ...createForms({
                 feedback: InitialFeedback

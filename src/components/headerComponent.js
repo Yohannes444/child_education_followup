@@ -38,7 +38,6 @@ class Header extends Component {
         this.toggleModal();
         this.props.loginUser({username: this.username.value, password: this.password.value});
         event.preventDefault();
-
     }
     
     handleLogout() {
@@ -92,7 +91,7 @@ class Header extends Component {
                                         :
                                         <div>
                                         <div style={{color: yellow}} className="navbar-text mr-3">{this.props.auth.user.username}</div>
-                                        <Button style={{color: green}} outline onClick={this.handleLogout}>
+                                        <Button style={{backgroundColor: yellow}}  outline onClick={this.handleLogout}>
                                             <span  className="fa fa-sign-out fa-lg"></span> Logout
                                             {this.props.auth.isFetching ?
                                                 <span className="fa fa-spinner fa-pulse fa-fw"></span>
