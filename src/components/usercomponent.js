@@ -24,7 +24,7 @@ const User = (props) => {
         return(
             <div className="container">
                 <div className="row">
-                    <h4>{props.favorites.errMess}</h4>
+                    <h4>{props.user.errMess}</h4>
                 </div>
             </div>
         )
@@ -34,64 +34,28 @@ const User = (props) => {
       if (props.user.user.admin) {
         return (
           <div className='container'>
-            <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>userView</BreadcrumbItem>
-                    </Breadcrumb>
-                    <div className="col-12">
-                        <h3>userView</h3>
-                        <hr />
-                    </div>
-                </div>
+            
           <AdminView />
           </div>
           );
       } else if (props.user.user.teacher) {
         return (
           <div className='container'>
-            <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>My Favorites</BreadcrumbItem>
-                    </Breadcrumb>
-                    <div className="col-12">
-                        <h3>My Favorites</h3>
-                        <hr />
-                    </div>
-                </div>
+          
           <TeacherView />
           </div>
           );
       } else if (props.user.user.cashier) {
         return (
           <div className='container'>
-            <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>My Favorites</BreadcrumbItem>
-                    </Breadcrumb>
-                    <div className="col-12">
-                        <h3>My Favorites</h3>
-                        <hr />
-                    </div>
-                </div>
+
           <CashierView />
           </div>
           );
       } else if (props.user.user.parent) {
         return(
           <div className='container'>
-            <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>My Favorites</BreadcrumbItem>
-                    </Breadcrumb>
-                    <div className="col-12">
-                        <h3>My Favorites</h3>
-                        <hr />
-                    </div>
-                </div>
+          
           <ParentView />
           </div>
           );

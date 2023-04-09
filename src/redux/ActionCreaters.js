@@ -217,4 +217,123 @@ export const userLoding= () => {
         message
     }
 }
-  
+
+export const teacherSignup = (teacher)=> (dispatch)=>{
+    dispatch(requestTeacherSignup())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    return fetch(baseUrl + 'users/admin/teacher', {
+        method: 'POST',
+        body: JSON.stringify(teacher),
+        headers: { 
+            'Content-Type':'application/json',
+            'Authorization': bearer
+        }
+    })
+    .then(response => {
+        console.log(response)
+        if (response.ok) {
+            return response;
+        } else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+        },
+        error => {
+            throw error;
+        })
+    .then(response => response.json())
+    .then(response => {
+        if (response.success) {
+            
+            dispatch(receiveTeacherSignup(response));
+        }
+        else {
+            var error = new Error('Error ' + response.status);
+            error.response = response;
+            throw error;
+        }
+    })
+    .catch(error => dispatch(TeacherSignupError(error.message)))
+}
+
+export const requestTeacherSignup =()=>{
+    return{
+    type:ActionTypes.TEACH_SIGNUP_REQUEST,
+}
+}
+
+export const receiveTeacherSignup=(teacher)=>{
+    return{
+        type:ActionTypes.TEACH_ADD_SECESS,
+        teacher
+    }
+}
+
+export const TeacherSignupError = (message)=>{
+    return {
+        type:ActionTypes.TEACH_ADDED_FAILD,
+        message
+    }
+}
+
+
+
+export const cashierSignup = (cashier)=> (dispatch)=>{
+    dispatch(requestCashierSignup())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    return fetch(baseUrl + 'users/admin/cashier', {
+        method: 'POST',
+        body: JSON.stringify(cashier),
+        headers: { 
+            'Content-Type':'application/json',
+            'Authorization': bearer
+        }
+    })
+    .then(response => {
+        console.log(response)
+        if (response.ok) {
+            return response;
+        } else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+        },
+        error => {
+            throw error;
+        })
+    .then(response => response.json())
+    .then(response => {
+        if (response.success) {
+            
+            dispatch(receiveCashierSignup(response));
+        }
+        else {
+            var error = new Error('Error ' + response.status);
+            error.response = response;
+            throw error;
+        }
+    })
+    .catch(error => dispatch(cashierSignupError(error.message)))
+}
+
+export const requestCashierSignup =()=>{
+    return{
+    type:ActionTypes.CASHI_SIGNUP_REQUEST,
+}
+}
+
+export const receiveCashierSignup=(cashier)=>{
+    return{
+        type:ActionTypes.CASHI_ADD_SECESS,
+        cashier
+    }
+}
+
+export const cashierSignupError = (message)=>{
+    return {
+        type:ActionTypes.CASHI_ADDED_FAILD,
+        message
+    }
+}

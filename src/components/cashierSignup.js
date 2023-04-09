@@ -16,10 +16,8 @@ class Signup extends Component {
             email: "",
             password: "",
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
-        
+        this.handleSubmit = this.handleSubmit.bind(this);  
     }
-
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
       }
@@ -28,42 +26,32 @@ class Signup extends Component {
     async handleSubmit(event) {
         const { firstName,lastName,email,username, password} = this.state;
 
-        const parent = { firstName,lastName,email,username, password};
-      console.log(parent)
-        
-      this.props.parentSignup(parent);
-        this.setState({
-            firstName: "",
-            lastName: "",
-            email: "",
-            username:"",
-            password: "",
-        });
+        const cashier = { firstName,lastName,email,username, password};
+        this.props.cashierSignup(cashier)
+      this.setState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        username:"",
+        password: "",
+    });
     }
 
-    
-    
+
     render() {
         return(
         <div className="container bg-f5f5f5">
-            <div className="row">
-                <Breadcrumb>
-                    <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
-                    <BreadcrumbItem active>signup</BreadcrumbItem>
-                </Breadcrumb>
-                <div className="col-12">
-                    <h3>About Us</h3>
-                    <hr />
-                </div>                
-            </div>
+           <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>add cashier</BreadcrumbItem>
+                    </Breadcrumb>
+                </div>
             
             <div className="row row-content">
                 <div className={styles.signup_container}>
                 <div className={styles.signup_form_container}>
-                    <div className={styles.left}>
-                        <h1 style={{color:'#f1d21c'}}>Welcome</h1>
-                        
-                    </div>
+                   
                     <div className={styles.right}>
                      
                         <LocalForm className={styles.form_container} onSubmit={(values) => this.handleSubmit(values)}>
