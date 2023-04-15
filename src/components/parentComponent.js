@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 
 
 const ParentView= (props)=>{
-
+    
     
         return(
             <di>
                 <div className="row">
                     <Breadcrumb>
-                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem  ><Link to='/home'>Home</Link></BreadcrumbItem>
                         <BreadcrumbItem active>paretnView</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12">

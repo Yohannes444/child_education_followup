@@ -18,6 +18,7 @@ class Signup extends Component {
         };
         this.handleSubmit = this.handleSubmit.bind(this);  
     }
+     
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
       }
@@ -70,14 +71,15 @@ class Signup extends Component {
             )
         }
         else if (this.props.cashierSign.cashierADD){
+            this.props.refreshState()
+            var alertInterval = setInterval(function() {
+                alert("New cashier account has been add");
+              }, 1000); // display alert every second
+              setTimeout(function() {
+                clearInterval(alertInterval); // stop displaying alerts
+              }, 1000); 
             return(
                 <div className="container">
-                    <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>add cashier</BreadcrumbItem>
-                    </Breadcrumb>
-                </div>
                     <div className="row">
                         <h4>cashier account has been add</h4>
                     </div>

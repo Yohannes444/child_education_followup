@@ -337,3 +337,96 @@ export const cashierSignupError = (message)=>{
         message
     }
 }
+
+export const creatClassroom =(classRoom)=>(dispatch)=>{
+    dispatch(requestToCreatClassRoom())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    return fetch(baseUrl + 'classroom', {
+        method: 'POST',
+        body: JSON.stringify(classRoom),
+        headers: { 
+            'Content-Type':'application/json',
+            'Authorization': bearer
+        }
+    })
+        .then(response => {
+            console.log(response)
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+            },
+            error => {
+                throw error;
+            })
+        .then(response => response.json())
+        .then(response => {
+            if (response.success) {
+                
+                dispatch(creatClassroomSeccess(response));
+            }
+            else {
+                var error = new Error('Error ' + response.status);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch(error => dispatch(creatClassroomFaild(error.message)))
+    
+}
+
+export const requestToCreatClassRoom =()=>{
+    return{
+        type:ActionTypes.REQUEST_CLASS_CREAT
+    }
+}
+export const creatClassroomSeccess =(classRoom)=>{
+    return{
+        type:ActionTypes.CREAT_CLASS_ROOM_SECESS,
+        classRoom
+    }
+}
+export const creatClassroomFaild= (messag)=>{
+    return{
+        type:ActionTypes.CREAT_CLASS_ROOM_FAILD,
+        messag
+    }
+}
+
+
+export const resetClassroomState = () => {
+    return {
+      type: ActionTypes.CREAT_CLASS_ROOM_FAILD
+    };
+  };
+  
+  export const resetCashierState = () => {
+    return {
+      type: ActionTypes.CASHI_ADDED_FAILD
+    };
+  };
+  
+  export const resetSignupState = () => {
+    return {
+      type: ActionTypes.SIGNUP_FAILURE
+    };
+  };
+  
+  export const resetTeacherState = () => {
+    return {
+      type: ActionTypes.TEACH_ADDED_FAILD
+    };
+  };
+  
+  export const refreshState = () => {
+    return dispatch => {
+      dispatch(resetClassroomState());
+      dispatch(resetCashierState());
+      dispatch(resetSignupState());
+      dispatch(resetTeacherState());
+    };
+  };
+  

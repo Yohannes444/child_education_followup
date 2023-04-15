@@ -10,6 +10,8 @@ import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
 
 const User = (props) => {
+    
+    
 
     if (props.user.isLoading) {
         return(
@@ -35,7 +37,7 @@ const User = (props) => {
         return (
           <div className='container'>
             
-          <AdminView cashierSign={props.cashierSign} teacherSign={props.teacherSign}  />
+          <AdminView  />
           </div>
           );
       } else if (props.user.user.teacher) {

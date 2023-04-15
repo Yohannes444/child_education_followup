@@ -8,6 +8,7 @@ import { InitialFeedback } from './forms';
 import  { TeachSignup } from './teacherSignup'
 import { cashiSignup } from './cashierADD'
 import { ParentSignup } from './parentSignup';
+import { configClassRoomState } from './classRoom'
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -18,6 +19,7 @@ export const ConfigureStore = () => {
             teacher:TeachSignup,
             cashier:cashiSignup,
             parent:ParentSignup,
+            classRoom:configClassRoomState,
             ...createForms({
                 feedback: InitialFeedback
             })

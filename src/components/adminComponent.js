@@ -27,6 +27,11 @@ const  AdminView =()=> {
                         style={{backgroundColor: green}} to='/signupTeacher'>
                         <span  className="fa fa-sign-un fa-lg "></span> ADD TEACHER
                     </Link>
+                    <Link outline 
+                        className="btn btn-border" 
+                        style={{backgroundColor: yellow}} to='/creatClassRoom'>
+                        <span  className="fa fa-sign-un fa-lg "></span> ADD CLASS ROOM
+                    </Link>
                         <h3>userView</h3>
                         <hr />
                     </div>
