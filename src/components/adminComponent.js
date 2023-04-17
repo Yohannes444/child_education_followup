@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import {Button,Form, FormGroup, Input, Label } from 'reactstrap';
+import CashierDashboard from './cashierDashbord'
 const green = '#3bb19b';
 const yellow ='#f1d21c';
 const black = '#000000';
 
-const  AdminView =()=> {
+const handlcashierDashbord=(props)=>{
+    return(
+        <CashierDashboard cashiers={props.cashiers}/>
+    )
+}
+const  AdminView =(props)=> {
 
         return(
             <di>
@@ -32,11 +38,22 @@ const  AdminView =()=> {
                         style={{backgroundColor: yellow}} to='/creatClassRoom'>
                         <span  className="fa fa-sign-un fa-lg "></span> ADD CLASS ROOM
                     </Link>
-                        <h3>userView</h3>
+                    <Link outline 
+                        className="btn btn-border" 
+                        style={{backgroundColor: green}} to='/cashierDashbord'>
+                        <span  className="fa fa-sign-un fa-lg "></span> CASHIER DASHBORD
+                    </Link>
+
+                    <Link outline 
+                        className="btn btn-border" 
+                        style={{backgroundColor: yellow}} to='/teacherDashbord'>
+                        <span  className="fa fa-sign-un fa-lg "></span> TEACHER DASHBORD
+                    </Link>
+                     <h3>userView</h3>
                         <hr />
                     </div>
                 
-                <p>this is from the admin component</p>
+                <p>this is from the admin component  </p>
             </di>
         )
     

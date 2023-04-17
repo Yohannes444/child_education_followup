@@ -1,4 +1,4 @@
-import * as ActionTypes from './ActionsType';
+import * as ActionTypes from '../ActionsType';
 
 export const configClassRoomState = (state = {
         isLoading: false,

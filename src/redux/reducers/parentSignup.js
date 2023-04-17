@@ -1,32 +1,28 @@
-import * as ActionTypes from './ActionsType';
+import * as ActionTypes from '../ActionsType';
 
-export const User = (state = {
-        isAuthenticated: localStorage.getItem('token') ? true : false,
+export const ParentSignup = (state = {
         isLoading: false,
-        user: null,
+        parentADD: false,
         errMess: null
     }, action) => {
     switch (action.type) {
-        case ActionTypes.USER_REQUEST:
+        case ActionTypes.SIGNUP_REQUEST:
             return {...state,
                 isLoading: true,
-                isAuthenticated:false,
-                user: null,
+                parentADD: false,
                 errMess:null
             };
-        case ActionTypes.USER_LOADED:
+        case ActionTypes.SIGNUP_SUCCESS:
             return {...state,
                 isLoading: false,
                 errMess: '',
-                user:action.payload,
-                isAuthenticated:true
+                parentADD:true,
 
             };
-        case ActionTypes.USER_ERROR:
+        case ActionTypes.SIGNUP_FAILURE:
             return {...state,
                 isLoading: false,
-                isAuthenticated: false,
-                user: null,
+                parentADD: false,
                 errMess: action.message
                 
             };

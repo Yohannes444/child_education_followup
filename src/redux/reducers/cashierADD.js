@@ -1,32 +1,32 @@
-import * as ActionTypes from './ActionsType';
+import * as ActionTypes from '../ActionsType';
 
-export const TeachSignup = (state = {
+export const cashiSignup = (state = {
         isAuthenticated: localStorage.getItem('token') ? true : false,
         isLoading: false,
-        teacherADD: false,
+        cashierADD: false,
         errMess: null
     }, action) => {
     switch (action.type) {
-        case ActionTypes.TEACH_SIGNUP_REQUEST:
+        case ActionTypes.CASHI_SIGNUP_REQUEST:
             return {...state,
                 isLoading: true,
                 isAuthenticated:false,
-                teacherADD: false,
+                cashierADD: false,
                 errMess:null
             };
-        case ActionTypes.TEACH_ADD_SECESS:
+        case ActionTypes.CASHI_ADD_SECESS:
             return {...state,
                 isLoading: false,
                 errMess: '',
-                teacherADD:true,
+                cashierADD:true,
                 isAuthenticated:true
 
             };
-        case ActionTypes.TEACH_ADDED_FAILD:
+        case ActionTypes.CASHI_ADDED_FAILD:
             return {...state,
                 isLoading: false,
                 isAuthenticated: false,
-                teacherADD: false,
+                cashierADD: false,
                 errMess: action.message
                 
             };

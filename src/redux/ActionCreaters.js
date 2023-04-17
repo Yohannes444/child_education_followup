@@ -420,13 +420,22 @@ export const resetClassroomState = () => {
       type: ActionTypes.TEACH_ADDED_FAILD
     };
   };
-  
+  export const restCashierDashbord =()=>{
+    return{
+        type:ActionTypes.FECH_CASHIER_FAILD
+    }
+  }
   export const refreshState = () => {
     return dispatch => {
       dispatch(resetClassroomState());
       dispatch(resetCashierState());
       dispatch(resetSignupState());
       dispatch(resetTeacherState());
+      dispatch(restCashierDashbord())
     };
   };
   
+
+   
+
+

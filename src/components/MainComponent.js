@@ -12,8 +12,11 @@ import   Contact  from './contactComponent'
 import  {connect}  from 'react-redux';
 import About from './AboutComponent'
 import { actions } from 'react-redux-form';
-import { loginUser, parentSignup, cashierSignup, teacherSignup, creatClassroom, logoutUser , postFeedback, fetchuser,refreshState} from '../redux/ActionCreaters';
+import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState} from '../redux/ActionCreaters';
+import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount} from '../redux/actions/adminActions'
 import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group'
+import CashierDashboard from './cashierDashbord'
+import TeacherDashboard from './teacherDashbord'
 
 
 const mapStateToProps = state => {
@@ -23,7 +26,9 @@ const mapStateToProps = state => {
     teacherSign:state.teacher,
     cashierSign:state.cashier,
     parent:state.parent,
-    classRoom:state.classRoom
+    classRoom:state.classRoom,
+    cashiers:state.cashiers,
+    teachers:state.teachers
   }
   
 }
@@ -39,7 +44,11 @@ const mapDispatchToProps  = (dispatch) => ({
   teacherSignup:(teacher)=>dispatch(teacherSignup(teacher)),
   creatClassroom:(classRoom)=>dispatch(creatClassroom(classRoom)),
   refreshState:()=>dispatch(refreshState()),
-  fetchuser:()=>dispatch(fetchuser())
+  fetchuser:()=>dispatch(fetchuser()),
+  fetchCashier:()=>dispatch(fetchCashier()),
+  fetchTeacher:()=>dispatch(fetchTeacher()),
+  toggleCashierAccount:(cashier)=>dispatch(toggleCashierAccount(cashier)),
+  toggleTeacherAccount: (teacher)=> dispatch(toggleTeacherAccount(teacher))
 
 });
 
@@ -47,12 +56,15 @@ class  Main extends Component {
   
 componentDidMount(){
   this.props.fetchuser()
+  this.props.fetchCashier()
+  this.props.fetchTeacher()
 }
 
   render(){
   
-    console.log(this.props.user)
-   
+    console.log(this.props.user.user)
+    console.log(this.props.cashiers.cashiers)
+    console.log(this.props.teachers.teachers)
     return (
 
       <div className="App">
@@ -70,6 +82,8 @@ componentDidMount(){
             <Route path= '/signupCashier' component={()=><SignupCash cashierSignup={this.props.cashierSignup} cashierSign={this.props.cashierSign} refreshState={this.props.refreshState}/>}/>
             <Route path='/signupTeacher' component={()=> <SignupTeach teacherSignup={this.props.teacherSignup} teacherSign={this.props.teacherSign} refreshState={this.props.refreshState}/>}/>
             <Route path='/creatClassRoom' component={()=><CreatClassroom classRoom={this.props.classRoom} creatClassroom={this.props.creatClassroom} refreshState={this.props.refreshState} />}/>
+            <Route path= '/cashierDashbord' component={()=><CashierDashboard cashiers={this.props.cashiers} activeToggler={this.props.toggleCashierAccount}/>}/>
+            <Route path= '/teacherDashbord' component = {()=><TeacherDashboard teachers={this.props.teachers} activeToggler = {this.props.toggleTeacherAccount}/>}/>
             <Route path="/aboutus" component={()=> <About/>}/>
             <Route path='/home' auth={this.props.auth}   
               component={()=>this.props.auth.isAuthenticated ?  

@@ -1,32 +1,32 @@
-import * as ActionTypes from './ActionsType';
+import * as ActionTypes from '../ActionsType';
 
-export const cashiSignup = (state = {
+export const User = (state = {
         isAuthenticated: localStorage.getItem('token') ? true : false,
         isLoading: false,
-        cashierADD: false,
+        user: null,
         errMess: null
     }, action) => {
     switch (action.type) {
-        case ActionTypes.CASHI_SIGNUP_REQUEST:
+        case ActionTypes.USER_REQUEST:
             return {...state,
                 isLoading: true,
                 isAuthenticated:false,
-                cashierADD: false,
+                user: null,
                 errMess:null
             };
-        case ActionTypes.CASHI_ADD_SECESS:
+        case ActionTypes.USER_LOADED:
             return {...state,
                 isLoading: false,
                 errMess: '',
-                cashierADD:true,
+                user:action.payload,
                 isAuthenticated:true
 
             };
-        case ActionTypes.CASHI_ADDED_FAILD:
+        case ActionTypes.USER_ERROR:
             return {...state,
                 isLoading: false,
                 isAuthenticated: false,
-                cashierADD: false,
+                user: null,
                 errMess: action.message
                 
             };
