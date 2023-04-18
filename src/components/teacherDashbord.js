@@ -9,6 +9,7 @@ const Dashboard = (props) => {
     props.activeToggler(id)
   };
   if (props.teachers.isLoading) {
+    props.fetchTeacher()
     return(
         <div className="container">
             <div className="row">

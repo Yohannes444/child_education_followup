@@ -27,18 +27,34 @@ class creatClassroom extends Component {
 
     async handleSubmit(event) {
         const { className,clasSize,teachersList,StudentsList} = this.state;
-
+        console.log(teachersList)
         const classRoom = { className,clasSize: parseInt(clasSize, 10),teachersList,StudentsList};
         console.log(classRoom)
       this.props.creatClassroom(classRoom);
       
     }
-   
-
+     handleTeacherSelect = (e) => {
+        const teacherId = e.target.value;
+        const isChecked = e.target.checked;
     
+        if (isChecked) {
+            this.setState((prevState) => ({
+              teachersList: [...prevState.teachersList, teacherId],
+            }));
+            console.log(this.state.teachersList)
+          } else {
+            this.setState((prevState) => ({
+              teachersList: prevState.teachersList.filter((id) => id !== teacherId),
+            }));
+        
+      };
+    }
+   
     
     render() {
         if (this.props.classRoom.isLoading) {
+            this.props.fetchTeacher()
+
             return(
                 <div className="container">
                     <div className="row">
@@ -130,7 +146,22 @@ class creatClassroom extends Component {
                             required
                             className={styles.input}
                             step={1}
-                            />
+                            /><label>
+                            Teachers:
+                            <select multiple onChange={(value) =>this.handleTeacherSelect(value)}>
+                              {this.props.teachers.map((teacher) => (
+                                <option key={teacher._id} value={teacher._id}>
+                                  {teacher.firstName}
+                                </option>
+                              ))} 
+                            </select> 
+                          </label>
+                          {this.props.teachers.map((teacher) => (
+                            <label key={teacher._id}>
+                              <input name="teachersList" type="checkbox" value={teacher._id} onChange={(value) =>this.handleTeacherSelect(value)} />
+                              {teacher.firstName}
+                            </label>
+                          ))}
                    
                           
                             <button type="submit" className={styles.green_btn}>

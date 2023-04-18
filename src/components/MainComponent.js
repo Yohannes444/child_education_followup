@@ -81,9 +81,9 @@ componentDidMount(){
             <Route path='/signup' component={()=> <Signup  parentSign={this.props.parent} parentSignup={this.props.parentSignup} refreshState={this.props.refreshState}/>} />
             <Route path= '/signupCashier' component={()=><SignupCash cashierSignup={this.props.cashierSignup} cashierSign={this.props.cashierSign} refreshState={this.props.refreshState}/>}/>
             <Route path='/signupTeacher' component={()=> <SignupTeach teacherSignup={this.props.teacherSignup} teacherSign={this.props.teacherSign} refreshState={this.props.refreshState}/>}/>
-            <Route path='/creatClassRoom' component={()=><CreatClassroom classRoom={this.props.classRoom} creatClassroom={this.props.creatClassroom} refreshState={this.props.refreshState} />}/>
-            <Route path= '/cashierDashbord' component={()=><CashierDashboard cashiers={this.props.cashiers} activeToggler={this.props.toggleCashierAccount}/>}/>
-            <Route path= '/teacherDashbord' component = {()=><TeacherDashboard teachers={this.props.teachers} activeToggler = {this.props.toggleTeacherAccount}/>}/>
+            <Route path='/creatClassRoom' component={()=><CreatClassroom fetchTeacher={this.props.fetchTeacher} teachers={this.props.teachers.teachers} classRoom={this.props.classRoom} creatClassroom={this.props.creatClassroom} refreshState={this.props.refreshState} />}/>
+            <Route path= '/cashierDashbord' component={()=><CashierDashboard fetchCashier={this.props.fetchCashier} cashiers={this.props.cashiers} activeToggler={this.props.toggleCashierAccount}/>}/>
+            <Route path= '/teacherDashbord' component = {()=><TeacherDashboard fetchTeacher={this.props.fetchTeacher} teachers={this.props.teachers} activeToggler = {this.props.toggleTeacherAccount}/>}/>
             <Route path="/aboutus" component={()=> <About/>}/>
             <Route path='/home' auth={this.props.auth}   
               component={()=>this.props.auth.isAuthenticated ?  
