@@ -14,9 +14,11 @@ class Signup extends Component {
             firstName: "",
             lastName: "",
             email: "",
+            username:"",
             password: "",
         };
         this.handleSubmit = this.handleSubmit.bind(this);  
+        this.handleChange = this.handleSubmit(this)
     }
      
     handleChange = (e) => {
@@ -40,6 +42,7 @@ class Signup extends Component {
 
 
     render() {
+        console.log(this.props.cashierSign)
         if (this.props.cashierSign.isLoading) {
             return(
                 <div className="container">

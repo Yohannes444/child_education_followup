@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import styles from "./styles.module.css";
 import {  Control,LocalForm } from 'react-redux-form';
@@ -17,7 +17,7 @@ class Signup extends Component {
             password: "",
         };
         this.handleSubmit = this.handleSubmit.bind(this);
-        
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange = (e) => {
@@ -75,14 +75,16 @@ class Signup extends Component {
             )
         }
         else if (this.props.parentSign.parentADD){
+            this.props.refreshState()
+            var alertInterval = setInterval(function() {
+                alert("New teacher account has been add");
+              }, 1000); 
+              // display alert every second
+              setTimeout(function() {
+                clearInterval(alertInterval); // stop displaying alerts
+              }, 1000); 
             return(
                 <div className="container">
-                    <div className="row">
-                        <Breadcrumb>
-                            <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                            <BreadcrumbItem active>add parent account </BreadcrumbItem>
-                        </Breadcrumb>
-                    </div>
                 <div className="row">
                     <h4> parent account has been add</h4>
                 </div>

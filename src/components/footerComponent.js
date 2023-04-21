@@ -19,9 +19,9 @@ function Footer(props) {
                 <div className="col-7 col-sm-5">
                     <h5>Our Address</h5>
                     <address>
-		              121, Clear Water Bay Road<br />
-		              Clear Water Bay, Kowloon<br />
-		              HONG KONG<br />
+		              121, ----- ----- -----<br />
+		              _____ _____ _____<br />
+		              DEBRE TABOR<br />
 		              <i className="fa fa-phone fa-lg"></i>: +251 0000 0000<br />
 		              <i className="fa fa-fax fa-lg"></i>: ++251  0000 0000<br />
 		              <i className="fa fa-envelope fa-lg"></i>: <a href="mailto:confusion@food.net">

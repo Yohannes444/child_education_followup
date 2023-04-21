@@ -1,107 +1,95 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import {Loading} from "./loadingComponent"
 import styles from "./styles.module.css";
 import {  Control,LocalForm } from 'react-redux-form';
-
+import {Loading} from "./loadingComponent"
 //import RenderLeader from './RenderLeader'
 
-class Signup extends Component {
+class childSignup extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             firstName: "",
             lastName: "",
-            email: "",
-            username:"",
-            password: "",
+            transcript: "",
+            receipt: "",
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
-        
+        this.handleSubmit = this.handleSubmit.bind(this);  
     }
-
+     
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
       }
     
-  
 
     async handleSubmit(event) {
-        const { firstName,lastName,email,username, password} = this.state;
+        const { firstName,lastName,transcript,receipt} = this.state;
 
-        const teacher = { firstName,lastName,email,username, password};
-      this.props.teacherSignup(teacher)
+        const child = { firstName,lastName,transcript,receipt};
+        this.props.childSignup(child)
       this.setState({
         firstName: "",
         lastName: "",
-        email: "",
-        username:"",
-        password: "",
+        transcript: "",
+        receipt:""
     });
     }
 
-    
-    
+
     render() {
-        console.log(this.props.teacherSign.isLoading)
-        if (this.props.teacherSign.isLoading) {
+         if (this.props.childFlag.isLoading) {
             return(
                 <div className="container">
                     <div className="row">
-                        <Breadcrumb>
-                            <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                            <BreadcrumbItem active>add teacher </BreadcrumbItem>
-                        </Breadcrumb>
-                    </div>
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>add </BreadcrumbItem>
+                    </Breadcrumb>
+                </div>
                     <div className="row">
                         <Loading />
                     </div>
                 </div>
             );
         }
-        else if (this.props.teacherSign.errMess) {
+        else if (this.props.childFlag.errMess) {
             return(
                 <div className="container">
                     <div className="row">
-                        <Breadcrumb>
-                            <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                            <BreadcrumbItem active>add teacher </BreadcrumbItem>
-                        </Breadcrumb>
-                    </div>
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>add </BreadcrumbItem>
+                    </Breadcrumb>
+                </div>
                     <div className="row">
-                        <h4>{this.props.teacherSign.errMess}</h4>
+                        <h4>{this.props.childFlag.errMess}</h4>
                     </div>
                 </div>
             )
         }
-        else if (this.props.teacherSign.teacherADD){
+        else if (this.props.childFlag.childADD){
             this.props.refreshState()
             var alertInterval = setInterval(function() {
-                alert("New teacher account has been add");
-              }, 1000); 
-              // display alert every second
+                alert("New  account has been add");
+              }, 1000); // display alert every second
               setTimeout(function() {
                 clearInterval(alertInterval); // stop displaying alerts
               }, 1000); 
             return(
                 <div className="container">
-                    
-                <div className="row">
-                    <h4> teacher account has been add</h4>
+                    <div className="row">
+                        <h4> account has been add</h4>
+                    </div>
                 </div>
-            </div>
             )
         }
-        else{
+        else{ 
         return(
         <div className="container bg-f5f5f5">
-            <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>add teacher </BreadcrumbItem>
-                    </Breadcrumb>
+           <div className="row">
+                   
                 </div>
             
             <div className="row row-content">
@@ -112,6 +100,7 @@ class Signup extends Component {
                      
                         <LocalForm className={styles.form_container} onSubmit={(values) => this.handleSubmit(values)}>
                             <h1 style={{color:'#f1d21c'}}>Create Account</h1>
+                            <h3>{this.props.classRoom.className}</h3>
                             <Control.text
                                 type = "text"
                                 name="firstName"
@@ -132,37 +121,30 @@ class Signup extends Component {
                                 required
                                 className={styles.input}
                             />
-                            <Control.text
-                                type="email"
-                                name="email"
-                                id="email"
-                                placeholder="Email"
-                                model=".email"
-                                onChange={this.handleChange}
+                            <Control.file
+                                type="file"
+                                name="transcript"
+                                id="transcript"
+                                placeholder="enter your child transcript"
+                                model=".transcript"
+                                onChange={E=>this.setState({transcript:[E.target.files[0]]})}
+                                required
+                                accept=".pdf,.png,.jpg,.jpeg,.gif" 
+                                className={styles.input}
+                            />
+                            <Control.file
+                                name="receipt"
+                                type="file"
+                                placeholder="enter your receipt form paing the rigstration fee "
+                                accept=".pdf,.png,.jpg,.jpeg,.gif" 
+                                model=".receipt"
+                                id="receipt"
+                                onChange={E=>this.setState({receipt:[E.target.files[0]]})}
                                 required
                                 className={styles.input}
                             />
-                            <Control.text
-                                name="username"
-                                type="text"
-                                placeholder="username"
-                                model=".username"
-                                id="username"
-                                onChange={this.handleChange}
-                                required
-                                className={styles.input}
-                            />
-                            <Control.password
-                                type="password"
-                                name='password'
-                                 id="password"
-                                placeholder="Password"
-                                model='.password'
-                                onChange={this.handleChange}
-                                required
-                                className={styles.input}
-                            /> 
-                             <div >this is sopust to be an error</div>
+                            
+                           
                             <button type="submit" className={styles.green_btn}>
                                 Sing Up
                             </button>
@@ -176,4 +158,4 @@ class Signup extends Component {
         };
 }
 
-export default Signup;    
+export default childSignup;    

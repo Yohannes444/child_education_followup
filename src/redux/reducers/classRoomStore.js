@@ -1,28 +1,34 @@
 import * as ActionTypes from '../ActionsType';
 
-export const cashiSignup = (state = {
+export const ClassRoomLoader = (state = {
+        ClassRooms: [],
         isLoading: false,
-        cashierADD: false,
+        loadClassRoom: false,
         errMess: null
     }, action) => {
     switch (action.type) {
-        case ActionTypes.CASHI_SIGNUP_REQUEST:
+        case ActionTypes.CLASSROOM_FETCH_REQUST:
             return {...state,
                 isLoading: true,
-                cashierADD: false,
+                ClassRooms:[],
+                loadClassRoom: false,
                 errMess:null
             };
-        case ActionTypes.CASHI_ADD_SECESS:
+        case ActionTypes.CLASSROOM_LOADED_SUCCESS:
+            var ClassRoom = action.payload;
+            console.log(ClassRoom)
             return {...state,
                 isLoading: false,
                 errMess: '',
-                cashierADD:true,
+                loadClassRoom:true,
+                ClassRooms:state.ClassRooms.concat(ClassRoom)
 
             };
-        case ActionTypes.CASHI_ADDED_FAILD:
+        case ActionTypes.FETCH_CLASSROOM_FAILD:
             return {...state,
                 isLoading: false,
-                cashierADD: false,
+                ClassRooms: [],
+                loadClassRoom: false,
                 errMess: action.message
                 
             };

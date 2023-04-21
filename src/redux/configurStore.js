@@ -11,6 +11,8 @@ import { ParentSignup } from './reducers/parentSignup';
 import { configClassRoomState } from './reducers/classRoom'
 import { cashierLoader } from './reducers/cashierStore'
 import { teacherLoader } from './reducers/tacherStore'
+import { childSignup } from './reducers/studentRducer';
+import { ClassRoomLoader } from './reducers/classRoomStore';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -19,11 +21,13 @@ export const ConfigureStore = () => {
             user: User,
             auth: Auth,
             teacher:TeachSignup,
-            cashier:cashiSignup,
+            cashierSign:cashiSignup,
             parent:ParentSignup,
             cashiers:cashierLoader,
             classRoom:configClassRoomState,
             teachers:teacherLoader,
+            childFlag:childSignup,
+            ClassRooms:ClassRoomLoader,
             ...createForms({
                 feedback: InitialFeedback
             })

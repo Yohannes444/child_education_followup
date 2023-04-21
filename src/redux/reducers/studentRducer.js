@@ -1,28 +1,28 @@
 import * as ActionTypes from '../ActionsType';
 
-export const cashiSignup = (state = {
+export const childSignup = (state = {
         isLoading: false,
-        cashierADD: false,
-        errMess: null
+        childADD: false,
+        errMess: null 
     }, action) => {
     switch (action.type) {
-        case ActionTypes.CASHI_SIGNUP_REQUEST:
+        case ActionTypes.ADD_STUDENT_REQUEST:
             return {...state,
                 isLoading: true,
-                cashierADD: false,
+                childADD: false,
                 errMess:null
             };
-        case ActionTypes.CASHI_ADD_SECESS:
+        case ActionTypes.STUDENT_ADDED_SUCCESS:
             return {...state,
                 isLoading: false,
                 errMess: '',
-                cashierADD:true,
+                childADD:true,
 
             };
-        case ActionTypes.CASHI_ADDED_FAILD:
+        case ActionTypes.ADD_STUDENT_FAILD:
             return {...state,
                 isLoading: false,
-                cashierADD: false,
+                childADD: false,
                 errMess: action.message
                 
             };

@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import styles from "./styles.module.css";
-import {  Control,LocalForm } from 'react-redux-form';
+import {  Control,LocalForm, controls } from 'react-redux-form';
 import { Loading } from './loadingComponent'
+import MultiselectCheckboxes from 'react-multiselect-checkboxes';
+import { Notifs, actions as notifActions } from "redux-notifications";
+
 //import RenderLeader from './RenderLeader'
 
 class creatClassroom extends Component {
@@ -17,13 +20,14 @@ class creatClassroom extends Component {
             StudentsList: []
         };
         this.handleSubmit = this.handleSubmit.bind(this);
-        
+        this.handleTeacherSelect = this.handleTeacherSelect.bind(this);
+
     }
 
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
       }
-    
+      
 
     async handleSubmit(event) {
         const { className,clasSize,teachersList,StudentsList} = this.state;
@@ -34,26 +38,16 @@ class creatClassroom extends Component {
       
     }
      handleTeacherSelect = (e) => {
-        const teacherId = e.target.value;
-        const isChecked = e.target.checked;
-    
-        if (isChecked) {
-            this.setState((prevState) => ({
-              teachersList: [...prevState.teachersList, teacherId],
-            }));
-            console.log(this.state.teachersList)
-          } else {
-            this.setState((prevState) => ({
-              teachersList: prevState.teachersList.filter((id) => id !== teacherId),
-            }));
-        
-      };
+        const teachersList = e.map((option) => option.value);
+        console.log(teachersList);
+        this.setState({ teachersList });
+
     }
    
     
     render() {
         if (this.props.classRoom.isLoading) {
-            this.props.fetchTeacher()
+            
 
             return(
                 <div className="container">
@@ -86,15 +80,16 @@ class creatClassroom extends Component {
         }
         else if (this.props.classRoom.classRoomADD){
             this.props.refreshState()
-            var alertInterval = setInterval(function() {
+             var alertInterval = setInterval(function() {
                 alert("New class room has been added");
               }, 1000); // display alert every second
               setTimeout(function() {
                 clearInterval(alertInterval); // stop displaying alerts
               }, 1000); 
-            
+              
             return(
                 <div className="container">
+           
                 <div className="row">
                     <h4> new clas room has been add</h4>
                 </div>
@@ -104,7 +99,11 @@ class creatClassroom extends Component {
                 
         }
         else{
-       
+            const options = this.props.teachers.map((teacher) => ({
+                label: teacher.firstName,
+                value:teacher._id,
+            }));
+        
         return(
         <div className="container bg-f5f5f5">
             <div className="row">
@@ -140,30 +139,24 @@ class creatClassroom extends Component {
                             type="number"
                             name="clasSize"
                             id="clasSize"
+                            className={styles.input}
                             placeholder="class size = 30"
                             model=".clasSize"
                             onChange={this.handleChange}
                             required
-                            className={styles.input}
+                            
                             step={1}
                             /><label>
-                            Teachers:
-                            <select multiple onChange={(value) =>this.handleTeacherSelect(value)}>
-                              {this.props.teachers.map((teacher) => (
-                                <option key={teacher._id} value={teacher._id}>
-                                  {teacher.firstName}
-                                </option>
-                              ))} 
-                            </select> 
-                          </label>
-                          {this.props.teachers.map((teacher) => (
-                            <label key={teacher._id}>
-                              <input name="teachersList" type="checkbox" value={teacher._id} onChange={(value) =>this.handleTeacherSelect(value)} />
-                              {teacher.firstName}
-                            </label>
-                          ))}
-                   
+                             <MultiselectCheckboxes
+                                //value={this.state.teachersList}
+                                options={options}
+                                placeholder="Teachers"
+                                onChange={(value) =>this.handleTeacherSelect(value)}
+                                
+                            /> 
+
                           
+                          </label>
                             <button type="submit" className={styles.green_btn}>
                                 Sing Up
                             </button>

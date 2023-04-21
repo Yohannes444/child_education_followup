@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionsType';
 import { baseUrl } from '../shared/beasURL'
+import { fetchCashier, fetchTeacher } from './actions/adminActions';
 
 
 export const requestLogin = (creds) => {
@@ -59,6 +60,8 @@ export const loginUser = (creds) => (dispatch) => {
             
             dispatch(receiveLogin(response));
             dispatch(fetchuser())
+            dispatch(fetchCashier())
+            dispatch(fetchTeacher())
 
         }
         else {
@@ -88,6 +91,9 @@ export const logoutUser = () => (dispatch) => {
     localStorage.removeItem('token');
     localStorage.removeItem('creds');
     dispatch(fetchuser())
+    dispatch(fetchCashier())
+    dispatch(fetchTeacher())
+
     dispatch(receiveLogout())
 }
 export const postFeedback = (feedback) => (dispatch) => {
