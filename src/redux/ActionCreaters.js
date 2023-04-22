@@ -1,6 +1,7 @@
 import * as ActionTypes from './ActionsType';
 import { baseUrl } from '../shared/beasURL'
 import { fetchCashier, fetchTeacher } from './actions/adminActions';
+import { parentFetchClassRoom } from './actions/parentActions';
 
 
 export const requestLogin = (creds) => {
@@ -62,6 +63,7 @@ export const loginUser = (creds) => (dispatch) => {
             dispatch(fetchuser())
             dispatch(fetchCashier())
             dispatch(fetchTeacher())
+            dispatch(parentFetchClassRoom())
 
         }
         else {
@@ -93,6 +95,7 @@ export const logoutUser = () => (dispatch) => {
     dispatch(fetchuser())
     dispatch(fetchCashier())
     dispatch(fetchTeacher())
+    dispatch(parentFetchClassRoom())
 
     dispatch(receiveLogout())
 }
@@ -431,13 +434,19 @@ export const resetClassroomState = () => {
         type:ActionTypes.FECH_CASHIER_FAILD
     }
   }
+  export const resetChildSighinUp =()=>{
+    return{
+        type:ActionTypes.ADD_STUDENT_FAILD
+    }
+  }
   export const refreshState = () => {
     return dispatch => {
       dispatch(resetClassroomState());
       dispatch(resetCashierState());
       dispatch(resetSignupState());
       dispatch(resetTeacherState());
-      dispatch(restCashierDashbord())
+      dispatch(restCashierDashbord());
+      dispatch(resetChildSighinUp())
     };
   };
   

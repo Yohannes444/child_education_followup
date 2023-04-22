@@ -26,9 +26,9 @@ const ParentView= (props)=>{
                     <Table>
                         <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Enabled</th>
+                            <th>className</th>
+                            <th>clasSize</th>
+                            <th>rigster</th>
                         
                         </tr>
                         </thead>

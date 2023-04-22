@@ -3,7 +3,6 @@ import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import styles from "./styles.module.css";
 import {  Control,LocalForm } from 'react-redux-form';
-import {Loading} from "./loadingComponent"
 //import RenderLeader from './RenderLeader'
 
 class childSignup extends Component {
@@ -15,77 +14,36 @@ class childSignup extends Component {
             lastName: "",
             transcript: "",
             receipt: "",
+            selectedClassRoom:this.props.classRoom._id
         };
         this.handleSubmit = this.handleSubmit.bind(this);  
     }
      
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
+
       }
     
 
     async handleSubmit(event) {
-        const { firstName,lastName,transcript,receipt} = this.state;
+        const { firstName,lastName,transcript,receipt,selectedClassRoom} = this.state;
 
-        const child = { firstName,lastName,transcript,receipt};
+        const child = { firstName,lastName,transcript,receipt,selectedClassRoom};
+
         this.props.childSignup(child)
-      this.setState({
-        firstName: "",
-        lastName: "",
-        transcript: "",
-        receipt:""
-    });
+        this.setState({
+            firstName: "",
+            lastName: "",
+            transcript: "",
+            receipt:"",
+            selectedClassRoom:""
+        });
     }
 
 
     render() {
-         if (this.props.childFlag.isLoading) {
-            return(
-                <div className="container">
-                    <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>add </BreadcrumbItem>
-                    </Breadcrumb>
-                </div>
-                    <div className="row">
-                        <Loading />
-                    </div>
-                </div>
-            );
-        }
-        else if (this.props.childFlag.errMess) {
-            return(
-                <div className="container">
-                    <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>add </BreadcrumbItem>
-                    </Breadcrumb>
-                </div>
-                    <div className="row">
-                        <h4>{this.props.childFlag.errMess}</h4>
-                    </div>
-                </div>
-            )
-        }
-        else if (this.props.childFlag.childADD){
-            this.props.refreshState()
-            var alertInterval = setInterval(function() {
-                alert("New  account has been add");
-              }, 1000); // display alert every second
-              setTimeout(function() {
-                clearInterval(alertInterval); // stop displaying alerts
-              }, 1000); 
-            return(
-                <div className="container">
-                    <div className="row">
-                        <h4> account has been add</h4>
-                    </div>
-                </div>
-            )
-        }
-        else{ 
+         
+        
         return(
         <div className="container bg-f5f5f5">
            <div className="row">
@@ -98,7 +56,7 @@ class childSignup extends Component {
                    
                     <div className={styles.right}>
                      
-                        <LocalForm className={styles.form_container} onSubmit={(values) => this.handleSubmit(values)}>
+                        <LocalForm enctype="multipart/form-data" className={styles.form_container} onSubmit={(values) => this.handleSubmit(values)}>
                             <h1 style={{color:'#f1d21c'}}>Create Account</h1>
                             <h3>{this.props.classRoom.className}</h3>
                             <Control.text
@@ -127,7 +85,10 @@ class childSignup extends Component {
                                 id="transcript"
                                 placeholder="enter your child transcript"
                                 model=".transcript"
-                                onChange={E=>this.setState({transcript:[E.target.files[0]]})}
+                                onChange={(e) => {
+                                    e.persist();
+                                    this.setState({ transcript: e.target.files[0] });
+                                  }}
                                 required
                                 accept=".pdf,.png,.jpg,.jpeg,.gif" 
                                 className={styles.input}
@@ -139,8 +100,10 @@ class childSignup extends Component {
                                 accept=".pdf,.png,.jpg,.jpeg,.gif" 
                                 model=".receipt"
                                 id="receipt"
-                                onChange={E=>this.setState({receipt:[E.target.files[0]]})}
-                                required
+                                onChange={(e) => {
+                                    e.persist();
+                                    this.setState({ receipt: e.target.files[0] });
+                                  }}                                required
                                 className={styles.input}
                             />
                             
@@ -156,6 +119,6 @@ class childSignup extends Component {
         </div>
     )}
         };
-}
+
 
 export default childSignup;    

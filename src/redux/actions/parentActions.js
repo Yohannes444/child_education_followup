@@ -10,6 +10,7 @@ export const postStudent= (student) =>(dispatch)=>{
     data.append("lastName", student.lastName)
     data.append("transcript", student.transcript)
     data.append("receipt",student.receipt)
+    data.append("selectedClassRoom",student.selectedClassRoom)
     console.log(data)
     const token = localStorage.getItem('token');
     axios.post(baseUrl + "addStudent",data,{headers:{

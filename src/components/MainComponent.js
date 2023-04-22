@@ -100,6 +100,7 @@ console.log(this.props.ClassRooms)
                       user={this.props.user} 
                       childFlag={this.props.childFlag} 
                       childSignup={this.props.childSignup}
+                      refreshState={this.props.refreshState}
                   
                 /> 
                 :
