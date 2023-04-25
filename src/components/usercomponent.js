@@ -51,7 +51,7 @@ const User = (props) => {
         return (
           <div className='container'>
 
-          <CashierView />
+          <CashierView wightLists={props.wightLists} wightListsToggler={props.wightListsToggler} />
           </div>
           );
       } else if (props.user.user.parent) {

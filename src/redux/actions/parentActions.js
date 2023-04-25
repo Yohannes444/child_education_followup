@@ -13,7 +13,7 @@ export const postStudent= (student) =>(dispatch)=>{
     data.append("selectedClassRoom",student.selectedClassRoom)
     console.log(data)
     const token = localStorage.getItem('token');
-    axios.post(baseUrl + "addStudent",data,{headers:{
+    axios.post(baseUrl + "wightlist",data,{headers:{
         'Authorization': `Bearer ${token}`,
         "Content-Type": "multipart/form-data"
     }})
@@ -54,7 +54,7 @@ export const addStudentFaild = (masseg)=>{
 export const parentFetchClassRoom = ()=>(dispatch)=>{
     dispatch(fetchClassRoomRequest())
     const bearer = 'Bearer ' + localStorage.getItem('token');
-    axios.get(baseUrl + 'addStudent/freeSpace', {headers: { 
+    axios.get(baseUrl + 'wightlist/freeSpace', {headers: { 
         'Authorization': bearer
         }
     })

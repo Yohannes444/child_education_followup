@@ -16,6 +16,7 @@ import { actions } from 'react-redux-form';
 import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState} from '../redux/ActionCreaters';
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount} from '../redux/actions/adminActions'
 import { postStudent,parentFetchClassRoom } from '../redux/actions/parentActions';
+import { wightListsToggler,fetchWithList } from '../redux/actions/cashierAction'
 import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group'
 import CashierDashboard from './cashierDashbord'
 import TeacherDashboard from './teacherDashbord'
@@ -33,7 +34,8 @@ const mapStateToProps = state => {
     cashiers:state.cashiers,
     teachers:state.teachers,
     childFlag:state.childFlag,
-    ClassRooms:state.ClassRooms
+    ClassRooms:state.ClassRooms,
+    wightLists:state.wightLists
   }
   
 }
@@ -56,6 +58,8 @@ const mapDispatchToProps  = (dispatch) => ({
   parentFetchClassRoom:()=>dispatch(parentFetchClassRoom()),
   toggleCashierAccount:(cashier)=>dispatch(toggleCashierAccount(cashier)),
   toggleTeacherAccount: (teacher)=> dispatch(toggleTeacherAccount(teacher)),
+  wightListsToggler:(data)=> dispatch(wightListsToggler(data)),
+  fetchWithList:()=>dispatch(fetchWithList())
 
 });
 
@@ -66,11 +70,12 @@ componentDidMount(){
   this.props.fetchCashier()
   this.props.fetchTeacher()
   this.props.parentFetchClassRoom()
+  this.props.fetchWithList()
 }
 
   render(){
  
-console.log(this.props.ClassRooms)
+console.log(this.props.user)
     return (
 
       <div className="App">
@@ -101,6 +106,8 @@ console.log(this.props.ClassRooms)
                       childFlag={this.props.childFlag} 
                       childSignup={this.props.childSignup}
                       refreshState={this.props.refreshState}
+                      wightLists= {this.props.wightLists}
+                      wightListsToggler={this.props.wightListsToggler}
                   
                 /> 
                 :

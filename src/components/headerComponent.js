@@ -106,7 +106,7 @@ class Header extends Component {
                         </Collapse>
                     </div>
                 </Navbar>
-                <Jumbotron style={{backgroundColor: '#3bb19baf'}}>
+                <Jumbotron style={{backgroundColor: '#3bb19baf',backgroundImage: `url('assets/images/ppp_7_1500x700.jpg')`}}>
                     <div className="container">
                         <div className="row row-header">
                             <div className="col-12 col-sm-6">

@@ -33,7 +33,7 @@ const ParentView= (props)=>{
                     </div>
                     <Button
                         style={{ backgroundColor: yellow }}
-                        onClick={() => handleToggleAccount()}>RIGSTER CHILD
+                        onClick={() => handleToggleAccount()}>ልጅወን ለመመዝግቡ
                     </Button>
                     </div>
                     <p>this is from the paretn component</p>
