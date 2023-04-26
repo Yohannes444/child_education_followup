@@ -18,7 +18,8 @@ const ParentView= (props)=>{
    
     const handleToggleAccount = () => {
         setClassRoo(!classRoo);
-        
+        setSelectedClassRoom('')
+        setregstering(false)
       }
         return(
             <div>
@@ -28,7 +29,7 @@ const ParentView= (props)=>{
                         <BreadcrumbItem active>paretnView</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12">
-                        <h3>userView</h3>
+                        <h3>አሳዳጊ ግጽ</h3>
                         <hr />
                     </div>
                     <Button
@@ -36,7 +37,7 @@ const ParentView= (props)=>{
                         onClick={() => handleToggleAccount()}>ልጅወን ለመመዝግቡ
                     </Button>
                     </div>
-                    <p>this is from the paretn component</p>
+                    <p>ይህ የአሳዳጊ ገጽ ነው</p>
                     {classRoo ? (
                             <ClassRoomList setregstering={setregstering}
                                 regstering={regstering}
@@ -85,11 +86,11 @@ const ParentView= (props)=>{
                         }
                        {props.childFlag.childADD ?(
                             props.refreshState(),
-                            alert("New  account has been add")
+                            alert("ልጅዎ ተመዝግቧል ትሙርትበቱ ከተቀበለዎት በ EMAIL መልዕክት ይድርስዎታል። እባክዎ EMAIL አካውንትዎን ይከታተሉ በክርቡ ከትምህርት ቤቱ መልክት የደርስዎታል")
                              )
                               : (console.log)
                         }
-                    {regstering?
+                    {regstering&classRoo===false?
                         (<ChildSignup refreshState={props.refreshState} childSignup={props.childSignup} childFlag={props.childFlag} classRoom={selectedClassRoom}/>)
                         :
                         (console.log)}

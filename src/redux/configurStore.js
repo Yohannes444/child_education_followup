@@ -13,7 +13,8 @@ import { cashierLoader } from './reducers/cashierStore'
 import { teacherLoader } from './reducers/tacherStore'
 import { childSignup } from './reducers/studentRducer';
 import { ClassRoomLoader } from './reducers/classRoomStore';
-import { wightListLoader } from './reducers/wightListRducer';
+import { wightListLoader } from './reducers/waitListRducer';
+import { toggleWightList } from './reducers/toggleWaitList';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -30,6 +31,7 @@ export const ConfigureStore = () => {
             childFlag:childSignup,
             ClassRooms:ClassRoomLoader,
             wightLists:wightListLoader,
+            toggleWightList:toggleWightList,
             ...createForms({
                 feedback: InitialFeedback
             })

@@ -43,7 +43,8 @@ export const fetchWithListSucess =(WIGHTlISTS)=>{
 export const withListLodingFaild =(masseg)=>{
     return{
         type:ActionTypes.FETCH_WIGHT_LIST_FAILD,
-        masseg
+        payload: masseg.response.data.error,
+    
     }
 }
 
@@ -92,6 +93,6 @@ axios.put(baseUrl + 'wightlist', data, {
   export const toggleCashierFaild =(messag)=>{
     return{
         type:ActionTypes.TOGGLEL_WAIGHT_LIST_REQUEST_FAILD,
-        messag
+        payload: messag.response.data.error,
     }
   }

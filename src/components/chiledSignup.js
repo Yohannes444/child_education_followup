@@ -57,13 +57,13 @@ class childSignup extends Component {
                     <div className={styles.right}>
                      
                         <LocalForm enctype="multipart/form-data" className={styles.form_container} onSubmit={(values) => this.handleSubmit(values)}>
-                            <h1 style={{color:'#f1d21c'}}>Create Account</h1>
+                            <h1 style={{color:'#f1d21c'}}>ልጅውን ይመዝግቡ</h1>
                             <h3>{this.props.classRoom.className}</h3>
                             <Control.text
                                 type = "text"
                                 name="firstName"
                                 id = "firstName"
-                                placeholder="First Name"
+                                placeholder="የተማሪው ስም"
                                 model=".firstName"
                                 onChange={this.handleChange}
                                 required
@@ -73,7 +73,7 @@ class childSignup extends Component {
                                 type="text"
                                 name="lastName"
                                 id="lastName"
-                                placeholder="Last Name"
+                                placeholder="ያባት ስም"
                                 model=".lastName"
                                 onChange={this.handleChange}
                                 required
@@ -83,7 +83,7 @@ class childSignup extends Component {
                                 type="file"
                                 name="transcript"
                                 id="transcript"
-                                placeholder="enter your child transcript"
+                                placeholder="የተማሪውን ትራንስክሪፕት ያስገቡ"
                                 model=".transcript"
                                 onChange={(e) => {
                                     e.persist();
@@ -96,7 +96,7 @@ class childSignup extends Component {
                             <Control.file
                                 name="receipt"
                                 type="file"
-                                placeholder="enter your receipt form paing the rigstration fee "
+                                placeholder="ክፍያውን የከፈሉበንት ደረስኝ ያስገቡ "
                                 accept=".pdf,.png,.jpg,.jpeg,.gif" 
                                 model=".receipt"
                                 id="receipt"

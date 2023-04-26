@@ -20,15 +20,15 @@ const ParentView= (props)=>{
                    
                     <div className="col-12">
                     
-                        <h3>select class room to rigster</h3>
+                        <h3>መማሪያ ክፍል ይምረጡ</h3>
                         <hr />
                     </div>
                     <Table>
                         <thead>
                         <tr>
-                            <th>className</th>
-                            <th>clasSize</th>
-                            <th>rigster</th>
+                            <th>የመማሪያ ክፍል ስም</th>
+                            <th>ክፍሉ ሚይዘው የተማሪ መጠን </th>
+                            <th>ለመመዝገብ </th>
                         
                         </tr>
                         </thead>
@@ -43,7 +43,7 @@ const ParentView= (props)=>{
                                         handleToggleAccount(classRoom)}
                                     }
                                     >
-                                    Rigster Child
+                                    ይመዝግቡ
                                     </Button>
                                 </td>
                                 </tr>
@@ -51,7 +51,6 @@ const ParentView= (props)=>{
                         </tbody>
                     </Table>
                 </div>
-                <p>this is from the paretn component</p>
             </div>
         )
     }

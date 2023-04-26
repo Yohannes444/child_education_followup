@@ -28,7 +28,7 @@ export const wightListLoader = (state = {
                 isLoading: false,
                 wightLists: [],
                 loadwightList: false,
-                errMess: action.message
+                errMess:  action.payload
                 
             };
             

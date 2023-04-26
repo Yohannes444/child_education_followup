@@ -439,6 +439,11 @@ export const resetClassroomState = () => {
         type:ActionTypes.ADD_STUDENT_FAILD
     }
   }
+  export const resetWaitList =()=>{
+    return{
+        type:ActionTypes.TOGGLEL_WAIGHT_LIST_REQUEST_FAILD
+    }
+  }
   export const refreshState = () => {
     return dispatch => {
       dispatch(resetClassroomState());
@@ -446,7 +451,8 @@ export const resetClassroomState = () => {
       dispatch(resetSignupState());
       dispatch(resetTeacherState());
       dispatch(restCashierDashbord());
-      dispatch(resetChildSighinUp())
+      dispatch(resetChildSighinUp());
+      dispatch(resetWaitList())
     };
   };
   

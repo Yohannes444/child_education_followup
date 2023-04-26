@@ -35,7 +35,8 @@ const mapStateToProps = state => {
     teachers:state.teachers,
     childFlag:state.childFlag,
     ClassRooms:state.ClassRooms,
-    wightLists:state.wightLists
+    wightLists:state.wightLists,
+    toggleWightList:state.toggleWightList
   }
   
 }
@@ -108,6 +109,7 @@ console.log(this.props.user)
                       refreshState={this.props.refreshState}
                       wightLists= {this.props.wightLists}
                       wightListsToggler={this.props.wightListsToggler}
+                      toggleWightList={this.props.toggleWightList}
                   
                 /> 
                 :
