@@ -2,6 +2,7 @@ import * as ActionTypes from './ActionsType';
 import { baseUrl } from '../shared/beasURL'
 import { fetchCashier, fetchTeacher } from './actions/adminActions';
 import { parentFetchClassRoom } from './actions/parentActions';
+import { fetchTeacherClassRoom } from './actions/teacherActions';
 
 
 export const requestLogin = (creds) => {
@@ -64,6 +65,8 @@ export const loginUser = (creds) => (dispatch) => {
             dispatch(fetchCashier())
             dispatch(fetchTeacher())
             dispatch(parentFetchClassRoom())
+            dispatch(fetchTeacherClassRoom())
+
 
         }
         else {
@@ -96,6 +99,7 @@ export const logoutUser = () => (dispatch) => {
     dispatch(fetchCashier())
     dispatch(fetchTeacher())
     dispatch(parentFetchClassRoom())
+    dispatch(fetchTeacherClassRoom())
 
     dispatch(receiveLogout())
 }

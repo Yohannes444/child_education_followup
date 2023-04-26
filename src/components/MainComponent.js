@@ -16,7 +16,8 @@ import { actions } from 'react-redux-form';
 import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState} from '../redux/ActionCreaters';
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount} from '../redux/actions/adminActions'
 import { postStudent,parentFetchClassRoom } from '../redux/actions/parentActions';
-import { wightListsToggler,fetchWithList } from '../redux/actions/cashierAction'
+import { wightListsToggler,fetchWithList } from '../redux/actions/cashierAction';
+import { fetchTeacherClassRoom } from '../redux/actions/teacherActions'
 import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group'
 import CashierDashboard from './cashierDashbord'
 import TeacherDashboard from './teacherDashbord'
@@ -36,7 +37,8 @@ const mapStateToProps = state => {
     childFlag:state.childFlag,
     ClassRooms:state.ClassRooms,
     wightLists:state.wightLists,
-    toggleWightList:state.toggleWightList
+    toggleWightList:state.toggleWightList,
+    asignedClassRoom:state.asignedClassRoom
   }
   
 }
@@ -60,7 +62,8 @@ const mapDispatchToProps  = (dispatch) => ({
   toggleCashierAccount:(cashier)=>dispatch(toggleCashierAccount(cashier)),
   toggleTeacherAccount: (teacher)=> dispatch(toggleTeacherAccount(teacher)),
   wightListsToggler:(data)=> dispatch(wightListsToggler(data)),
-  fetchWithList:()=>dispatch(fetchWithList())
+  fetchWithList:()=>dispatch(fetchWithList()),
+  fetchTeacherClassRoom:()=>dispatch(fetchTeacherClassRoom())
 
 });
 
@@ -72,6 +75,7 @@ componentDidMount(){
   this.props.fetchTeacher()
   this.props.parentFetchClassRoom()
   this.props.fetchWithList()
+  this.props.fetchTeacherClassRoom()
 }
 
   render(){
@@ -110,6 +114,7 @@ console.log(this.props.user)
                       wightLists= {this.props.wightLists}
                       wightListsToggler={this.props.wightListsToggler}
                       toggleWightList={this.props.toggleWightList}
+                      asignedClassRoom={this.props.asignedClassRoom}
                   
                 /> 
                 :

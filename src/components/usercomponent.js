@@ -44,7 +44,7 @@ const User = (props) => {
         return (
           <div className='container'>
           
-          <TeacherView />
+          <TeacherView asignedClassRoom={props.asignedClassRoom} refreshState={props.refreshState} />
           </div>
           );
       } else if (props.user.user.cashier) {

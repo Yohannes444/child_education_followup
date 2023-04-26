@@ -73,7 +73,7 @@ export const parentFetchClassRoom = ()=>(dispatch)=>{
         throw errmess;
     })
     .then(response =>response.data)
-    .then(cashiers => dispatch(fetchClassRoomSucess(cashiers)))
+    .then(classroom => dispatch(fetchClassRoomSucess(classroom)))
     .catch(error => dispatch(classRoomLodingFaild(error.message)));
 }
 
