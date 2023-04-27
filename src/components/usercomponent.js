@@ -44,7 +44,7 @@ const User = (props) => {
         return (
           <div className='container'>
           
-          <TeacherView asignedClassRoom={props.asignedClassRoom} refreshState={props.refreshState} />
+          <TeacherView uploadState={props.uploadState} user={props.user.user} uploadMaterial={props.uploadMaterial} asignedClassRoom={props.asignedClassRoom} refreshState={props.refreshState} />
           </div>
           );
       } else if (props.user.user.cashier) {

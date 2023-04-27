@@ -448,6 +448,11 @@ export const resetClassroomState = () => {
         type:ActionTypes.TOGGLEL_WAIGHT_LIST_REQUEST_FAILD
     }
   }
+  export const resetUploadMaterialState =()=>{
+    return{
+        type:ActionTypes.UPLOAD_MATERIAL_FAILD
+    }
+  }
   export const refreshState = () => {
     return dispatch => {
       dispatch(resetClassroomState());
@@ -457,8 +462,11 @@ export const resetClassroomState = () => {
       dispatch(restCashierDashbord());
       dispatch(resetChildSighinUp());
       dispatch(resetWaitList())
+      dispatch(resetUploadMaterialState())
     };
   };
+
+
   
 
    

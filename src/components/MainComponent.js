@@ -17,7 +17,7 @@ import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom,
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount} from '../redux/actions/adminActions'
 import { postStudent,parentFetchClassRoom } from '../redux/actions/parentActions';
 import { wightListsToggler,fetchWithList } from '../redux/actions/cashierAction';
-import { fetchTeacherClassRoom } from '../redux/actions/teacherActions'
+import { fetchTeacherClassRoom ,uploadMaterial} from '../redux/actions/teacherActions'
 import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group'
 import CashierDashboard from './cashierDashbord'
 import TeacherDashboard from './teacherDashbord'
@@ -38,7 +38,8 @@ const mapStateToProps = state => {
     ClassRooms:state.ClassRooms,
     wightLists:state.wightLists,
     toggleWightList:state.toggleWightList,
-    asignedClassRoom:state.asignedClassRoom
+    asignedClassRoom:state.asignedClassRoom,
+    uploadState:state.uploadState
   }
   
 }
@@ -63,7 +64,8 @@ const mapDispatchToProps  = (dispatch) => ({
   toggleTeacherAccount: (teacher)=> dispatch(toggleTeacherAccount(teacher)),
   wightListsToggler:(data)=> dispatch(wightListsToggler(data)),
   fetchWithList:()=>dispatch(fetchWithList()),
-  fetchTeacherClassRoom:()=>dispatch(fetchTeacherClassRoom())
+  fetchTeacherClassRoom:()=>dispatch(fetchTeacherClassRoom()),
+  uploadMaterial:(data)=>dispatch(uploadMaterial(data))
 
 });
 
@@ -115,6 +117,8 @@ console.log(this.props.user)
                       wightListsToggler={this.props.wightListsToggler}
                       toggleWightList={this.props.toggleWightList}
                       asignedClassRoom={this.props.asignedClassRoom}
+                      uploadMaterial={this.props.uploadMaterial}
+                      uploadState={this.props.uploadState}
                   
                 /> 
                 :

@@ -1,31 +1,30 @@
 import * as ActionTypes from '../ActionsType';
 
-export const asignedClassRoom = (state = {
-        classroomlist: [],
-        asignedClassRoom: [],
+export const uploadReducer = (state = {
         isLoading: false,
+        success: false,
         errMess: null
     }, action) => {
     switch (action.type) {
-        case ActionTypes.TEACHER_CLASSROOM_FETCH_REQUST:
+        case ActionTypes.UPLOAD_MATERIAL_REQUEST:
             return {...state,
                 isLoading: true,
-                classroomlist:[],
+                success: false,
                 errMess:null
             };
-        case ActionTypes.TEACHER_CLASSROOM_LOADED_SUCCESS:
-            var classroom = action.payload;
+        case ActionTypes.UPLOAD_MATERIAL_SUCCESS:
             return {...state,
                 isLoading: false,
                 errMess: '',
-                classroomlist:state.asignedClassRoom.concat(classroom)
+                success:true,
 
             };
-        case ActionTypes.FETCH_TEACHER_CLASSROOM_FAILD:
+        case ActionTypes.UPLOAD_MATERIAL_FAILD:
             return {...state,
                 isLoading: false,
-                classroomlist: [],
+                success: false,
                 errMess: action.message
+                
             };
             
         

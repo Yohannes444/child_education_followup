@@ -16,6 +16,7 @@ import { ClassRoomLoader } from './reducers/classRoomStore';
 import { wightListLoader } from './reducers/waitListRducer';
 import { toggleWightList } from './reducers/toggleWaitList';
 import { asignedClassRoom } from './reducers/asignedClassRoom';
+import { uploadReducer } from './reducers/uploadReducer';
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -33,6 +34,7 @@ export const ConfigureStore = () => {
             wightLists:wightListLoader,
             toggleWightList:toggleWightList,
             asignedClassRoom:asignedClassRoom,
+            uploadState:uploadReducer,
             ...createForms({
                 feedback: InitialFeedback
             })

@@ -1,0 +1,50 @@
+.class-room-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(252, 252, 252);
+    padding: 20px;
+  }
+  h4 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  h1 {
+    color: #f1d21c;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  h3 {
+    color:#3bb19b;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  h4 {
+    color: rgb(5, 110, 5);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  ul {
+    list-style-type: none;
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .buttons-container button:nth-child(1) {
+    background-color: rgb(65, 141, 65);
+  }
+  
+  .buttons-container button:nth-child(2) {
+    background-color: rgb(65, 141, 65);
+  }
+  .buttons-container button:nth-child(3) {
+    background-color: rgb(65, 141, 65);
+  }
+  .buttons-container button {
+    color: white;
+    margin: 5px 15px;
+  }
