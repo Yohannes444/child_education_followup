@@ -4,13 +4,18 @@ import { Link } from 'react-router-dom';
 import ClassRoomView from './classRoomViewT'
 import {Loading} from "./loadingComponent"
 import UploadMaterialForm from './materialFormComponent'
+import AttendanceForm from './attendanceForm'
+import UploadAssignment from './assignmentForm'
 
 const Teacher = (props) => {
   const [classroomview,setclassroomview]=useState()
   const [isClassRoomClicked,setIsClassRoomClicked] =useState(false)
   const [classView,setClassView]= useState(true)
   const [isUploading,setIsUploeading]= useState(false)
-  const [uploadTo,setUploadTo] = useState()
+  const [classRoom,setClassRoom] = useState()
+  const [attendaceIsOpen,setattendaceIsOpen]=useState(false)
+  const [isUploadingAssignment,setisUploadingAssignment] =useState(false)
+
     const handleToggleAccount = (classInfo) => {
       setClassView(!classView)
       setIsUploeading(false)
@@ -24,8 +29,18 @@ const Teacher = (props) => {
       setIsClassRoomClicked(false)
     }
     const handlFormback =()=>{
-      setUploadTo('')
+      setClassRoom('')
       setIsUploeading(false)
+      setIsClassRoomClicked(true)
+    }
+    const handlBackFormAttendance =()=>{
+      setClassRoom('')
+      setattendaceIsOpen(false)
+      setIsClassRoomClicked(true)
+    }
+    const handlBackFromUploadAssignmentForm =()=>{
+      setClassRoom('')
+      setisUploadingAssignment(false)
       setIsClassRoomClicked(true)
     }
     if (props.asignedClassRoom.isLoading || props.uploadState.isLoading) {
@@ -141,10 +156,12 @@ const Teacher = (props) => {
           </div>
         ):(console.log(""))
         }
-        {isClassRoomClicked && classView===false ? (<ClassRoomView  setUploadTo={setUploadTo} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview}/>):console.log("")}
+        {isClassRoomClicked && classView===false ? (<ClassRoomView setisUploadingAssignment={setisUploadingAssignment} isUploadingAssignment={isUploadingAssignment} setattendaceIsOpen={setattendaceIsOpen} attendaceIsOpen={attendaceIsOpen} setUploadTo={setClassRoom} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview}/>):console.log("")}
 
 
-        {isUploading? <UploadMaterialForm teacher={props.user} handlFormback={handlFormback} classRoom={uploadTo} uploadMaterial={props.uploadMaterial} /> :console.log("")}
+        {isUploading? <UploadMaterialForm teacher={props.user} handlFormback={handlFormback} classRoom={classRoom} uploadMaterial={props.uploadMaterial} /> :console.log("")}
+        {attendaceIsOpen?<AttendanceForm back={handlBackFormAttendance}   classroomId={classRoom._id} students={classRoom.StudentsList} handleSubmit={props.handleAttendanceSubmit}  />:console.log("")}
+        {isUploadingAssignment? <UploadAssignment teacher={props.user} back={handlBackFromUploadAssignmentForm} classRoom={classRoom} />:console.log("")}
       </div>
     );
   };

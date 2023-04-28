@@ -103,3 +103,50 @@ axios.post(baseUrl + "classMatrial", data, {
         messag
     }
   }
+
+  
+export const submitAttendance = (attendance) =>  (dispatch) => {
+    dispatch(submitAttendaceRequest())
+    const token = `Bearer ${localStorage.getItem('token')}`;
+    try {
+       axios.post(baseUrl +'attendance', attendance,{
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    })
+    .then(response => response.data)
+    .then(material =>dispatch( submitAttendaceSuccess(material)));
+
+    } catch (error) {
+      dispatch(submitAttendaceFaild(error));
+    }
+  };
+
+  export const submitAttendaceRequest = ()=>{
+    return{
+        type:ActionTypes.SUBMIT_ATTENDANCE_REQUEST
+    }
+  }
+  export const submitAttendaceSuccess =(material)=>{
+    return{
+        type: ActionTypes.SUBMIT_ATTENDANCE_SUCCESS,
+        payload:material.data
+    }
+  }
+  export const submitAttendaceFaild =(messag)=>{
+    return{
+        type:ActionTypes.SUBMIT_ATTENDANCE_FAILURE,
+        messag
+    }
+  }

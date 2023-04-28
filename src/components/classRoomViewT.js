@@ -7,7 +7,10 @@ const calssRoomView = (props) => {
 
   const handleToggleAccount = async (id) => {
   };
-  const handlUploadAssignment = () =>{
+  const handlUploadAssignment = (classRoomInfo) =>{
+    props.setUploadTo(classRoomInfo)
+    props.setIsClassRoomClicked(false)
+    props.setisUploadingAssignment(!props.isUploadingAssignment)
     
   }
   const handleUploadMaterial = (classRoomInfo)=>{
@@ -15,7 +18,11 @@ const calssRoomView = (props) => {
     props.setIsUploeading(!props.isUploading)
     props.setIsClassRoomClicked(false)
   }
-  const handlattendance = () =>{
+  const handlattendance = (classRoomInfo) =>{
+    props.setUploadTo(classRoomInfo)
+    props.setIsClassRoomClicked(false)
+    props.setattendaceIsOpen(!props.attendaceIsOpen)
+    
 
   }
   
@@ -31,12 +38,12 @@ const calssRoomView = (props) => {
       
         </div>
         <div className="buttons-container">
-            <Button onClick={()=>handlattendance()}>track attendance</Button>
+            <Button onClick={()=>handlattendance(props.classroomview)}>track attendance</Button>
             <Button onClick={()=>handleUploadMaterial(props.classroomview)}>upload material</Button>
-            <Button onClick={()=>handlUploadAssignment()}>upload assignment</Button>
+            <Button onClick={()=>handlUploadAssignment(props.classroomview)}>upload assignment</Button>
         </div>
       <h4 className="class-room-view" >List of students in the class room</h4>
-    {props.classroomview.StudentsList.length >0?
+    {props.classroomview.StudentsList.length > 0?
       (<div>      
         <Table bordered>
         <thead>
@@ -67,7 +74,7 @@ const calssRoomView = (props) => {
                     handleToggleAccount(student._id)
                   }
                 >
-                  Contact Paretn
+                  Contact Parent
                 </Button>
               </td>
             </tr>

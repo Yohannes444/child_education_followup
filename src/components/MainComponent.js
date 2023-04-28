@@ -17,7 +17,7 @@ import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom,
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount} from '../redux/actions/adminActions'
 import { postStudent,parentFetchClassRoom } from '../redux/actions/parentActions';
 import { wightListsToggler,fetchWithList } from '../redux/actions/cashierAction';
-import { fetchTeacherClassRoom ,uploadMaterial} from '../redux/actions/teacherActions'
+import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance} from '../redux/actions/teacherActions'
 import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group'
 import CashierDashboard from './cashierDashbord'
 import TeacherDashboard from './teacherDashbord'
@@ -65,7 +65,8 @@ const mapDispatchToProps  = (dispatch) => ({
   wightListsToggler:(data)=> dispatch(wightListsToggler(data)),
   fetchWithList:()=>dispatch(fetchWithList()),
   fetchTeacherClassRoom:()=>dispatch(fetchTeacherClassRoom()),
-  uploadMaterial:(data)=>dispatch(uploadMaterial(data))
+  uploadMaterial:(data)=>dispatch(uploadMaterial(data)),
+  handleAttendanceSubmit:(data)=>dispatch(submitAttendance(data))
 
 });
 
@@ -119,6 +120,7 @@ console.log(this.props.user)
                       asignedClassRoom={this.props.asignedClassRoom}
                       uploadMaterial={this.props.uploadMaterial}
                       uploadState={this.props.uploadState}
+                      handleAttendanceSubmit= {this.props.handleAttendanceSubmit}
                   
                 /> 
                 :

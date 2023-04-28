@@ -3,7 +3,7 @@ import { baseUrl } from '../shared/beasURL'
 import { fetchCashier, fetchTeacher } from './actions/adminActions';
 import { parentFetchClassRoom } from './actions/parentActions';
 import { fetchTeacherClassRoom } from './actions/teacherActions';
-
+import {fetchWithList} from './actions/cashierAction'
 
 export const requestLogin = (creds) => {
     return {
@@ -66,6 +66,7 @@ export const loginUser = (creds) => (dispatch) => {
             dispatch(fetchTeacher())
             dispatch(parentFetchClassRoom())
             dispatch(fetchTeacherClassRoom())
+            dispatch(fetchWithList())
 
 
         }
@@ -100,6 +101,7 @@ export const logoutUser = () => (dispatch) => {
     dispatch(fetchTeacher())
     dispatch(parentFetchClassRoom())
     dispatch(fetchTeacherClassRoom())
+    dispatch(fetchWithList())
 
     dispatch(receiveLogout())
 }
