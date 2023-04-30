@@ -17,7 +17,7 @@ import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom,
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount} from '../redux/actions/adminActions'
 import { postStudent,parentFetchClassRoom } from '../redux/actions/parentActions';
 import { wightListsToggler,fetchWithList } from '../redux/actions/cashierAction';
-import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance} from '../redux/actions/teacherActions'
+import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance, uploadAssignment} from '../redux/actions/teacherActions'
 import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group'
 import CashierDashboard from './cashierDashbord'
 import TeacherDashboard from './teacherDashbord'
@@ -39,7 +39,9 @@ const mapStateToProps = state => {
     wightLists:state.wightLists,
     toggleWightList:state.toggleWightList,
     asignedClassRoom:state.asignedClassRoom,
-    uploadState:state.uploadState
+    uploadState:state.uploadState,
+    attendanceState:state.attendanceState,
+    assignmentState:state.assignmentState
   }
   
 }
@@ -66,7 +68,8 @@ const mapDispatchToProps  = (dispatch) => ({
   fetchWithList:()=>dispatch(fetchWithList()),
   fetchTeacherClassRoom:()=>dispatch(fetchTeacherClassRoom()),
   uploadMaterial:(data)=>dispatch(uploadMaterial(data)),
-  handleAttendanceSubmit:(data)=>dispatch(submitAttendance(data))
+  handleAttendanceSubmit:(data)=>dispatch(submitAttendance(data)),
+  uploadAssignment:(data)=>dispatch(uploadAssignment(data))
 
 });
 
@@ -121,6 +124,9 @@ console.log(this.props.user)
                       uploadMaterial={this.props.uploadMaterial}
                       uploadState={this.props.uploadState}
                       handleAttendanceSubmit= {this.props.handleAttendanceSubmit}
+                      attendanceState={this.props.attendanceState}
+                      uploadAssignment={this.props.uploadAssignment}
+                      assignmentState={this.props.assignmentState}
                   
                 /> 
                 :

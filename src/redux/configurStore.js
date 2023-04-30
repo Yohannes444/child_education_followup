@@ -17,6 +17,8 @@ import { wightListLoader } from './reducers/waitListRducer';
 import { toggleWightList } from './reducers/toggleWaitList';
 import { asignedClassRoom } from './reducers/asignedClassRoom';
 import { uploadReducer } from './reducers/uploadReducer';
+import { attendanceReducer } from './reducers/attendanceReducer';
+import { uploadAssignmentReducer } from './reducers/uploadAssignment'
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -35,6 +37,8 @@ export const ConfigureStore = () => {
             toggleWightList:toggleWightList,
             asignedClassRoom:asignedClassRoom,
             uploadState:uploadReducer,
+            attendanceState:attendanceReducer,
+            assignmentState:uploadAssignmentReducer,
             ...createForms({
                 feedback: InitialFeedback
             })

@@ -12,7 +12,7 @@ class uploadAssignment extends Component {
         this.state = {
             subject: "",
             description: "",
-            quationFile: "",
+            file: "",
             quation:"",
             teacher: this.props.teacher._id,
             classRoom:this.props.classRoom._id
@@ -29,19 +29,18 @@ class uploadAssignment extends Component {
     
 
     async handleSubmit(event) {
-        /* const { subject,description,quationFile,teacher,classRoom,quation} = this.state;
+         const { subject,description,file, quation,teacher,classRoom} = this.state;
 
-        const child = { subject,description,quationFile,teacher,classRoom,quation};
-
-        this.props.uploadMaterial(child)
+        const assignment = { subject,description,file,teacher,classRoom,quation};
+        this.props.uploadAssignment(assignment)
         this.setState({
             subject: "",
             description: "",
-            quationFile: "",
+            file: "",
             quation:"",
             teacher:"",
             classRoom:""
-        }); */
+        }); 
     }
 
 
@@ -63,8 +62,8 @@ class uploadAssignment extends Component {
 
                     <div className={styles.right}>
                      
-                        <LocalForm enctype="multipart/form-data" className={styles.form_container} onSubmit={(values) => this.handleSubmit(values)}>
-                            <h1 style={{color:'#f1d21c'}}>Upload material</h1>
+                        <LocalForm encType="multipart/form-data" className={styles.form_container} onSubmit={(values) => this.handleSubmit(values)}>
+                            <h1 style={{color:'#f1d21c'}}>Upload assignment</h1>
                             <h3>{this.props.classRoom.className}</h3>
                             <Control.text
                                 type = "text"
@@ -95,15 +94,15 @@ class uploadAssignment extends Component {
                             />
                             <Control.file
                                 type="file"
-                                name="quationFile"
+                                name="file"
                                 id="transcript"
                                 placeholder="material quationFile"
                                 model=".transcript"
                                 onChange={(e) => {
                                     e.persist();
-                                    this.setState({ quationFile: e.target.files[0] });
+                                    this.setState({ file: e.target.files[0] });
                                   }}
-                                accept=".pdf,.png,.jpg,.jpeg,.gif" 
+                                accept=".pdf,.png,.jpg,.jpeg,.gif,.pdf,.ppt" 
                                 className={styles.input}
                             /> 
                                                        

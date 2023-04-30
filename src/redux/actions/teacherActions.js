@@ -150,3 +150,58 @@ export const submitAttendance = (attendance) =>  (dispatch) => {
         messag
     }
   }
+
+  export const uploadAssignment = (info) => (dispatch) =>{
+    dispatch(submitAssignmentRequest())
+    const token = `Bearer ${localStorage.getItem('token')}`;
+    const data = new FormData()
+    data.append("subject", info.subject)
+    data.append("description", info.description)
+    data.append("quation", info.quation)
+    data.append("file",info.file)
+    data.append("teacher",info.teacher)
+    data.append("classRoom",info.classRoom)
+    console.log(data)
+    try {
+       axios.post(baseUrl +'Assignment', data,{
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+      .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    })
+    .then(response => response.data)
+    .then(material =>dispatch( submitAssignmentSuccess(material)));
+
+    } catch (error) {
+      dispatch(submitAssignmentFaild(error));
+    }
+  };
+
+
+  export const submitAssignmentRequest = ()=>{
+    return{
+        type:ActionTypes.SUBMIT_ASSIGNMENT_REQUEST
+    }
+  }
+  export const submitAssignmentSuccess =(material)=>{
+    return{
+        type: ActionTypes.SUBMIT_ASSIGNMENT_SUCCESS,
+        payload:material.data
+    }
+  }
+  export const submitAssignmentFaild =(messag)=>{
+    return{
+        type:ActionTypes.SUBMIT_ASSIGNMENT_FAILURE,
+        messag
+    }
+  }

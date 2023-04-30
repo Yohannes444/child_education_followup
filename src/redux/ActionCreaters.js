@@ -455,6 +455,16 @@ export const resetClassroomState = () => {
         type:ActionTypes.UPLOAD_MATERIAL_FAILD
     }
   }
+  export const resetAttendanceState = ()=>{
+    return{
+        type:ActionTypes.SUBMIT_ATTENDANCE_FAILURE
+    }
+  }
+  export const resetASSIGNMENTState = ()=>{
+    return{
+        type:ActionTypes.SUBMIT_ASSIGNMENT_FAILURE
+    }
+  }
   export const refreshState = () => {
     return dispatch => {
       dispatch(resetClassroomState());
@@ -465,6 +475,8 @@ export const resetClassroomState = () => {
       dispatch(resetChildSighinUp());
       dispatch(resetWaitList())
       dispatch(resetUploadMaterialState())
+      dispatch(resetAttendanceState())
+      dispatch(resetASSIGNMENTState())
     };
   };
 

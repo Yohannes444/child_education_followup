@@ -30,7 +30,8 @@ const calssRoomView = (props) => {
   return (
     
     <div>
-      
+      <Button onClick={() =>{props.handlback()}} >Back</Button>
+
       <div className="class-room-view">
       <h1>Class Room View</h1>
       <h3>{props.classroomview.className}</h3>

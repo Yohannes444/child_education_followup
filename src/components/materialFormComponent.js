@@ -94,7 +94,7 @@ class createMatereal extends Component {
                                     this.setState({ file: e.target.files[0] });
                                   }}
                                 required
-                                accept=".pdf,.png,.jpg,.jpeg,.gif" 
+                                accept=".pdf,.png,.jpg,.jpeg,.gif,.pdf,.ppt" 
                                 className={styles.input}
                             />
                                                        

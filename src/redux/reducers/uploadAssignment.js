@@ -1,28 +1,28 @@
 import * as ActionTypes from '../ActionsType';
 
-export const attendanceReducer = (state = {
+export const uploadAssignmentReducer = (state = {
         isLoading: false,
-        attendanceADD: false,
+        success: false,
         errMess: null
     }, action) => {
     switch (action.type) {
-        case ActionTypes.SUBMIT_ATTENDANCE_REQUEST:
+        case ActionTypes.SUBMIT_ASSIGNMENT_REQUEST:
             return {...state,
                 isLoading: true,
-                attendanceADD: false,
+                success: false,
                 errMess:null
             };
-        case ActionTypes.SUBMIT_ATTENDANCE_SUCCESS:
+        case ActionTypes.SUBMIT_ASSIGNMENT_SUCCESS:
             return {...state,
                 isLoading: false,
                 errMess: '',
-                attendanceADD:true,
+                success:true,
 
             };
-        case ActionTypes.SUBMIT_ATTENDANCE_FAILURE:
+        case ActionTypes.SUBMIT_ASSIGNMENT_FAILURE:
             return {...state,
                 isLoading: false,
-                attendanceADD: false,
+                success: false,
                 errMess: action.message
                 
             };

@@ -43,7 +43,7 @@ const Teacher = (props) => {
       setisUploadingAssignment(false)
       setIsClassRoomClicked(true)
     }
-    if (props.asignedClassRoom.isLoading || props.uploadState.isLoading) {
+    if (props.asignedClassRoom.isLoading || props.uploadState.isLoading ||props.attendanceState.isLoading ||props.assignmentState.isLoading) {
       return(
           <div className="container">
               <div className="row">
@@ -77,6 +77,23 @@ const Teacher = (props) => {
             </div>
         )
     }
+    else if (props.attendanceState.errMess ) {
+      return(
+          <div className="container">
+              <div className="row">
+               <Breadcrumb>
+                <BreadcrumbItem>
+                  <Link to="/home">Home</Link>
+                </BreadcrumbItem>
+                <BreadcrumbItem active>TeacherView</BreadcrumbItem>
+              </Breadcrumb>
+          </div>
+              <div className="row">
+                  <h4>{props.attendanceState.errMess}</h4>
+              </div>
+          </div>
+      )
+  }
     else if ( props.uploadState.errMess) {
       return(
           <div className="container">
@@ -98,14 +115,36 @@ const Teacher = (props) => {
       props.refreshState()
       alert("New education matrial has been uploaded successfully");
     }
-    
+    else if ( props.assignmentState.errMess) {
+      return(
+          <div className="container">
+              <div className="row">
+               <Breadcrumb>
+                <BreadcrumbItem>
+                  <Link to="/home">Home</Link>
+                </BreadcrumbItem>
+                <BreadcrumbItem active>TeacherView</BreadcrumbItem>
+              </Breadcrumb>
+          </div>
+              <div className="row">
+                  <h4>{props.assignmentState.errMess}</h4>
+              </div>
+          </div>
+      )
+  }
+    else if (props.assignmentState.success){
+      props.refreshState()
+      alert("New education assignment has been uploaded successfully");
+    }
+    else if (props.attendanceState.attendanceADD){
+      props.refreshState()
+      alert("New attendance has been  uploaded successfully");
+    }
     else{
        
     return (
       <div>
         
-        { isClassRoomClicked? (  <Button onClick={() =>{return handlback()}} >Back</Button>):console.log("")}
-        <p>this is from the Teacher component</p>
         {classView?(
           <div>
             <div className="row">
@@ -156,12 +195,12 @@ const Teacher = (props) => {
           </div>
         ):(console.log(""))
         }
-        {isClassRoomClicked && classView===false ? (<ClassRoomView setisUploadingAssignment={setisUploadingAssignment} isUploadingAssignment={isUploadingAssignment} setattendaceIsOpen={setattendaceIsOpen} attendaceIsOpen={attendaceIsOpen} setUploadTo={setClassRoom} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview}/>):console.log("")}
+        {isClassRoomClicked && classView===false ? (<ClassRoomView handlback={handlback} setisUploadingAssignment={setisUploadingAssignment} isUploadingAssignment={isUploadingAssignment} setattendaceIsOpen={setattendaceIsOpen} attendaceIsOpen={attendaceIsOpen} setUploadTo={setClassRoom} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview}/>):console.log("")}
 
 
         {isUploading? <UploadMaterialForm teacher={props.user} handlFormback={handlFormback} classRoom={classRoom} uploadMaterial={props.uploadMaterial} /> :console.log("")}
         {attendaceIsOpen?<AttendanceForm back={handlBackFormAttendance}   classroomId={classRoom._id} students={classRoom.StudentsList} handleSubmit={props.handleAttendanceSubmit}  />:console.log("")}
-        {isUploadingAssignment? <UploadAssignment teacher={props.user} back={handlBackFromUploadAssignmentForm} classRoom={classRoom} />:console.log("")}
+        {isUploadingAssignment? <UploadAssignment uploadAssignment={props.uploadAssignment} teacher={props.user} back={handlBackFromUploadAssignmentForm} classRoom={classRoom} />:console.log("")}
       </div>
     );
   };

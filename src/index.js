@@ -7,14 +7,26 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
 import { ConfigureStore } from './redux/configurStore' 
-
+import { ToastContainer } from "react-toastify";
 const store = ConfigureStore();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
  
   <Provider store={store}>
     <React.Fragment>
- 
+    <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{ width: "100%", maxWidth: "500px", margin: "auto" }}
+        toastStyle={{ background: "#333", color: "#fff", borderRadius: "4px" }}
+      />
         <App />
       
     </React.Fragment>
