@@ -19,6 +19,7 @@ import { asignedClassRoom } from './reducers/asignedClassRoom';
 import { uploadReducer } from './reducers/uploadReducer';
 import { attendanceReducer } from './reducers/attendanceReducer';
 import { uploadAssignmentReducer } from './reducers/uploadAssignment'
+import { uploadGreedReducer } from './reducers/uploadGreed'
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -39,6 +40,7 @@ export const ConfigureStore = () => {
             uploadState:uploadReducer,
             attendanceState:attendanceReducer,
             assignmentState:uploadAssignmentReducer,
+            uploadGreedState:uploadGreedReducer,
             ...createForms({
                 feedback: InitialFeedback
             })

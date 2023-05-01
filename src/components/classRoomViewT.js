@@ -1,7 +1,6 @@
 import React from 'react';
 import { Table, Button,Breadcrumb, BreadcrumbItem, } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import {Loading} from "./loadingComponent"
 import './ClassRoomView.css';
 const calssRoomView = (props) => {
 
@@ -25,6 +24,11 @@ const calssRoomView = (props) => {
     
 
   }
+  const handlGreed = (classRoomInfo)=>{
+    props.setUploadTo(classRoomInfo)
+    props.setIsClassRoomClicked(false)
+    props.setgreadIsClicked(!props.greadIsClicked)
+  }
   
   
   return (
@@ -39,6 +43,7 @@ const calssRoomView = (props) => {
       
         </div>
         <div className="buttons-container">
+            <Button onClick={()=>handlGreed(props.classroomview)}>add grade</Button>
             <Button onClick={()=>handlattendance(props.classroomview)}>track attendance</Button>
             <Button onClick={()=>handleUploadMaterial(props.classroomview)}>upload material</Button>
             <Button onClick={()=>handlUploadAssignment(props.classroomview)}>upload assignment</Button>
@@ -51,7 +56,6 @@ const calssRoomView = (props) => {
           <tr>
             <th>Name</th>
             <th>Id</th>
-            <th>Greed</th>
             <th>Parent</th>
           </tr>
         </thead>
@@ -60,15 +64,6 @@ const calssRoomView = (props) => {
             <tr key={student._id}>
               <td>{`${student.firstName} ${student.lastName}`}</td>
               <td>{student._id}</td>
-              <td>
-                <Button
-                  onClick={() =>
-                    handleToggleAccount(student._id)
-                  }
-                >
-                  Watch Greed
-                </Button>
-              </td>
               <td>
                 <Button
                   onClick={() =>

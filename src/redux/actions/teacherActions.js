@@ -205,3 +205,52 @@ export const submitAttendance = (attendance) =>  (dispatch) => {
         messag
     }
   }
+
+  export const handleSubmitGreed =(gradeData)=>(dispatch)=>{
+    dispatch(submitGreedRequest())
+    console.log(gradeData)
+    const token = `Bearer ${localStorage.getItem('token')}`;
+  
+    try {
+       axios.post(baseUrl +'grade', gradeData,{
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    })
+    .then(response => response.data)
+    .then(material =>dispatch( submitGreedSuccess(material)));
+
+    } catch (error) {
+      dispatch(submitGreedFaild(error));
+    }
+  };
+
+
+  export const submitGreedRequest = ()=>{
+    return{
+        type:ActionTypes.SUBMIT_GREED_REQUEST
+    }
+  }
+  export const submitGreedSuccess =(material)=>{
+    return{
+        type: ActionTypes.SUBMIT_GREED_SUCCESS,
+        payload:material.data
+    }
+  }
+  export const submitGreedFaild =(messag)=>{
+    return{
+        type:ActionTypes.SUBMIT_GREED_FAILURE,
+        messag
+    }
+  }

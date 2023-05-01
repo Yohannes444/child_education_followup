@@ -6,6 +6,7 @@ import {Loading} from "./loadingComponent"
 import UploadMaterialForm from './materialFormComponent'
 import AttendanceForm from './attendanceForm'
 import UploadAssignment from './assignmentForm'
+import GreedForm from './greedForm'
 
 const Teacher = (props) => {
   const [classroomview,setclassroomview]=useState()
@@ -15,7 +16,7 @@ const Teacher = (props) => {
   const [classRoom,setClassRoom] = useState()
   const [attendaceIsOpen,setattendaceIsOpen]=useState(false)
   const [isUploadingAssignment,setisUploadingAssignment] =useState(false)
-
+  const [greadIsClicked,setgreadIsClicked] = useState(false)
     const handleToggleAccount = (classInfo) => {
       setClassView(!classView)
       setIsUploeading(false)
@@ -43,7 +44,12 @@ const Teacher = (props) => {
       setisUploadingAssignment(false)
       setIsClassRoomClicked(true)
     }
-    if (props.asignedClassRoom.isLoading || props.uploadState.isLoading ||props.attendanceState.isLoading ||props.assignmentState.isLoading) {
+    const handlBackfromGreedForm =()=>{
+      setClassRoom('')
+      setgreadIsClicked(false)
+      setIsClassRoomClicked(true)
+    }
+    if (props.asignedClassRoom.isLoading || props.uploadState.isLoading ||props.attendanceState.isLoading ||props.assignmentState.isLoading || props.uploadGreedState.isLoading) {
       return(
           <div className="container">
               <div className="row">
@@ -94,7 +100,7 @@ const Teacher = (props) => {
           </div>
       )
   }
-    else if ( props.uploadState.errMess) {
+  else if ( props.uploadState.errMess) {
       return(
           <div className="container">
               <div className="row">
@@ -111,10 +117,31 @@ const Teacher = (props) => {
           </div>
       )
   }
-    else if (props.uploadState.success){
-      props.refreshState()
-      alert("New education matrial has been uploaded successfully");
-    }
+  else if (props.uploadState.success){
+    props.refreshState()
+    alert("New education matrial has been uploaded successfully");
+  }
+  else if ( props.uploadGreedState.errMess) {
+    return(
+        <div className="container">
+            <div className="row">
+             <Breadcrumb>
+              <BreadcrumbItem>
+                <Link to="/home">Home</Link>
+              </BreadcrumbItem>
+              <BreadcrumbItem active>TeacherView</BreadcrumbItem>
+            </Breadcrumb>
+        </div>
+            <div className="row">
+                <h4>{props.uploadGreedState.errMess}</h4>
+            </div>
+        </div>
+    )
+}
+else if (props.uploadGreedState.success){
+  props.refreshState()
+  alert("New  greed has been uploaded successfully");
+}
     else if ( props.assignmentState.errMess) {
       return(
           <div className="container">
@@ -195,12 +222,13 @@ const Teacher = (props) => {
           </div>
         ):(console.log(""))
         }
-        {isClassRoomClicked && classView===false ? (<ClassRoomView handlback={handlback} setisUploadingAssignment={setisUploadingAssignment} isUploadingAssignment={isUploadingAssignment} setattendaceIsOpen={setattendaceIsOpen} attendaceIsOpen={attendaceIsOpen} setUploadTo={setClassRoom} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview}/>):console.log("")}
+        {isClassRoomClicked && classView===false ? (<ClassRoomView greadIsClicked={greadIsClicked} setgreadIsClicked={setgreadIsClicked} handlback={handlback} setisUploadingAssignment={setisUploadingAssignment} isUploadingAssignment={isUploadingAssignment} setattendaceIsOpen={setattendaceIsOpen} attendaceIsOpen={attendaceIsOpen} setUploadTo={setClassRoom} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview}/>):console.log("")}
 
 
         {isUploading? <UploadMaterialForm teacher={props.user} handlFormback={handlFormback} classRoom={classRoom} uploadMaterial={props.uploadMaterial} /> :console.log("")}
         {attendaceIsOpen?<AttendanceForm back={handlBackFormAttendance}   classroomId={classRoom._id} students={classRoom.StudentsList} handleSubmit={props.handleAttendanceSubmit}  />:console.log("")}
         {isUploadingAssignment? <UploadAssignment uploadAssignment={props.uploadAssignment} teacher={props.user} back={handlBackFromUploadAssignmentForm} classRoom={classRoom} />:console.log("")}
+        {greadIsClicked ? <GreedForm back={handlBackfromGreedForm} handleSubmitGreed={props.handleSubmitGreed} classRoom={classRoom} />:console.log("")}
       </div>
     );
   };

@@ -465,6 +465,11 @@ export const resetClassroomState = () => {
         type:ActionTypes.SUBMIT_ASSIGNMENT_FAILURE
     }
   }
+  export const resetGreedState = ()=>{
+    return{
+        type:ActionTypes.SUBMIT_GREED_FAILURE
+    }
+  }
   export const refreshState = () => {
     return dispatch => {
       dispatch(resetClassroomState());
@@ -477,6 +482,7 @@ export const resetClassroomState = () => {
       dispatch(resetUploadMaterialState())
       dispatch(resetAttendanceState())
       dispatch(resetASSIGNMENTState())
+      dispatch(resetGreedState())
     };
   };
 

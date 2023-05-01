@@ -97,3 +97,75 @@
 	color: white;
 	margin: 10px;
 }
+
+
+.Table {
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 1rem;
+	background-color: transparent;
+	border-collapse: collapse;
+	overflow-x: auto;
+	display: block;
+  }
+  
+  .Table thead {
+	display: block;
+	width: 100%;
+  }
+  
+  .Table tbody {
+	display: block;
+	width: 100%;
+	overflow-y: auto;
+	height: 200px; /* Set a fixed height for the table body to enable scrolling */
+  }
+  
+  .Table th,
+  .Table td {
+	padding: 0.75rem;
+	vertical-align: top;
+	border-top: 1px solid #dee2e6;
+  }
+  
+  @media (max-width: 767px) {
+	.Table thead {
+	  display: none; /* Hide the table header on small screens */
+	}
+  
+	.Table tbody {
+	  display: block;
+	  width: 100%;
+	  overflow-x: auto;
+	  white-space: nowrap; /* Prevent text wrapping */
+	}
+  
+	.Table tr {
+	  display: inline-block;
+	  width: auto;
+	  white-space: normal; /* Allow text to wrap */
+	}
+  
+	.Table td {
+	  display: block;
+	  text-align: left;
+	  width: 100%;
+	  border-top: none;
+	  border-bottom: 1px solid #dee2e6;
+	  position: relative;
+	  padding-left: 50%; /* Add space for the label */
+	}
+  
+	.Table td:before {
+	  content: attr(data-label);
+	  display: inline-block;
+	  font-weight: bold;
+	  left: 0;
+	  position: absolute;
+	  text-align: left;
+	  top: 0;
+	  width: 50%; /* Set the width of the label */
+	  padding-right: 0.5rem;
+	}
+  }
+  
