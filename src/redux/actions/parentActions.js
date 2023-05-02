@@ -8,6 +8,7 @@ export const postStudent= (student) =>(dispatch)=>{
     const data = new FormData()
     data.append("firstName", student.firstName)
     data.append("lastName", student.lastName)
+    data.append("photo",student.photo)
     data.append("transcript", student.transcript)
     data.append("receipt",student.receipt)
     data.append("selectedClassRoom",student.selectedClassRoom)
@@ -92,5 +93,51 @@ export const classRoomLodingFaild = (messag)=>{
     return{
         type:ActionTypes.FETCH_CLASSROOM_FAILD,
         messag
+    }
+}
+
+export const  fetchChildrens = () =>(dispatch)=>{
+    dispatch(fetchChildrensRequest())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.get(baseUrl + 'child', {headers: { 
+        'Authorization': bearer
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(child => dispatch(fetchChildrenSucess(child)))
+    .catch(error => dispatch(ChildrenLodingFaild(error.message)));
+}
+
+export const  fetchChildrensRequest = ()=>{
+    return {
+        type:ActionTypes.FETCH_CHILDS_REQUEST
+    }
+}
+
+export const fetchChildrenSucess = (child) =>{
+    return{
+        type:ActionTypes.FETCH_CHILDS_SUCCESS,
+        payload:child
+    }
+}
+
+export const ChildrenLodingFaild = (masseg) =>{
+    return{
+        type:ActionTypes.FETCH_CHILDS_FAILD,
+        masseg
     }
 }

@@ -15,7 +15,7 @@ import About from './AboutComponent'
 import { actions } from 'react-redux-form';
 import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState} from '../redux/ActionCreaters';
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount} from '../redux/actions/adminActions'
-import { postStudent,parentFetchClassRoom } from '../redux/actions/parentActions';
+import { postStudent,parentFetchClassRoom, fetchChildrens} from '../redux/actions/parentActions';
 import { wightListsToggler,fetchWithList } from '../redux/actions/cashierAction';
 import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance, uploadAssignment, handleSubmitGreed} from '../redux/actions/teacherActions'
 import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group'
@@ -42,7 +42,8 @@ const mapStateToProps = state => {
     uploadState:state.uploadState,
     attendanceState:state.attendanceState,
     assignmentState:state.assignmentState,
-    uploadGreedState:state.uploadGreedState
+    uploadGreedState:state.uploadGreedState,
+    childStore:state.childLists
   }
   
 }
@@ -71,7 +72,8 @@ const mapDispatchToProps  = (dispatch) => ({
   uploadMaterial:(data)=>dispatch(uploadMaterial(data)),
   handleAttendanceSubmit:(data)=>dispatch(submitAttendance(data)),
   uploadAssignment:(data)=>dispatch(uploadAssignment(data)),
-  handleSubmitGreed:(data)=>dispatch(handleSubmitGreed(data))
+  handleSubmitGreed:(data)=>dispatch(handleSubmitGreed(data)),
+  fetchChildrens:() =>dispatch(fetchChildrens())
 
 });
 
@@ -84,6 +86,7 @@ componentDidMount(){
   this.props.parentFetchClassRoom()
   this.props.fetchWithList()
   this.props.fetchTeacherClassRoom()
+  this.props.fetchChildrens()
 }
 
   render(){
@@ -130,7 +133,8 @@ console.log(this.props.user)
                       uploadAssignment={this.props.uploadAssignment}
                       assignmentState={this.props.assignmentState}
                       handleSubmitGreed={this.props.handleSubmitGreed}
-                      uploadGreedState={this.props.uploadGreedState}                  
+                      uploadGreedState={this.props.uploadGreedState}  
+                      childStore={this.props.childStore}                
                 /> 
                 :
                 <HOME   user={this.props.user}/>} 

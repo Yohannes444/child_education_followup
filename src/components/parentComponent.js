@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import ClassRoomList from './classroomListP';
 import ChildSignup from './chiledSignup';
 import {Loading} from "./loadingComponent"
-
+import ChildList  from "./childListComponent"
 
 const green = '#3bb19b';
 const yellow ='#f1d21c';
@@ -14,11 +14,18 @@ const ParentView= (props)=>{
     const [classRoo, setClassRoo] = useState(false);
    const [selectedClassRoom,setSelectedClassRoom]=useState()
    const [regstering, setregstering] = useState(false);
+   const [isChildsClicked, setIsChildsClicked] = useState(false)
 
    
     const handleToggleAccount = () => {
         setClassRoo(!classRoo);
         setSelectedClassRoom('')
+        setregstering(false)
+      }
+      const handlChildButtonClick = () =>{
+        setSelectedClassRoom('')
+        setClassRoo(false);
+        setIsChildsClicked(!isChildsClicked)
         setregstering(false)
       }
         return(
@@ -35,6 +42,10 @@ const ParentView= (props)=>{
                     <Button
                         style={{ backgroundColor: yellow }}
                         onClick={() => handleToggleAccount()}>ልጅወን ለመመዝግቡ
+                    </Button>
+                    <Button
+                        style={{ backgroundColor: yellow }}
+                    onClick={() => handlChildButtonClick()}>ልጆች
                     </Button>
                     </div>
                     <p>ይህ የአሳዳጊ ገጽ ነው</p>
@@ -94,6 +105,7 @@ const ParentView= (props)=>{
                         (<ChildSignup refreshState={props.refreshState} childSignup={props.childSignup} childFlag={props.childFlag} classRoom={selectedClassRoom}/>)
                         :
                         (console.log)}
+                    {isChildsClicked? <ChildList childStore={props.childStore} /> :console.log("")}
                     
 
                                 

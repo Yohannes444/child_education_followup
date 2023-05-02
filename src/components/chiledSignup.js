@@ -12,6 +12,7 @@ class childSignup extends Component {
         this.state = {
             firstName: "",
             lastName: "",
+            photo:"",
             transcript: "",
             receipt: "",
             selectedClassRoom:this.props.classRoom._id
@@ -26,14 +27,15 @@ class childSignup extends Component {
     
 
     async handleSubmit(event) {
-        const { firstName,lastName,transcript,receipt,selectedClassRoom} = this.state;
+        const { firstName,lastName,transcript,receipt,selectedClassRoom,photo} = this.state;
 
-        const child = { firstName,lastName,transcript,receipt,selectedClassRoom};
+        const child = { firstName,lastName,transcript,receipt,selectedClassRoom,photo};
 
         this.props.childSignup(child)
         this.setState({
             firstName: "",
             lastName: "",
+            photo:"",
             transcript: "",
             receipt:"",
             selectedClassRoom:""
@@ -77,6 +79,20 @@ class childSignup extends Component {
                                 model=".lastName"
                                 onChange={this.handleChange}
                                 required
+                                className={styles.input}
+                            />
+                            <Control.file
+                                type="file"
+                                name="photo"
+                                id="transcript"
+                                placeholder="የተማሪውን ፎቶ ያስገቡ"
+                                model=".transcript"
+                                onChange={(e) => {
+                                    e.persist();
+                                    this.setState({ photo: e.target.files[0] });
+                                  }}
+                                required
+                                accept=".pdf,.png,.jpg,.jpeg,.gif" 
                                 className={styles.input}
                             />
                             <Control.file

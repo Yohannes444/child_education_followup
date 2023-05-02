@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionsType';
 import { baseUrl } from '../shared/beasURL'
 import { fetchCashier, fetchTeacher } from './actions/adminActions';
-import { parentFetchClassRoom } from './actions/parentActions';
+import { parentFetchClassRoom ,fetchChildrens} from './actions/parentActions';
 import { fetchTeacherClassRoom } from './actions/teacherActions';
 import {fetchWithList} from './actions/cashierAction'
 
@@ -67,6 +67,7 @@ export const loginUser = (creds) => (dispatch) => {
             dispatch(parentFetchClassRoom())
             dispatch(fetchTeacherClassRoom())
             dispatch(fetchWithList())
+            dispatch(fetchChildrens())
 
 
         }
@@ -102,7 +103,7 @@ export const logoutUser = () => (dispatch) => {
     dispatch(parentFetchClassRoom())
     dispatch(fetchTeacherClassRoom())
     dispatch(fetchWithList())
-
+    dispatch(fetchChildrens())
     dispatch(receiveLogout())
 }
 export const postFeedback = (feedback) => (dispatch) => {
