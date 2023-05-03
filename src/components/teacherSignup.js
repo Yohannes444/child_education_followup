@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import {Loading} from "./loadingComponent"
 import styles from "./styles.module.css";
 import {  Control,LocalForm } from 'react-redux-form';
+import { toast } from "react-toastify";
 
 //import RenderLeader from './RenderLeader'
 
@@ -78,21 +79,8 @@ class Signup extends Component {
         }
         else if (this.props.teacherSign.teacherADD){
             this.props.refreshState()
-            var alertInterval = setInterval(function() {
-                alert("New teacher account has been add");
-              }, 1000); 
-              // display alert every second
-              setTimeout(function() {
-                clearInterval(alertInterval); // stop displaying alerts
-              }, 1000); 
-            return(
-                <div className="container">
-                    
-                <div className="row">
-                    <h4> teacher account has been add</h4>
-                </div>
-            </div>
-            )
+            toast.success("New teacher account has been add");
+              
         }
         else{
         return(

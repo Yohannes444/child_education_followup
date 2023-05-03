@@ -7,6 +7,7 @@ import UploadMaterialForm from './materialFormComponent'
 import AttendanceForm from './attendanceForm'
 import UploadAssignment from './assignmentForm'
 import GreedForm from './greedForm'
+import { toast } from "react-toastify";
 
 const Teacher = (props) => {
   const [classroomview,setclassroomview]=useState()
@@ -120,7 +121,7 @@ const Teacher = (props) => {
   }
   else if (props.uploadState.success){
     props.refreshState()
-    alert("New education matrial has been uploaded successfully");
+    toast.success("New education matrial has been uploaded successfully");
   }
   else if ( props.uploadGreedState.errMess) {
     return(
@@ -141,7 +142,7 @@ const Teacher = (props) => {
 }
 else if (props.uploadGreedState.success){
   props.refreshState()
-  alert("New  greed has been uploaded successfully");
+  toast.success("New  greed has been uploaded successfully");
 }
     else if ( props.assignmentState.errMess) {
       return(
@@ -162,11 +163,11 @@ else if (props.uploadGreedState.success){
   }
     else if (props.assignmentState.success){
       props.refreshState()
-      alert("New education assignment has been uploaded successfully");
+      toast.success("New education assignment has been uploaded successfully");
     }
     else if (props.attendanceState.attendanceADD){
       props.refreshState()
-      alert("New attendance has been  uploaded successfully");
+      toast.success("New attendance has been  uploaded successfully");
     }
     else{
        

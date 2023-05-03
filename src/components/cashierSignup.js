@@ -5,6 +5,7 @@ import styles from "./styles.module.css";
 import {  Control,LocalForm } from 'react-redux-form';
 import {Loading} from "./loadingComponent"
 //import RenderLeader from './RenderLeader'
+import { toast } from "react-toastify";
 
 class Signup extends Component {
 
@@ -75,19 +76,9 @@ class Signup extends Component {
         }
         else if (this.props.cashierSign.cashierADD){
             this.props.refreshState()
-            var alertInterval = setInterval(function() {
-                alert("New cashier account has been add");
-              }, 1000); // display alert every second
-              setTimeout(function() {
-                clearInterval(alertInterval); // stop displaying alerts
-              }, 1000); 
-            return(
-                <div className="container">
-                    <div className="row">
-                        <h4>cashier account has been add</h4>
-                    </div>
-                </div>
-            )
+            toast.success("New cashier account has been add")
+           
+            
         }
         else{
         return(

@@ -6,6 +6,7 @@ import {  Control,LocalForm, controls } from 'react-redux-form';
 import { Loading } from './loadingComponent'
 import MultiselectCheckboxes from 'react-multiselect-checkboxes';
 import { Notifs, actions as notifActions } from "redux-notifications";
+import { toast } from "react-toastify";
 
 //import RenderLeader from './RenderLeader'
 
@@ -80,22 +81,9 @@ class creatClassroom extends Component {
         }
         else if (this.props.classRoom.classRoomADD){
             this.props.refreshState()
-             var alertInterval = setInterval(function() {
-                alert("New class room has been added");
-              }, 1000); // display alert every second
-              setTimeout(function() {
-                clearInterval(alertInterval); // stop displaying alerts
-              }, 1000); 
-              
-            return(
-                <div className="container">
-           
-                <div className="row">
-                    <h4> new clas room has been add</h4>
-                </div>
-                
-            </div>
-            )
+            
+            toast.success("New class room has been added");
+            
                 
         }
         else{

@@ -5,7 +5,7 @@ import styles from "./styles.module.css";
 import {  Control,LocalForm } from 'react-redux-form';
 import { Loading } from './loadingComponent'
 //import RenderLeader from './RenderLeader'
-
+import { toast } from "react-toastify";
 class Signup extends Component {
 
     constructor(props) {
@@ -76,20 +76,8 @@ class Signup extends Component {
         }
         else if (this.props.parentSign.parentADD){
             this.props.refreshState()
-            var alertInterval = setInterval(function() {
-                alert("New teacher account has been add");
-              }, 1000); 
-              // display alert every second
-              setTimeout(function() {
-                clearInterval(alertInterval); // stop displaying alerts
-              }, 1000); 
-            return(
-                <div className="container">
-                <div className="row">
-                    <h4> parent account has been add</h4>
-                </div>
-            </div>
-            )
+            toast.success("New parent account has been add")
+           
         }
         else{
         return(

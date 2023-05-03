@@ -5,6 +5,7 @@ import ClassRoomList from './classroomListP';
 import ChildSignup from './chiledSignup';
 import {Loading} from "./loadingComponent"
 import ChildList  from "./childListComponent"
+import { toast } from "react-toastify";
 
 const green = '#3bb19b';
 const yellow ='#f1d21c';
@@ -108,7 +109,8 @@ const ParentView= (props)=>{
                         }
                        {props.childFlag.childADD ?(
                             props.refreshState(),
-                            alert("ልጅዎ ተመዝግቧል ትሙርትበቱ ከተቀበለዎት በ EMAIL መልዕክት ይድርስዎታል። እባክዎ EMAIL አካውንትዎን ይከታተሉ በክርቡ ከትምህርት ቤቱ መልክት የደርስዎታል")
+                            toast.success("ልጅዎ ተመዝግቧል ትሙርትበቱ ከተቀበለዎት በ EMAIL መልዕክት ይድርስዎታል። እባክዎ EMAIL አካውንትዎን ይከታተሉ በክርቡ ከትምህርት ቤቱ መልክት የደርስዎታል")
+                            
                              )
                               : (console.log)
                         }

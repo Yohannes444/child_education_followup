@@ -3,6 +3,7 @@ import { Breadcrumb, BreadcrumbItem, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import WightList from './waitListView'
 import {Loading} from "./loadingComponent"
+import { toast } from "react-toastify";
 
 const green = '#3bb19b';
 const yellow ='#f1d21c';
@@ -65,7 +66,8 @@ const Cashier= (props)=>{
                         }
                        {props.toggleWightList.success ?(
                             props.refreshState(),
-                            alert("your opration has been done success fuly ")
+                            
+                            toast.success("your opration has been done success fuly ")
                              )
                               : (console.log)
                         }
