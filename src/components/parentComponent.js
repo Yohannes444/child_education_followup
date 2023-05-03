@@ -15,6 +15,9 @@ const ParentView= (props)=>{
    const [selectedClassRoom,setSelectedClassRoom]=useState()
    const [regstering, setregstering] = useState(false);
    const [isChildsClicked, setIsChildsClicked] = useState(false)
+   const [child,setChild] = useState()
+   const [ischildSelected,setIschildSelected] = useState(false)
+   
 
    
     const handleToggleAccount = () => {
@@ -28,12 +31,20 @@ const ParentView= (props)=>{
         setIsChildsClicked(!isChildsClicked)
         setregstering(false)
       }
+      const handlSelectChild =(child)=>{
+        setIsChildsClicked(false)
+        props.childInfo(child)
+        setIschildSelected(!ischildSelected)
+        console.log(child)
+        props.fetchChildInfo(child._id)
+      }
+      
         return(
             <div>
                 <div className="row">
                     <Breadcrumb>
-                        <BreadcrumbItem  ><Link to='/home'>Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>paretnView</BreadcrumbItem>
+                        <BreadcrumbItem  ><Link to='/home'>ዋና ገጽ</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>የአሳዳጊ ገጽ</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12">
                         <h3>አሳዳጊ ግጽ</h3>
@@ -59,7 +70,7 @@ const ParentView= (props)=>{
                                 />
                         ) 
                         : 
-                        (console.log(classRoo))
+                        (console.log(''))
                     }
                     
                         {props.childFlag.isLoading ?
@@ -105,9 +116,9 @@ const ParentView= (props)=>{
                         (<ChildSignup refreshState={props.refreshState} childSignup={props.childSignup} childFlag={props.childFlag} classRoom={selectedClassRoom}/>)
                         :
                         (console.log)}
-                    {isChildsClicked? <ChildList childStore={props.childStore} /> :console.log("")}
+                    {isChildsClicked? <ChildList  handlChildView={handlSelectChild} setIsChildsClicked={setIsChildsClicked}  childStore={props.childStore} /> :console.log("")}
+                    {console.log(child,ischildSelected)}
                     
-
                                 
             </div>
         )

@@ -17,6 +17,7 @@ const Teacher = (props) => {
   const [attendaceIsOpen,setattendaceIsOpen]=useState(false)
   const [isUploadingAssignment,setisUploadingAssignment] =useState(false)
   const [greadIsClicked,setgreadIsClicked] = useState(false)
+
     const handleToggleAccount = (classInfo) => {
       setClassView(!classView)
       setIsUploeading(false)
@@ -205,7 +206,6 @@ else if (props.uploadGreedState.success){
                           <td>{classRooms.clasSize}</td>
                           <td>
                             <Button onClick={() =>{
-                              console.log(classRooms)
                               return handleToggleAccount(classRooms)}}>
                               view class room
                             </Button>

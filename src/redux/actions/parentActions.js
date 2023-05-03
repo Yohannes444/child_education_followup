@@ -141,3 +141,56 @@ export const ChildrenLodingFaild = (masseg) =>{
         masseg
     }
 }
+
+export const fetchChildInfo = (studentId) => (dispatch)=>{
+    dispatch(fetchChildInfoRequest())
+    const data = new FormData()
+    data.append("studentId", studentId)
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.get(baseUrl + 'grade/child', {headers: { 
+        'Authorization': bearer,
+        
+        },
+        params: {
+          studentId: studentId
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(child => dispatch(fetchChildInfoSucess(child)))
+    .catch(error => dispatch(ChildInfoLodingFaild(error.message)));
+}
+
+export const  fetchChildInfoRequest = ()=>{
+    return {
+        type:ActionTypes.FETCH_CHILDINFO_REQUEST
+    }
+}
+
+export const fetchChildInfoSucess = (child) =>{
+    return{
+        type:ActionTypes.FETCH_CHILDINFO_SUCCESS,
+        payload:child
+    }
+}
+
+export const ChildInfoLodingFaild = (masseg) =>{
+    return{
+        type:ActionTypes.FETCH_CHILDINFO_FAILD,
+        masseg
+    }
+}

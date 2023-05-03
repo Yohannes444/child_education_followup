@@ -58,7 +58,7 @@ const User = (props) => {
         return(
           <div className='container'>
           
-          <ParentView childStore={props.childStore} refreshState={props.refreshState} ClassRooms={props.ClassRooms} childSignup={props.childSignup} childFlag={props.childFlag} />
+          <ParentView childInfo={props.childInfo} fetchChildInfo={props.fetchChildInfo} childStore={props.childStore} refreshState={props.refreshState} ClassRooms={props.ClassRooms} childSignup={props.childSignup} childFlag={props.childFlag} />
           </div>
           );
       } else {

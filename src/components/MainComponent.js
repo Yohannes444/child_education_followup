@@ -15,12 +15,13 @@ import About from './AboutComponent'
 import { actions } from 'react-redux-form';
 import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState} from '../redux/ActionCreaters';
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount} from '../redux/actions/adminActions'
-import { postStudent,parentFetchClassRoom, fetchChildrens} from '../redux/actions/parentActions';
+import { postStudent,parentFetchClassRoom, fetchChildrens, fetchChildInfo} from '../redux/actions/parentActions';
 import { wightListsToggler,fetchWithList } from '../redux/actions/cashierAction';
 import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance, uploadAssignment, handleSubmitGreed} from '../redux/actions/teacherActions'
 import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group'
 import CashierDashboard from './cashierDashbord'
 import TeacherDashboard from './teacherDashbord'
+import ChildView from "./childView"
 
 
 
@@ -43,10 +44,13 @@ const mapStateToProps = state => {
     attendanceState:state.attendanceState,
     assignmentState:state.assignmentState,
     uploadGreedState:state.uploadGreedState,
-    childStore:state.childLists
+    childStore:state.childLists,
+    childInfo:''
   }
   
 }
+
+
 
 const mapDispatchToProps  = (dispatch) => ({
   
@@ -73,11 +77,23 @@ const mapDispatchToProps  = (dispatch) => ({
   handleAttendanceSubmit:(data)=>dispatch(submitAttendance(data)),
   uploadAssignment:(data)=>dispatch(uploadAssignment(data)),
   handleSubmitGreed:(data)=>dispatch(handleSubmitGreed(data)),
-  fetchChildrens:() =>dispatch(fetchChildrens())
+  fetchChildrens:() =>dispatch(fetchChildrens()),
+  fetchChildInfo:(studentId)=>dispatch(fetchChildInfo(studentId))
 
 });
 
 class  Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      childInfo: '',
+    };
+    this.setChildInfo = this.setChildInfo.bind(this);
+  }
+  setChildInfo(value) {
+    this.setState({
+      childInfo: value,
+    })};
   
 componentDidMount(){
   this.props.fetchuser()
@@ -105,15 +121,15 @@ console.log(this.props.user)
           <TransitionGroup>
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
          <Switch>
-            <Route path= '/parentPage' component ={()=><ChildSignup  childFlag={this.props.childFlag} childSignup={this.props.childSignup} />}/>
+            <Route path= '/parentPage' component ={()=>this.props.auth.isAuthenticated ? <ChildSignup  childFlag={this.props.childFlag} childSignup={this.props.childSignup} />:<HOME   user={this.props.user}/>}/>
             <Route exact path='/contactus' component={()=><Contact resetFeedbackForm={this.props.resetFeedbackForm}/>  }/>
             <Route path='/signup' component={()=> <Signup  parentSign={this.props.parent} parentSignup={this.props.parentSignup} refreshState={this.props.refreshState}/>} />
-            <Route path= '/signupCashier' component={()=><SignupCash cashierSignup={this.props.cashierSignup} cashierSign={this.props.cashierSign} refreshState={this.props.refreshState}/>}/>
-            <Route path='/signupTeacher' component={()=> <SignupTeach teacherSignup={this.props.teacherSignup} teacherSign={this.props.teacherSign} refreshState={this.props.refreshState}/>}/>
-            <Route path='/creatClassRoom' component={()=><CreatClassroom fetchTeacher={this.props.fetchTeacher} teachers={this.props.teachers.teachers} classRoom={this.props.classRoom} creatClassroom={this.props.creatClassroom} refreshState={this.props.refreshState} />}/>
-            <Route path= '/cashierDashbord' component={()=><CashierDashboard  cashiers={this.props.cashiers} activeToggler={this.props.toggleCashierAccount}/>}/>
-            <Route path= '/teacherDashbord' component = {()=><TeacherDashboard  teachers={this.props.teachers} activeToggler = {this.props.toggleTeacherAccount}/>}/>
-
+            <Route path= '/signupCashier' component={()=>this.props.auth.isAuthenticated ? <SignupCash cashierSignup={this.props.cashierSignup} cashierSign={this.props.cashierSign} refreshState={this.props.refreshState}/>:<HOME   user={this.props.user}/>}/>
+            <Route path='/signupTeacher' component={()=>this.props.auth.isAuthenticated ?  <SignupTeach teacherSignup={this.props.teacherSignup} teacherSign={this.props.teacherSign} refreshState={this.props.refreshState}/>:<HOME   user={this.props.user}/>}/>
+            <Route path='/creatClassRoom' component={()=>this.props.auth.isAuthenticated ? <CreatClassroom fetchTeacher={this.props.fetchTeacher} teachers={this.props.teachers.teachers} classRoom={this.props.classRoom} creatClassroom={this.props.creatClassroom} refreshState={this.props.refreshState} />:<HOME   user={this.props.user}/>}/>
+            <Route path= '/cashierDashbord' component={()=>this.props.auth.isAuthenticated ? <CashierDashboard  cashiers={this.props.cashiers} activeToggler={this.props.toggleCashierAccount}/>:<HOME   user={this.props.user}/>}/>
+            <Route path= '/teacherDashbord' component = {()=>this.props.auth.isAuthenticated ? <TeacherDashboard  teachers={this.props.teachers} activeToggler = {this.props.toggleTeacherAccount}/>:<HOME   user={this.props.user}/>}/>
+            <Route path= '/childInfo' component={()=>this.props.auth.isAuthenticated ? <ChildView student={this.state.childInfo}  childStore={this.props.childStore} />:<HOME   user={this.props.user}/>}/>
             <Route path="/aboutus" component={()=> <About/>}/>
             <Route path='/home' auth={this.props.auth}   
               component={()=>this.props.auth.isAuthenticated ?  
@@ -134,7 +150,9 @@ console.log(this.props.user)
                       assignmentState={this.props.assignmentState}
                       handleSubmitGreed={this.props.handleSubmitGreed}
                       uploadGreedState={this.props.uploadGreedState}  
-                      childStore={this.props.childStore}                
+                      childStore={this.props.childStore}    
+                      fetchChildInfo={this.props.fetchChildInfo}   
+                      childInfo={this.setChildInfo}
                 /> 
                 :
                 <HOME   user={this.props.user}/>} 
