@@ -17,14 +17,14 @@ root.render(
     <React.Fragment>
     <ToastContainer
         position="top-center"
-        autoClose={3000}
+        autoClose={5000}
         hideProgressBar={true}
         newestOnTop={true}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
-        draggable
-        pauseOnHover
+        draggable={true}
+        pauseOnHover={true}
         style={{ width: "100%", maxWidth: "500px", margin: "auto" }}
         toastStyle={{ background: "#333", color: "#fff", borderRadius: "4px" }}
       />

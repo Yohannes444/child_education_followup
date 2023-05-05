@@ -20,7 +20,8 @@ import { uploadReducer } from './reducers/uploadReducer';
 import { attendanceReducer } from './reducers/attendanceReducer';
 import { uploadAssignmentReducer } from './reducers/uploadAssignment'
 import { uploadGreedReducer } from './reducers/uploadGreed'
-import { childListLoader } from './reducers/studentStateStor';
+import { childListLoader } from './reducers/studentStateStor'
+import { childInfoLoader } from './reducers/childInfoReducer';
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -43,6 +44,7 @@ export const ConfigureStore = () => {
             assignmentState:uploadAssignmentReducer,
             uploadGreedState:uploadGreedReducer,
             childLists:childListLoader,
+            childInfo:childInfoLoader,
             ...createForms({
                 feedback: InitialFeedback
             })

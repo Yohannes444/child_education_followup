@@ -34,32 +34,6 @@ export const childListLoader = (state = {
                 fetchSuccess:false
                 
             };
-        case ActionTypes.FETCH_CHILDINFO_FAILD:
-            return{...state,
-                isLoading:false,
-                childList:[],
-                loadChild:false,
-                err:action.payload,
-                fetchSuccess:false
-            }
-        case ActionTypes.FETCH_CHILDINFO_SUCCESS:
-            var childList = action.payload;
-            return{...state,
-                isLoading:false,
-                childList:state.childLists.concat(childList),
-                loadChild:false,
-                errMess:'',
-                fetchSuccess:true
-            }
-        case ActionTypes.FETCH_CHILDINFO_REQUEST:
-            return{...state,
-                isLoading:true,
-                childList:[],
-                loadChild:false,
-                errMess:'',
-                fetchSuccess:false
-            }
-            
         
         default:
             return state

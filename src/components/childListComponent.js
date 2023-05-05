@@ -11,10 +11,8 @@ const yellow ='#f1d21c';
 const black = '#000000';
 
 const ParentView= (props)=>{
-        var newr
    const handlSelectChild = (student) =>{
-     props.handlChildView(student)
-     
+     props.handlChildView(student)     
    }
 
       if(props.childStore.isLoading){

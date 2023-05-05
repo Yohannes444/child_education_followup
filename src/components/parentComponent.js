@@ -20,7 +20,6 @@ const ParentView= (props)=>{
    const [ischildSelected,setIschildSelected] = useState(false)
    
 
-   
     const handleToggleAccount = () => {
         setClassRoo(!classRoo);
         setSelectedClassRoom('')

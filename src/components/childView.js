@@ -1,19 +1,49 @@
 import React, { Component, useState } from 'react';
 import {Table, Card, CardImg, CardImgOverlay, CardText, CardBody,CardSubtitle,
-    CardTitle, CardHeader, Button, Row, Col ,Breadcrumb, BreadcrumbItem, Modal, ModalBody, ModalHeader} from 'reactstrap';
+    CardTitle, CardHeader, Button, Row ,Breadcrumb, BreadcrumbItem, Col, ButtonGroup} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/beasURL';
-import {FadeTransform, Fade, Stagger } from "react-animation-components"
 import {Loading} from "./loadingComponent"
-
+import { motion } from 'framer-motion';
+import { useSpring, animated } from 'react-spring';
+import MaterialTable from 'material-table';
+import { makeStyles } from '@material-ui/core/styles';
+import './ClassRoomView.css';
 const green = '#3bb19b';
 const yellow ='#f1d21c';
 const black = '#000000';
 
 const ParentView= (props)=>{
 
-    const hasData = props.childStore.childList && props.childStore.childList.length > 0;
+    const columns = [
+        { title: 'quiz', field: 'quiz' },
+        { title: 'midExam', field: 'midExam' },
+        { title: 'assessment', field: 'assessment' },
+        { title: 'finalExam', field: 'finalExam' },
+      ];
 
+      {console.log(props.childStore.childInfo)}
+      
+      const data = props.childStore.childInfo.map((student) => ({
+        quiz: student.quiz,
+        midExam: student.midExam,
+        assessment: student.assessment,
+        finalExam: student.finalExam,
+      }));
+      
+    const handleMatrialClicked = (student)=>{
+        props.fetchMaterial(student._id)
+        
+    }
+    const handlAssignmentClicked =(student)=>{
+        props.fetchAssignment(student._id)
+    }
+    const fadeIn = useSpring({
+        from: { opacity: 0 },
+        to: { opacity: 1 },
+        config: { duration: 2000 },
+      });
+  
       if(props.childStore.isLoading){
         return(
         
@@ -53,41 +83,55 @@ const ParentView= (props)=>{
                     <BreadcrumbItem active>የልጅ ጅጽ </BreadcrumbItem>
                 </Breadcrumb>
             <h2>Student Details this is from child view components</h2>
-            <Row>
-            <FadeTransform in 
-                        transformProps={{
-                            exitTransform: 'scale(0.5) translateY(-50%)'
-                        }}>
-
-            
-                {console.log(props.student)}
-                {props.student ?  (
-                <Col sm={6} md={4} key={props.student._id}>
-                   <Card>
-                        <CardImg top width="100%" src={baseUrl+props.student.photo} alt={`${props.student.firstName} ${props.student.lastName}`} />
-                        <CardBody>
-                        <CardTitle>{props.student.firstName} {props.student.lastName}</CardTitle>
-                        <CardSubtitle>SectionId: {props.student.section}</CardSubtitle>
-                        </CardBody>
-                    </Card>
-                </Col>
-                ):(<h4 className="class-room-view">የተመዘገበ ልጅ የልዎትም</h4>)}
-            
-            </FadeTransform>
-            <Button>Materials</Button>
-            <Button>ASSIGNMENT</Button>
-            <Table bordered>
-                <thead>
+            <div>
+        <Row>
+            <Col sm={4}>
+            <animated.div style={fadeIn}>
+                <Card style={{ boxShadow: "0 4px 18px 0 rgba(0,0,0,0.8)" }}>
+                <motion.img
+                    top
+                    width="100%"
+                    src={baseUrl + props.student.photo}
+                    alt={`${props.student.firstName} ${props.student.lastName}`}
+                    initial={{ scale: 0.5, y: 50 }}
+                    animate={{ scale: 1, y: 0 }}
+                    transition={{ duration: 1, type: 'spring', stiffness: 100 }}
+                    />
+                    <CardBody>
+                    <CardTitle>{props.student.firstName} {props.student.lastName}</CardTitle>
+                    <CardSubtitle>SectionId: {props.student.section}</CardSubtitle>
+                    </CardBody>
+                </Card>
+                </animated.div>
+            </Col>
+            <Col sm={8}>
+            <div className="d-flex justify-content-end mb-2">
+                <Link outline 
+                     color="success" className="mr-2"
+                    onClick={()=>handleMatrialClicked(props.student)}
+                    style={{backgroundColor: yellow}} to='/childInfor/materials'>
+                    <span  className="btn  "></span> የትምህርት ግብአቶች
+                </Link>
+                <Link outline 
+                     color="success" className="mr-2"
+                    onClick={()=>handlAssignmentClicked(props.student)}
+                    style={{backgroundColor: yellow}} to='/childInfor/assignemt'>
+                    <span  className="btn  "></span> የቤት ስራወች
+                </Link>
+        
+            </div>
+          
+              {/*   <Table border>
+                    <thead>
                     <tr>
-                    <th>quiz</th>
-                    <th>midExam</th>
-                    <th>assessment</th>
-                    <th>finalExam</th>
+                        <th>quiz</th>
+                        <th>midExam</th>
+                        <th>assessment</th>
+                        <th>finalExam</th>
                     </tr>
-                </thead>
-                <tbody>
-                    {hasData &&
-                    props.childStore.childList.map((student) => (
+                    </thead>
+                    <tbody>
+                    {props.childStore.childList.map((student) => (
                         <tr key={student._id}>
                         <td>{student.quiz}</td>
                         <td>{student.midExam}</td>
@@ -95,9 +139,19 @@ const ParentView= (props)=>{
                         <td>{student.finalExam}</td>
                         </tr>
                     ))}
-                </tbody>
-            </Table>
-            </Row>
+                    </tbody>
+                </Table>  */}
+
+                
+
+
+<MaterialTable title="Student Progress" columns={columns} data={data} />;
+            
+            </Col>
+        </Row>
+        
+        
+        </div>
             </div>
         )}
     }

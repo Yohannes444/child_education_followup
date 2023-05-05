@@ -144,8 +144,6 @@ export const ChildrenLodingFaild = (masseg) =>{
 
 export const fetchChildInfo = (studentId) => (dispatch)=>{
     dispatch(fetchChildInfoRequest())
-    const data = new FormData()
-    data.append("studentId", studentId)
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
     axios.get(baseUrl + 'grade/child', {headers: { 
@@ -191,6 +189,110 @@ export const fetchChildInfoSucess = (child) =>{
 export const ChildInfoLodingFaild = (masseg) =>{
     return{
         type:ActionTypes.FETCH_CHILDINFO_FAILD,
+        masseg
+    }
+}
+
+
+export const fetchMaterial = (studentId) => (dispatch)=>{
+    dispatch(fetchMaterialRequest())
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.get(baseUrl + 'classMatrial', {headers: { 
+        'Authorization': bearer,
+        
+        },
+        params: {
+          studentId: studentId
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(material => dispatch(fetchMaterialSucess(material)))
+    .catch(error => dispatch(MaterialLodingFaild(error.message)));
+}
+
+export const  fetchMaterialRequest = ()=>{
+    return {
+        type:ActionTypes.FETCH_MATERIAL_REQUEST
+    }
+}
+
+export const fetchMaterialSucess = (material) =>{
+    return{
+        type:ActionTypes.FETCH_MATERIAL_SUCCESS,
+        payload:material
+    }
+}
+
+export const MaterialLodingFaild = (masseg) =>{
+    return{
+        type:ActionTypes.FETCH_MATERIAL_FAILD,
+        masseg
+    }
+}
+
+
+export const fetchAssignment = (studentId) => (dispatch)=>{
+    dispatch(fetchAssignmentRequest())
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.get(baseUrl + 'Assignment', {headers: { 
+        'Authorization': bearer,
+        
+        },
+        params: {
+          studentId: studentId
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(assignment => dispatch(fetchAssignmentSucess(assignment)))
+    .catch(error => dispatch(AssignmentLodingFaild(error.message)));
+}
+
+export const  fetchAssignmentRequest = ()=>{
+    return {
+        type:ActionTypes.FETCH_ASSIGNMENT_REQUEST
+    }
+}
+
+export const fetchAssignmentSucess = (assignment) =>{
+    return{
+        type:ActionTypes.FETCH_ASSIGNMENT_SUCCESS,
+        payload:assignment
+    }
+}
+
+export const AssignmentLodingFaild = (masseg) =>{
+    return{
+        type:ActionTypes.FETCH_ASSIGNMENT_FAILD,
         masseg
     }
 }
