@@ -108,7 +108,7 @@ const ParentView= (props)=>{
                         }
                        {props.childFlag.childADD ?(
                             props.refreshState(),
-                            toast.success("ልጅዎ ተመዝግቧል ትሙርትበቱ ከተቀበለዎት በ EMAIL መልዕክት ይድርስዎታል። እባክዎ EMAIL አካውንትዎን ይከታተሉ በክርቡ ከትምህርት ቤቱ መልክት የደርስዎታል")
+                            toast.success("ልጅዎ ተመዝግቧል ትሙርትበቱ ከተቀበለዎት በ EMAIL መልዕክት ይድርስዎታል። እባክዎ EMAIL አካውንትዎን ይከታተሉ በቅርቡ ከትምህርት ቤቱ መልክት የደርስዎታል")
                             
                              )
                               : (console.log)

@@ -296,3 +296,55 @@ export const AssignmentLodingFaild = (masseg) =>{
         masseg
     }
 }
+
+
+
+export const postMonthlyFee = (Receipt)=> (dispatch)=>{
+    dispatch(submitMonthlyFeeRequest())
+    const data = new FormData()
+    data.append("file",Receipt)
+
+    const token = `Bearer ${localStorage.getItem('token')}`;
+    try {
+       axios.post(baseUrl +'monthlyFee', data,{
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+      .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    })
+    .then(response => response.data)
+    .then(material =>dispatch( submitMonthlyFeeSuccess(material)));
+
+    } catch (error) {
+      dispatch(submitMonthlyFeeFaild(error));
+    }
+  };
+
+
+  export const submitMonthlyFeeRequest = ()=>{
+    return{
+        type:ActionTypes.SUBMIT_RECEIPT_REQUEST
+    }
+  }
+  export const submitMonthlyFeeSuccess =(material)=>{
+    return{
+        type: ActionTypes.SUBMIT_RECEIPT_SUCCESS,
+        payload:material.data
+    }
+  }
+  export const submitMonthlyFeeFaild =(messag)=>{
+    return{
+        type:ActionTypes.SUBMIT_RECEIPT_FAILURE,
+        messag
+    }
+  }

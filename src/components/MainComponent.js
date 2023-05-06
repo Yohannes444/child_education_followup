@@ -15,7 +15,7 @@ import About from './AboutComponent'
 import { actions } from 'react-redux-form';
 import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState} from '../redux/ActionCreaters';
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount} from '../redux/actions/adminActions'
-import { postStudent,parentFetchClassRoom, fetchChildrens, fetchChildInfo, fetchMaterial, fetchAssignment} from '../redux/actions/parentActions';
+import { postStudent,parentFetchClassRoom, fetchChildrens, fetchChildInfo, fetchMaterial, fetchAssignment, postMonthlyFee} from '../redux/actions/parentActions';
 import { wightListsToggler,fetchWithList } from '../redux/actions/cashierAction';
 import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance, uploadAssignment, handleSubmitGreed} from '../redux/actions/teacherActions'
 import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group'
@@ -47,6 +47,7 @@ const mapStateToProps = state => {
     uploadGreedState:state.uploadGreedState,
     childStore:state.childLists,
     childInfor:state.childInfo,
+    paymentState:state.paymentState,
     childInfo:''
   }
   
@@ -82,7 +83,8 @@ const mapDispatchToProps  = (dispatch) => ({
   fetchChildrens:() =>dispatch(fetchChildrens()),
   fetchChildInfo:(studentId)=>dispatch(fetchChildInfo(studentId)),
   fetchMaterial:(studentId)=>dispatch(fetchMaterial(studentId)),
-  fetchAssignment:(studendtId)=>dispatch(fetchAssignment(studendtId))
+  fetchAssignment:(studendtId)=>dispatch(fetchAssignment(studendtId)),
+  postMonthlyFee:(recept)=>dispatch(postMonthlyFee(recept))
 
 });
 
@@ -133,7 +135,7 @@ console.log(this.props.user)
             <Route path='/creatClassRoom' component={()=>this.props.auth.isAuthenticated ? <CreatClassroom fetchTeacher={this.props.fetchTeacher} teachers={this.props.teachers.teachers} classRoom={this.props.classRoom} creatClassroom={this.props.creatClassroom} refreshState={this.props.refreshState} />:<HOME   user={this.props.user}/>}/>
             <Route path= '/cashierDashbord' component={()=>this.props.auth.isAuthenticated ? <CashierDashboard  cashiers={this.props.cashiers} activeToggler={this.props.toggleCashierAccount}/>:<HOME   user={this.props.user}/>}/>
             <Route path= '/teacherDashbord' component = {()=>this.props.auth.isAuthenticated ? <TeacherDashboard  teachers={this.props.teachers} activeToggler = {this.props.toggleTeacherAccount}/>:<HOME   user={this.props.user}/>}/>
-            <Route path= '/childInfo' component={()=>this.props.auth.isAuthenticated ? <ChildView fetchAssignment={this.props.fetchAssignment} fetchMaterial={this.props.fetchMaterial} student={this.state.childInfo}  childStore={this.props.childInfor} />:<HOME   user={this.props.user}/>}/>
+            <Route path= '/childInfo' component={()=>this.props.auth.isAuthenticated ? <ChildView paymentState={this.props.paymentState} postMonthlyFee={this.props.postMonthlyFee} fetchAssignment={this.props.fetchAssignment} fetchMaterial={this.props.fetchMaterial} student={this.state.childInfo}  childStore={this.props.childInfor} refreshState={this.props.refreshState} />:<HOME   user={this.props.user}/>}/>
             <Route path= '/childInfor/materials' component={()=>this.props.auth.isAuthenticated ? <MaterialList  uploadState={this.props.uploadState} student={this.state.childInfo} /> :<HOME   user={this.props.user}  />}/>
             <Route path= '/childInfor/assignemt' component={()=>this.props.auth.isAuthenticated ? <AssignmentView assignmentState={this.props.assignmentState} student={this.state.childInfo} /> :<HOME user={this.props.user} />}  />
             <Route path="/aboutus" component={()=> <About/>}/>

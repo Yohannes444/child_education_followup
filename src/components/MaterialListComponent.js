@@ -10,9 +10,6 @@ import Modal from 'react-modal';
 import { IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-const green = '#3bb19b';
-const yellow ='#f1d21c';
-const black = '#000000';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -130,7 +127,7 @@ const MaterialListView= (props)=>{
                 shouldCloseOnOverlayClick={true}
                 >
                 <div className={classes.closeButton}>
-                    <IconButton onClick={() => setIsModalOpen(false)}>
+                    <IconButton  style={{ backgroundColor: 'rgb(255, 0, 0)' }} onClick={() => setIsModalOpen(false)}>
                     <CloseIcon />
                     </IconButton>
                 </div>

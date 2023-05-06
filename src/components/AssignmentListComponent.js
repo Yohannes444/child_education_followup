@@ -7,6 +7,8 @@ import {Loading} from "./loadingComponent"
 import MaterialTable from 'material-table';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from 'react-modal';
+import { IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 
 const green = '#3bb19b';
 const yellow ='#f1d21c';
@@ -127,6 +129,11 @@ const AssignmetnView= (props)=>{
                 className={classes.modal}
                 ariaHideApp={false}
             >
+                 <div className={classes.closeButton}>
+                    <IconButton  style={{ backgroundColor: 'rgb(255, 0, 0)' }} onClick={() => setIsModalOpen(false)}>
+                    <CloseIcon />
+                    </IconButton>
+                </div>
                 {selectedFile && (
                 <div className={classes.paper}>
                     {selectedFile.endsWith('.pdf') && (

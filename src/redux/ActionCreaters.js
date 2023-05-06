@@ -471,6 +471,11 @@ export const resetClassroomState = () => {
         type:ActionTypes.SUBMIT_GREED_FAILURE
     }
   }
+  export const resetMonthlyFeeState =()=>{
+    return{
+        type:ActionTypes.SUBMIT_RECEIPT_FAILURE,
+    }
+  }
   export const refreshState = () => {
     return dispatch => {
       dispatch(resetClassroomState());
@@ -484,6 +489,7 @@ export const resetClassroomState = () => {
       dispatch(resetAttendanceState())
       dispatch(resetASSIGNMENTState())
       dispatch(resetGreedState())
+      dispatch(resetMonthlyFeeState())
     };
   };
 

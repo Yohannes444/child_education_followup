@@ -22,6 +22,7 @@ import { uploadAssignmentReducer } from './reducers/uploadAssignment'
 import { uploadGreedReducer } from './reducers/uploadGreed'
 import { childListLoader } from './reducers/studentStateStor'
 import { childInfoLoader } from './reducers/childInfoReducer';
+import { uploadReceiptStore } from './reducers/uploadReceiptStore'
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -45,6 +46,7 @@ export const ConfigureStore = () => {
             uploadGreedState:uploadGreedReducer,
             childLists:childListLoader,
             childInfo:childInfoLoader,
+            paymentState:uploadReceiptStore,
             ...createForms({
                 feedback: InitialFeedback
             })
