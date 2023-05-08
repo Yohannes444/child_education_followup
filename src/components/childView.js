@@ -38,8 +38,11 @@ const ParentView= (props)=>{
     
       const handleSubmit = () => {
         // Handle submission logic here
-        props.postMonthlyFee(file)
-        console.log('File:', file);
+        const studentId=props.student._id
+        const receipt=file
+        const date= new Date()
+        const info={studentId,receipt,date}
+        props.postMonthlyFee(info)
         toggleModal();
       };
       

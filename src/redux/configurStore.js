@@ -23,6 +23,8 @@ import { uploadGreedReducer } from './reducers/uploadGreed'
 import { childListLoader } from './reducers/studentStateStor'
 import { childInfoLoader } from './reducers/childInfoReducer';
 import { uploadReceiptStore } from './reducers/uploadReceiptStore'
+import { MonthlyFeeListReducer } from './reducers/monthlyFeeListReducer';
+import { getMonthlyFeeState } from './reducers/togleMonthlyFeeReducer';
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -47,6 +49,8 @@ export const ConfigureStore = () => {
             childLists:childListLoader,
             childInfo:childInfoLoader,
             paymentState:uploadReceiptStore,
+            MonthlyFeeList:MonthlyFeeListReducer,
+            getMonthlyFeeState:getMonthlyFeeState,
             ...createForms({
                 feedback: InitialFeedback
             })

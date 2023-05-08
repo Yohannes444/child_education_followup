@@ -301,9 +301,12 @@ export const AssignmentLodingFaild = (masseg) =>{
 
 export const postMonthlyFee = (Receipt)=> (dispatch)=>{
     dispatch(submitMonthlyFeeRequest())
-    const data = new FormData()
-    data.append("file",Receipt)
+    const data = new FormData();
+    data.append("file",Receipt.receipt)
+    data.append("studentId",Receipt.studentId)
+    data.append("date",Receipt.date)
 
+    console.log(data)
     const token = `Bearer ${localStorage.getItem('token')}`;
     try {
        axios.post(baseUrl +'monthlyFee', data,{

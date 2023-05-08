@@ -24,12 +24,14 @@ const ParentView= (props)=>{
         setClassRoo(!classRoo);
         setSelectedClassRoom('')
         setregstering(false)
+        setIsChildsClicked(false)
       }
       const handlChildButtonClick = () =>{
         setSelectedClassRoom('')
         setClassRoo(false);
         setIsChildsClicked(!isChildsClicked)
         setregstering(false)
+        setClassRoo(false)
       }
       const handlSelectChild =(child)=>{
         setIsChildsClicked(false)
@@ -37,6 +39,7 @@ const ParentView= (props)=>{
         setIschildSelected(!ischildSelected)
         console.log(child)
         props.fetchChildInfo(child._id)
+        setClassRoo(false)
       }
       
         return(

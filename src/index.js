@@ -17,7 +17,7 @@ root.render(
     <React.Fragment>
     <ToastContainer
         position="top-center"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={true}
         newestOnTop={true}
         closeOnClick

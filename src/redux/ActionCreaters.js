@@ -3,7 +3,7 @@ import { baseUrl } from '../shared/beasURL'
 import { fetchCashier, fetchTeacher } from './actions/adminActions';
 import { parentFetchClassRoom ,fetchChildrens} from './actions/parentActions';
 import { fetchTeacherClassRoom } from './actions/teacherActions';
-import {fetchWithList} from './actions/cashierAction'
+import {fetchWithList,fetchMonthlyFeeListes} from './actions/cashierAction'
 
 export const requestLogin = (creds) => {
     return {
@@ -68,6 +68,7 @@ export const loginUser = (creds) => (dispatch) => {
             dispatch(fetchTeacherClassRoom())
             dispatch(fetchWithList())
             dispatch(fetchChildrens())
+            dispatch(fetchMonthlyFeeListes())
 
 
         }
@@ -476,6 +477,11 @@ export const resetClassroomState = () => {
         type:ActionTypes.SUBMIT_RECEIPT_FAILURE,
     }
   }
+  export const resetMonthlyFeeTogglerState =()=>{
+    return{
+        type:ActionTypes.TOGGLEL_MONTHLY_FEE_LIST_REQUEST_FAILD,
+    }
+  }
   export const refreshState = () => {
     return dispatch => {
       dispatch(resetClassroomState());
@@ -490,6 +496,7 @@ export const resetClassroomState = () => {
       dispatch(resetASSIGNMENTState())
       dispatch(resetGreedState())
       dispatch(resetMonthlyFeeState())
+      dispatch(resetMonthlyFeeTogglerState())
     };
   };
 
