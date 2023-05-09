@@ -25,6 +25,7 @@ import { childInfoLoader } from './reducers/childInfoReducer';
 import { uploadReceiptStore } from './reducers/uploadReceiptStore'
 import { MonthlyFeeListReducer } from './reducers/monthlyFeeListReducer';
 import { getMonthlyFeeState } from './reducers/togleMonthlyFeeReducer';
+import { classRoomListLoader } from './reducers/classRoomListReducer';
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -51,6 +52,7 @@ export const ConfigureStore = () => {
             paymentState:uploadReceiptStore,
             MonthlyFeeList:MonthlyFeeListReducer,
             getMonthlyFeeState:getMonthlyFeeState,
+            classRoomList:classRoomListLoader,
             ...createForms({
                 feedback: InitialFeedback
             })

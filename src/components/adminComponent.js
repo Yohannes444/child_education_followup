@@ -1,18 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import {Button,Form, FormGroup, Input, Label } from 'reactstrap';
 import CashierDashboard from './cashierDashbord'
+import ClassRoomList from './classRoomDashBord'
 const green = '#3bb19b';
 const yellow ='#f1d21c';
 const black = '#000000';
 
-const handlcashierDashbord=(props)=>{
-    return(
-        <CashierDashboard cashiers={props.cashiers}/>
-    )
-}
 const  AdminView =(props)=> {
+   const  [isDashBordOpen,setIsDashBordOpen]= useState(true)
 
         return(
             <di>
@@ -52,7 +49,7 @@ const  AdminView =(props)=> {
                      <h3>userView</h3>
                         <hr />
                     </div>
-                
+                {isDashBordOpen? <ClassRoomList classRoomList={props.classRoomList} /> :console.log("")}
                 <p>this is from the admin component  </p>
             </di>
         )

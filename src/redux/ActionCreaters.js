@@ -216,7 +216,6 @@ export const fetchuser = () => {
   };
   
 export const userLoaded = (user) => {
-    console.log(user)
     return {
     type: ActionTypes.USER_LOADED,
     payload: user,

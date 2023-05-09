@@ -193,3 +193,50 @@ axios.put(baseUrl + `teacher/${id}/active`, null, {
         messag
     }
   }
+
+
+  
+  export const fetchClassRoomList =()=> (dispatch)=>{
+    dispatch(fetchClassRoomListRequest())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.get(baseUrl + 'classroom', {headers: { 
+        'Authorization': bearer
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(ClassRoomList => dispatch(fetchClassRoomListSucess(ClassRoomList)))
+    .catch(error => dispatch(ClassRoomListLodingFaild(error.message)));
+}
+
+export const fetchClassRoomListRequest =()=>{
+    return{
+        type:ActionTypes.FETCH_CLASS_ROOM_LIST_REQUIRE
+    }
+}
+export const fetchClassRoomListSucess =(ClassRoomList)=>{
+    return{
+        type:ActionTypes.FETCH_CLASS_ROOM_LIST_SUCCESS,
+        payload:ClassRoomList
+    }
+}
+export const ClassRoomListLodingFaild =(masseg)=>{
+    return{
+        type:ActionTypes.FETCH_CLASS_ROOM_LIST_FAILD,
+        payload: masseg.data
+    
+    }
+}

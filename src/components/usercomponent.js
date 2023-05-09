@@ -37,7 +37,7 @@ const User = (props) => {
         return (
           <div className='container'>
             
-          <AdminView  />
+          <AdminView classRoomList={props.classRoomList}  />
           </div>
           );
       } else if (props.user.user.teacher) {

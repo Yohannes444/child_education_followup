@@ -43,7 +43,7 @@ export const fetchWithListSucess =(WIGHTlISTS)=>{
 export const withListLodingFaild =(masseg)=>{
     return{
         type:ActionTypes.FETCH_WIGHT_LIST_FAILD,
-        payload: masseg.response.data.error,
+        payload: masseg,
     
     }
 }
@@ -137,7 +137,7 @@ export const fetchMonthlyFeeListesSucess =(MonthlyFeeList)=>{
 export const MonthlyFeeListesLodingFaild =(masseg)=>{
     return{
         type:ActionTypes.FETCH_MONTHLY_FEE_LIST_FAILD,
-        payload: masseg.data
+        payload: masseg
     
     }
 }
@@ -184,12 +184,12 @@ axios.put(baseUrl + 'monthlyFee', data, {
   export const toggleMonthlyFeeListSuccess =(MonthlyFeeList)=>{
     return{
         type:ActionTypes.TOGGLE_MONTHLY_FEE_LIST_SUCCESS,
-        payload:MonthlyFeeList.data
+        payload:MonthlyFeeList
     }
   }
   export const toggleMonthlyFeeListFaild =(messag)=>{
     return{
         type:ActionTypes.TOGGLEL_MONTHLY_FEE_LIST_REQUEST_FAILD,
-        payload: messag.data,
+        payload: messag,
     }
   }

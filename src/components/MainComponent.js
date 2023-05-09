@@ -14,7 +14,7 @@ import  {connect}  from 'react-redux';
 import About from './AboutComponent'
 import { actions } from 'react-redux-form';
 import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState} from '../redux/ActionCreaters';
-import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount} from '../redux/actions/adminActions'
+import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount, fetchClassRoomList} from '../redux/actions/adminActions'
 import { postStudent,parentFetchClassRoom, fetchChildrens, fetchChildInfo, fetchMaterial, fetchAssignment, postMonthlyFee} from '../redux/actions/parentActions';
 import { wightListsToggler,fetchWithList ,fetchMonthlyFeeListes ,MonthlyFeeListToggler } from '../redux/actions/cashierAction';
 import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance, uploadAssignment, handleSubmitGreed} from '../redux/actions/teacherActions'
@@ -24,6 +24,7 @@ import TeacherDashboard from './teacherDashbord'
 import ChildView from "./childView"
 import AssignmentView from "./AssignmentListComponent"
 import MaterialList from "./MaterialListComponent"
+
 
 
 const mapStateToProps = state => {
@@ -50,6 +51,7 @@ const mapStateToProps = state => {
     paymentState:state.paymentState,
     MonthlyFeeList:state.MonthlyFeeList,
     getMonthlyFeeState:state.getMonthlyFeeState,
+    classRoomList:state.classRoomList,
     childInfo:''
   }
   
@@ -88,7 +90,8 @@ const mapDispatchToProps  = (dispatch) => ({
   fetchAssignment:(studendtId)=>dispatch(fetchAssignment(studendtId)),
   postMonthlyFee:(recept)=>dispatch(postMonthlyFee(recept)),
   monthlyFeeListes:()=>dispatch(fetchMonthlyFeeListes()),
-  MonthlyFeeListToggler:(data)=>dispatch(MonthlyFeeListToggler(data))
+  MonthlyFeeListToggler:(data)=>dispatch(MonthlyFeeListToggler(data)),
+  fetchClassRoomList:()=>dispatch(fetchClassRoomList())
 
 });
 
@@ -114,6 +117,7 @@ componentDidMount(){
   this.props.fetchTeacherClassRoom()
   this.props.fetchChildrens()
   this.props.monthlyFeeListes()
+  this.props.fetchClassRoomList()
 }
 
   render(){
@@ -170,6 +174,7 @@ console.log(this.props.user)
                       MonthlyFeeListToggler={this.props.MonthlyFeeListToggler}
                       getMonthlyFeeState={this.props.getMonthlyFeeState}
                       fetchMonthlyFeeListes={this.props.monthlyFeeListes}
+                      classRoomList={this.props.classRoomList}
                 /> 
                 :
                 <HOME   user={this.props.user}/>} 
