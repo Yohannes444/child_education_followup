@@ -18,20 +18,43 @@ const ParentView= (props)=>{
     const toggleModal = () => setIsOpen(!isOpen);
     const [file, setFile] = useState(null);
 
+
+    const handleContactTeacherClick =()=>{
+
+    }
     const columns = [
+        {title:'የትምህርት አይነት',field:'subject'},
         { title: 'quiz', field: 'quiz' },
         { title: 'midExam', field: 'midExam' },
         { title: 'assessment', field: 'assessment' },
         { title: 'finalExam', field: 'finalExam' },
+        {
+            title: 'መምህሩን/መምህሯን ለማናገር',
+            field: 'contactTeacherbutton',
+            render: teacherId =>
+              <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() =>{
+                      return handleContactTeacherClick( teacherId)
+                  }}
+              >
+                  መምህሩን/መምህሯን ለማውራት
+              </Button>
+            
+            
+          },
       ];
-
-    
       const data = props.childStore.childInfo.map((student) => ({
+        subject:student.subject,
         quiz: student.quiz,
         midExam: student.midExam,
         assessment: student.assessment,
         finalExam: student.finalExam,
+        contactTeacherbutton:student.teacherId
+      
       }));
+      console.log(data)
       const handleFileChange = (event) => {
         setFile(event.target.files[0]);
       };
@@ -149,26 +172,7 @@ const ParentView= (props)=>{
 
             </div>
           
-              {/*   <Table border>
-                    <thead>
-                    <tr>
-                        <th>quiz</th>
-                        <th>midExam</th>
-                        <th>assessment</th>
-                        <th>finalExam</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {props.childStore.childList.map((student) => (
-                        <tr key={student._id}>
-                        <td>{student.quiz}</td>
-                        <td>{student.midExam}</td>
-                        <td>{student.assessment}</td>
-                        <td>{student.finalExam}</td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </Table>  */}
+          
                 {console.log(props.paymentState)}
             {props.paymentState.isLoading ?
                             (
@@ -213,7 +217,7 @@ const ParentView= (props)=>{
                 
 
 
-            <MaterialTable title="Student Progress" columns={columns} data={data} />;
+            <MaterialTable title="የተማሪው/ዋ ውጤት" columns={columns} data={data} />;
             
             </Col>
 

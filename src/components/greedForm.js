@@ -5,6 +5,7 @@ import {  Control } from 'react-redux-form';
 
 const AttendanceForm = (props) => {
   const [semester, setSemester] = useState('');
+  const [subject,setSubject] = useState('')
   const [grades, setGrades] = useState({});
   const [assessment, setAssessment] = useState([]);
   const [quiz, setQuiz] = useState([]);
@@ -21,6 +22,7 @@ const handleSubmit = (e) => {
     semester,
     student: props.classRoom.StudentsList.map((studentId) => ({
       studentId: studentId._id,
+      subject:subject,
       assessment: grades[studentId._id].assessment,
       quiz: grades[studentId._id].quiz,
       midExam: grades[studentId._id].midExam,
@@ -28,6 +30,7 @@ const handleSubmit = (e) => {
     })),
     date: new Date(),
   };
+  console.log(gradeData)
   props.handleSubmitGreed(gradeData);
 };
 
@@ -52,6 +55,22 @@ const handleGradeChange = (studentId, field, value) => {
     <div>
       <h2>Add Grade</h2>
       <form onSubmit={handleSubmit}>
+      <div>
+          <label htmlFor="semester"> Semester:</label>
+          <input
+            type="text"
+            id="semester"
+            value={semester}
+            onChange={(e) => setSemester(e.target.value)}
+          />
+          <label htmlFor="subject"> subject :</label>
+          <input
+            type="text"
+            id="subject"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+          />
+        </div>
         <Table bordered>
           <thead>
             <tr>
@@ -64,19 +83,7 @@ const handleGradeChange = (studentId, field, value) => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td colSpan="6">
-                <div>
-                  <label htmlFor="semester">Semester:</label>
-                  <input
-                    type="text"
-                    id="semester"
-                    value={semester}
-                    onChange={(e) => setSemester(e.target.value)}
-                  />
-                </div>
-              </td>
-            </tr>
+           
             {props.classRoom.StudentsList.map((studentId, index) => (
               <tr key={studentId._id}>
                 <td>{`${studentId.firstName} ${studentId.lastName}`}</td>

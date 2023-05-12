@@ -1,7 +1,7 @@
 import * as ActionTypes from '../ActionsType';
 
 export const User = (state = {
-        isAuthenticated: localStorage.getItem('token') ? true : false,
+        isAuthenticated:  false,
         isLoading: false,
         user: null,
         errMess: null

@@ -8,6 +8,8 @@ import {Loading} from "./loadingComponent"
 import { Document, Page, pdfjs } from 'react-pdf'; // import react-pdf for PDF viewer
 import { Viewer } from '@react-pdf-viewer/core'; // import @react-pdf-viewer/core and @react-pdf-viewer/default for PPT viewer
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
+import MaterialTable from 'material-table';
+
 const green = '#3bb19b';
 const yellow ='#f1d21c';
 const black = '#000000';
@@ -31,8 +33,55 @@ const ParentView= (props)=>{
             props.wightListsToggler(data)
           }
       }
+      const columns = [
+        { title: 'Full Name', field: 'fullName' },
+        { title: 'Receipt', field: 'receipt' },
+        {title:'transcript', field:'transcript'},
+        {
+          title: 'approve',
+          field: 'approveButton',
+          render: wightlist =>{
+            console.log(wightlist)
+          return (<Button color="success" className="mx-3" onClick={() =>{ 
+            approved=true
+             handleApproveClick(approved, wightlist.approveButton._id)
+            }}>
+            Approve
+        </Button>)}
+          
+          
+        },
+        {
+          title: 'reject',
+          field: 'rejectButton',
+          render: wightlist =>
+          <Button color="danger" onClick={() =>{
+            approved=false  
+             handleApproveClick(approved, wightlist.rejectButton._id)
+            }}>
+            Reject
+        </Button>}
+            
+      ];
       
-    
+      const data = props.wightLists.wightLists.map((wightlist) =>  ({
+        fullName: `${wightlist.firstName} ${wightlist.lastName}`,
+        receipt: (
+            <img src={baseUrl + wightlist.receipt} alt="Receipt" onClick={() => handleFileClick(baseUrl + wightlist.receipt, 'image')} style={{ width: '30%' }} />
+            ),
+        transcript:(
+            <div onClick={() => handleFileClick(baseUrl + wightlist.transcript, wightlist.transcript.substring(wightlist.transcript.lastIndexOf('.') + 1))}>
+                {wightlist.transcript.substring(wightlist.transcript.lastIndexOf('.') + 1) === 'pdf' ? (
+                <img src="assets/images/Icon_pdf_file.svg.png" alt="PDF Icon" style={{ width: '30%' }} />
+                ) : (
+                <img src={baseUrl + wightlist.transcript} alt="Transcript" style={{ width: '30%' }} />
+                )}
+            </div>
+        ),
+        approveButton: wightlist,
+        rejectButton: wightlist
+      }));
+
       const handleFileClick = (fileSrc, fileType) => {
         console.log(fileSrc, fileType)
         setSelectedFile(fileSrc);
@@ -97,56 +146,14 @@ const ParentView= (props)=>{
     }
     else{
         return(
-            <div>
-                <div >
-                   
+            <div>                   
                     <div >
                     
                         <h3>validate student regstration</h3>
-                        <hr />
                     </div>
                     
-                    <FadeTransform in 
-                        transformProps={{
-                            exitTransform: 'scale(0.5) translateY(-50%)'
-                        }}>
-
-                        <Row>
-                            {props.wightLists.wightLists.map((wightlist) => (
-                                <Col key={wightlist._id} sm="4">
-                                    <Card>
-                                        <CardHeader>{`${wightlist.firstName} ${wightlist.lastName}`}</CardHeader>
-                                        <CardBody>
-                                            <CardText style={{ backgroundColor: yellow }}  >transcript</CardText>
-                                            <div onClick={() => handleFileClick(baseUrl + wightlist.transcript, wightlist.transcript.substring(wightlist.transcript.lastIndexOf('.') + 1))}>
-                                                {wightlist.transcript.substring(wightlist.transcript.lastIndexOf('.') + 1) === 'pdf' ? (
-                                                <img src="assets/images/Icon_pdf_file.svg.png" alt="PDF Icon" style={{ width: '100%' }} />
-                                                ) : (
-                                                <img src={baseUrl + wightlist.transcript} alt="Transcript" style={{ width: '100%' }} />
-                                                )}
-                                            </div>
-                                            <CardText style={{ backgroundColor: yellow }}>receipt</CardText>
-                                            <img src={baseUrl + wightlist.receipt} alt="Receipt" onClick={() => handleFileClick(baseUrl + wightlist.receipt, 'image')} style={{ width: '100%' }} />
-                                        </CardBody>
-                                        <div className="d-flex justify-content-end p-3">
-                                            <Button color="success" className="mx-3" onClick={() =>{ 
-                                                approved=true
-                                                 handleApproveClick(approved, wightlist._id)
-                                                }}>
-                                                Approve
-                                            </Button>
-                                            <Button color="danger" onClick={() =>{
-                                                approved=false  
-                                                 handleApproveClick(approved, wightlist._id)
-                                                }}>
-                                                Reject
-                                            </Button>
-                                        </div>
-                                    </Card>
-                                </Col>
-                            ))}
-                            
-                        </Row>
+                    <FadeTransform in transformProps={{exitTransform: 'scale(0.5) translateY(-50%)' }}>
+                             <MaterialTable title="Monthly Fee List" columns={columns} data={data}/>
 
                         <Modal isOpen={isModalOpen} toggle={() => setIsModalOpen(false)}>
                             <ModalHeader toggle={() => setIsModalOpen(false)}>
@@ -157,7 +164,6 @@ const ParentView= (props)=>{
                             </ModalBody>
                         </Modal>
                     </FadeTransform>
-                </div>
                 <p>this is from the paretn component</p>
             </div>
         )}

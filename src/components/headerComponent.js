@@ -3,6 +3,9 @@ import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import { IconButton } from '@material-ui/core';
+import { Chat } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 
 const green = '#3bb19b';
 const yellow ='#f1d21c';
@@ -90,14 +93,22 @@ class Header extends Component {
                                         </div>
                                         :
                                         <div>
-                                        <div style={{color: yellow}} className="navbar-text mr-3">{this.props.auth.user.username}</div>
-                                        <Button style={{backgroundColor: yellow}}  outline onClick={this.handleLogout}>
-                                            <span  className="fa fa-sign-out fa-lg"></span> Logout
-                                            {this.props.auth.isFetching ?
-                                                <span className="fa fa-spinner fa-pulse fa-fw"></span>
-                                                : null
-                                            }
-                                        </Button>
+                                           {this.props.user.user && (this.props.user.user.teacher || this.props.user.user.parent) && (
+                                                <IconButton component={Link} to="/chat" color="inherit">
+                                                    <Chat style={{color: yellow}} />
+                                                </IconButton>
+                                            )}
+
+                                            
+                                            <div style={{color: yellow}} className="navbar-text mr-3">{this.props.auth.user.username}</div>
+
+                                            <Button style={{backgroundColor: yellow}}  outline onClick={this.handleLogout}>
+                                                <span  className="fa fa-sign-out fa-lg"></span> Logout
+                                                {this.props.auth.isFetching ?
+                                                    <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                                                    : null
+                                                }
+                                            </Button>
                                         </div>
                                     }
 

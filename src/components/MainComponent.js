@@ -24,6 +24,7 @@ import TeacherDashboard from './teacherDashbord'
 import ChildView from "./childView"
 import AssignmentView from "./AssignmentListComponent"
 import MaterialList from "./MaterialListComponent"
+import ChatComponent from "./chat/chatComponent"
 
 
 
@@ -108,7 +109,7 @@ class  Main extends Component {
       childInfo: value,
     })};
   
-componentDidMount(){
+  UNSAFE_componentWillMount(){
   this.props.fetchuser()
   this.props.fetchCashier()
   this.props.fetchTeacher()
@@ -126,10 +127,10 @@ console.log(this.props.user)
     return (
 
       <div className="App">
-            
          <Header auth={this.props.auth} 
             loginUser={this.props.loginUser} 
             logoutUser={this.props.logoutUser}
+            user={this.props.user}
 
              />
 
@@ -147,6 +148,8 @@ console.log(this.props.user)
             <Route path= '/childInfo' component={()=>this.props.auth.isAuthenticated ? <ChildView paymentState={this.props.paymentState} postMonthlyFee={this.props.postMonthlyFee} fetchAssignment={this.props.fetchAssignment} fetchMaterial={this.props.fetchMaterial} student={this.state.childInfo}  childStore={this.props.childInfor} refreshState={this.props.refreshState} />:<HOME   user={this.props.user}/>}/>
             <Route path= '/childInfor/materials' component={()=>this.props.auth.isAuthenticated ? <MaterialList  uploadState={this.props.uploadState} student={this.state.childInfo} /> :<HOME   user={this.props.user}  />}/>
             <Route path= '/childInfor/assignemt' component={()=>this.props.auth.isAuthenticated ? <AssignmentView assignmentState={this.props.assignmentState} student={this.state.childInfo} /> :<HOME user={this.props.user} />}  />
+            <Route path= '/chat' component={()=>this.props.auth.isAuthenticated ? <ChatComponent  /> :<HOME user={this.props.user} />}  />
+
             <Route path="/aboutus" component={()=> <About/>}/>
             <Route path='/home' auth={this.props.auth}   
               component={()=>this.props.auth.isAuthenticated ?  

@@ -77,11 +77,7 @@ const Cashier= (props)=>{
                              )
                               : (console.log)
                         }
-                    {isWatchWightList ?(
-                        <WightList refreshState={props.refreshState} wightLists ={props.wightLists} wightListsToggler={props.wightListsToggler}/>
-                    )
-                    :(console.log)
-                }
+                    
                 </div>
                 </div>
                 {props.MonthlyFeeList.isLoading || props.getMonthlyFeeState.isLoading ?
@@ -140,6 +136,7 @@ const Cashier= (props)=>{
                              )
                               : (console.log)
                         }
+                {isWatchWightList ?(<WightList refreshState={props.refreshState} wightLists ={props.wightLists} wightListsToggler={props.wightListsToggler}/>):(console.log)}
                 {isMonthlyFeeClickd? <MonthlyFeeList MonthlyFeeList={props.MonthlyFeeList} refreshState={props.refreshState} MonthlyFeeListToggler={props.MonthlyFeeListToggler} /> :console.log("")}
 
             </div>

@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionsType';
 import { baseUrl } from '../shared/beasURL'
-import { fetchCashier, fetchTeacher } from './actions/adminActions';
+import { fetchCashier, fetchTeacher,fetchClassRoomList } from './actions/adminActions';
 import { parentFetchClassRoom ,fetchChildrens} from './actions/parentActions';
 import { fetchTeacherClassRoom } from './actions/teacherActions';
 import {fetchWithList,fetchMonthlyFeeListes} from './actions/cashierAction'
@@ -69,6 +69,7 @@ export const loginUser = (creds) => (dispatch) => {
             dispatch(fetchWithList())
             dispatch(fetchChildrens())
             dispatch(fetchMonthlyFeeListes())
+            dispatch(fetchClassRoomList())
 
 
         }
@@ -194,24 +195,22 @@ export const parentSignupError =(message)=>{
 }
 
 export const fetchuser = () => {
-    return async (dispatch) => {
+    return (dispatch) => {
       dispatch(userLoding());
       const bearer = 'Bearer ' + localStorage.getItem('token');
-      try {
-        const response = await fetch(baseUrl + 'users', {
-            headers: {
-                'Authorization': bearer
-            },
-        });
+      fetch(baseUrl + 'users', {
+        headers: {
+          'Authorization': bearer
+        },
+      })
+      .then(response => {
         if (!response.ok) {
           throw new Error('Error ' + response.status + ': ' + response.statusText);
         }
-        const user = await response.json();
-        dispatch(userLoaded(user));
-        
-      } catch (error) {
-        dispatch(userFaild(error.message));
-      }
+        return response.json();
+      })
+      .then(user => dispatch(userLoaded(user)))
+      .catch(error => dispatch(userFaild(error.message)));
     };
   };
   

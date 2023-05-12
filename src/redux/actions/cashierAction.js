@@ -92,7 +92,7 @@ axios.put(baseUrl + 'wightlist', data, {
   export const toggleCashierFaild =(messag)=>{
     return{
         type:ActionTypes.TOGGLEL_WAIGHT_LIST_REQUEST_FAILD,
-        payload: messag.response.data.error,
+        payload: messag.response,
     }
   }
 
