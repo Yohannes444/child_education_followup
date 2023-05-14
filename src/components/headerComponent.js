@@ -18,6 +18,7 @@ class Header extends Component {
         this.state = {
             isNavOpen: false,
             isModalOpen: false,
+            isChatLoaded:false
         };
         this.toggleNav = this.toggleNav.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
@@ -36,7 +37,14 @@ class Header extends Component {
             isModalOpen: !this.state.isModalOpen
         });
     }
-
+    handlChatClicked(){
+        if(this.props.user.user && this.state.isChatLoaded === false){
+            this.props.fetchAllChats(this.props.user.user._id)
+            this.setState({
+                isChatLoaded: !this.state.isChatLoaded
+            });
+        }
+    }
     handleLogin(event) {
         this.toggleModal();
         this.props.loginUser({username: this.username.value, password: this.password.value});
@@ -94,8 +102,8 @@ class Header extends Component {
                                         :
                                         <div>
                                            {this.props.user.user && (this.props.user.user.teacher || this.props.user.user.parent) && (
-                                                <IconButton component={Link} to="/chat" color="inherit">
-                                                    <Chat style={{color: yellow}} />
+                                                <IconButton  component={Link} to="/chat" color="inherit">
+                                                    <Chat  onClick={this.handlChatClicked()} style={{color: yellow}} />
                                                 </IconButton>
                                             )}
 

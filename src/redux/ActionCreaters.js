@@ -4,6 +4,8 @@ import { fetchCashier, fetchTeacher,fetchClassRoomList } from './actions/adminAc
 import { parentFetchClassRoom ,fetchChildrens} from './actions/parentActions';
 import { fetchTeacherClassRoom } from './actions/teacherActions';
 import {fetchWithList,fetchMonthlyFeeListes} from './actions/cashierAction'
+import axios from 'axios';
+
 
 export const requestLogin = (creds) => {
     return {
@@ -11,7 +13,6 @@ export const requestLogin = (creds) => {
         creds
     }
 }
-
   
 export const receiveLogin = (response) => {
     return {
@@ -498,7 +499,54 @@ export const resetClassroomState = () => {
     };
   };
 
+  export const fetchAllChats =(userId)=> (dispatch)=>{
+    dispatch(fetchAllChatsRequest())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.get(baseUrl + 'chat', {headers: { 
+        'Authorization': bearer
+        },
+        params: {
+            userId: userId
+        }
+    }
+    )
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(AllChats => dispatch(fetchAllChatsSucess(AllChats)))
+    .catch(error => dispatch(AllChatsLodingFaild(error.message)));
+}
 
+export const fetchAllChatsRequest =()=>{
+    return{
+        type:ActionTypes.FETCH_ALL_CHAT_REQUIRE
+    }
+}
+export const fetchAllChatsSucess =(AllChats)=>{
+    return{
+        type:ActionTypes.FETCH_ALL_CHAT_SUCCESS,
+        payload:AllChats
+    }
+}
+export const AllChatsLodingFaild =(masseg)=>{
+    return{
+        type:ActionTypes.FETCH_ALL_CHAT_FAILD,
+        payload: masseg.data
+    
+    }
+}
   
 
    
