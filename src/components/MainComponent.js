@@ -13,7 +13,7 @@ import   Contact  from './contactComponent'
 import  {connect}  from 'react-redux';
 import About from './AboutComponent'
 import { actions } from 'react-redux-form';
-import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState, fetchAllChats} from '../redux/ActionCreaters';
+import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState, fetchOneChat ,fechOtherPersoneInfo} from '../redux/ActionCreaters';
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount, fetchClassRoomList} from '../redux/actions/adminActions'
 import { postStudent,parentFetchClassRoom, fetchChildrens, fetchChildInfo, fetchMaterial, fetchAssignment, postMonthlyFee} from '../redux/actions/parentActions';
 import { wightListsToggler,fetchWithList ,fetchMonthlyFeeListes ,MonthlyFeeListToggler } from '../redux/actions/cashierAction';
@@ -24,7 +24,7 @@ import TeacherDashboard from './teacherDashbord'
 import ChildView from "./childView"
 import AssignmentView from "./AssignmentListComponent"
 import MaterialList from "./MaterialListComponent"
-import ChatComponent from "./chat/chatComponent"
+import ChatComponent from "./Chat/Chat"
 
 
 
@@ -54,7 +54,9 @@ const mapStateToProps = state => {
     getMonthlyFeeState:state.getMonthlyFeeState,
     classRoomList:state.classRoomList,
     childInfo:'',
-    allChats:state.allChats
+    allChats:state.allChats,
+    oneChats:state.oneChats,
+    userInfo:state.userInfo
   }
   
 }
@@ -94,7 +96,8 @@ const mapDispatchToProps  = (dispatch) => ({
   monthlyFeeListes:()=>dispatch(fetchMonthlyFeeListes()),
   MonthlyFeeListToggler:(data)=>dispatch(MonthlyFeeListToggler(data)),
   fetchClassRoomList:()=>dispatch(fetchClassRoomList()),
-  fetchAllChats: (userId) => dispatch(fetchAllChats(userId)),
+  fetchOneChat:(userId) =>dispatch(fetchOneChat(userId)),
+  fechOtherPersoneInfo:(userId)=>dispatch(fechOtherPersoneInfo(userId))
 
 });
 
@@ -125,7 +128,7 @@ class  Main extends Component {
 
   render(){
  
-console.log(this.props.user)
+console.log(this.props.userInfo)
     return (
 
       <div className="App">
@@ -150,7 +153,7 @@ console.log(this.props.user)
             <Route path= '/childInfo' component={()=>this.props.auth.isAuthenticated ? <ChildView paymentState={this.props.paymentState} postMonthlyFee={this.props.postMonthlyFee} fetchAssignment={this.props.fetchAssignment} fetchMaterial={this.props.fetchMaterial} student={this.state.childInfo}  childStore={this.props.childInfor} refreshState={this.props.refreshState} />:<HOME   user={this.props.user}/>}/>
             <Route path= '/childInfor/materials' component={()=>this.props.auth.isAuthenticated ? <MaterialList  uploadState={this.props.uploadState} student={this.state.childInfo} /> :<HOME   user={this.props.user}  />}/>
             <Route path= '/childInfor/assignemt' component={()=>this.props.auth.isAuthenticated ? <AssignmentView assignmentState={this.props.assignmentState} student={this.state.childInfo} /> :<HOME user={this.props.user} />}  />
-            <Route path= '/chat' component={()=>this.props.auth.isAuthenticated ? <ChatComponent allChats={this.props.allChats} user={this.props.user} fetchAllChats={this.props.fetchAllChats}  /> :<HOME user={this.props.user} />}  />
+            <Route path= '/chat' component={()=>this.props.auth.isAuthenticated ? <ChatComponent  userInfo ={this.props.userInfo} fetchOtherPersonInfo={this.props.fechOtherPersoneInfo} allChats={this.props.allChats} user={this.props.user}  /> :<HOME user={this.props.user} />}  />
 
             <Route path="/aboutus" component={()=> <About/>}/>
             <Route path='/home' auth={this.props.auth}   

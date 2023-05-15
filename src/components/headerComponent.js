@@ -23,6 +23,7 @@ class Header extends Component {
         this.toggleNav = this.toggleNav.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
+        this.handlChatClicked = this.handlChatClicked.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
     }
 
@@ -38,10 +39,14 @@ class Header extends Component {
         });
     }
     handlChatClicked(){
+       
+        this.setState({
+            isChatLoaded: false
+        })
         if(this.props.user.user && this.state.isChatLoaded === false){
             this.props.fetchAllChats(this.props.user.user._id)
             this.setState({
-                isChatLoaded: !this.state.isChatLoaded
+                isChatLoaded: true
             });
         }
     }
@@ -54,6 +59,14 @@ class Header extends Component {
     handleLogout() {
         this.props.logoutUser();
     }
+    componentDidMount() {
+        if (this.props.user.user && !this.state.isChatLoaded) {
+          this.props.fetchAllChats(this.props.user.user._id);
+          this.setState({
+            isChatLoaded: true
+          });
+        }
+      }
 
     render() {
         return(
@@ -102,9 +115,9 @@ class Header extends Component {
                                         :
                                         <div>
                                            {this.props.user.user && (this.props.user.user.teacher || this.props.user.user.parent) && (
-                                                <IconButton  component={Link} to="/chat" color="inherit">
-                                                    <Chat  onClick={this.handlChatClicked()} style={{color: yellow}} />
-                                                </IconButton>
+                                                <Button  style={{backgroundColor: green, border: "none"}}  onClick={ this.handlChatClicked}>
+                                                 <Link to="/chat"><Chat   style={{color: yellow}} /></Link> 
+                                                </Button>
                                             )}
 
                                             

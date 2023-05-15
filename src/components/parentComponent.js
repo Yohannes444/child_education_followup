@@ -121,7 +121,6 @@ const ParentView= (props)=>{
                         :
                         (console.log)}
                     {isChildsClicked? <ChildList  handlChildView={handlSelectChild} setIsChildsClicked={setIsChildsClicked}  childStore={props.childStore} /> :console.log("")}
-                    {console.log(child,ischildSelected)}
                     
                                 
             </div>

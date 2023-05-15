@@ -6,11 +6,13 @@ import { Loading } from "../loadingComponent";
 import "./chat.css";
 import Conversation from "./conversationComponent";
 import 'core-js/features/promise/finally';
+import ChatBox from './ChatBoxComponent'
 
-
-function ChatBox(props) {
+function ChatComponent(props) {
   const [currentChat, setCurrentChat] = useState("");
-  
+  const [sendMessage, setSendMessage] = useState(null);
+  const [receivedMessage, setReceivedMessage] = useState(null);
+  const [isChatSelected,setIsChatSelected] = useState(false)
 
    
         return(
@@ -22,14 +24,15 @@ function ChatBox(props) {
             <div className="Chat-list">
                
                {props.allChats.allChats.length > 0 && props.allChats.allChats.map((chat) => (
-              <div
-                onClick={() => {
+              <div onClick={() => {
                   setCurrentChat(chat);
-                }}
-              >
+				          setIsChatSelected(true)
+                }}>
                 <Conversation
                   data={chat}
+                  userInfo={props.userInfo}
                   currentUser={props.user.user._id}
+                  fetchOtherPersonInfo={props.fetchOtherPersonInfo}
 //                  online={checkOnlineStatus(chat)}
                 />
               </div>
@@ -41,13 +44,21 @@ function ChatBox(props) {
         {/* Right Side */}
 
         <div className="Right-side-chat">
-            Right side 
-            <div style={{ width: "20rem", alignSelf: "flex-end" }}>
-            </div>
-            
-        </div>
+			<div style={{ width: "20rem", alignSelf: "flex-end" }}>
+			</div>
+			<ChatBox
+			chat={currentChat}
+			currentUser={props.user.user._id}
+			userInfo={props.userInfo}
+			isChatSelected={isChatSelected}
+			setIsChatSelected={setIsChatSelected}
+			///setSendMessage={setSendMessage}
+			//receivedMessage={receivedMessage}
+			fetchOtherPersonInfo={props.fetchOtherPersonInfo}
+			/>
+      </div>
         </div>
     );
 }
 
-export default ChatBox;    
+export default ChatComponent;    

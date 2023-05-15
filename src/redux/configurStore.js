@@ -27,6 +27,8 @@ import { MonthlyFeeListReducer } from './reducers/monthlyFeeListReducer';
 import { getMonthlyFeeState } from './reducers/togleMonthlyFeeReducer';
 import { classRoomListLoader } from './reducers/classRoomListReducer';
 import { allChatsLoader }from './reducers/chatReducer'
+import { OneChatsLoader } from './reducers/oneChatReducer';
+import { userInfoLoader } from './reducers/userInfo'
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -55,6 +57,8 @@ export const ConfigureStore = () => {
             getMonthlyFeeState:getMonthlyFeeState,
             classRoomList:classRoomListLoader,
             allChats:allChatsLoader,
+            oneChats:OneChatsLoader,
+            userInfo:userInfoLoader,
             ...createForms({
                 feedback: InitialFeedback
             })

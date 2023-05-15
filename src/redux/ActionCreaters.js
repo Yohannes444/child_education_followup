@@ -498,11 +498,12 @@ export const resetClassroomState = () => {
       dispatch(resetMonthlyFeeTogglerState())
     };
   };
+  
 
-  export const fetchAllChats =(userId)=> (dispatch)=>{
-    dispatch(fetchAllChatsRequest())
+export const fetchOneChat =(userId)=> (dispatch)=>{
+    dispatch(fetchOneChatRequest())
     const bearer = 'Bearer ' + localStorage.getItem('token');
-    axios.get(baseUrl + 'chat', {headers: { 
+    axios.get(baseUrl + 'message', {headers: { 
         'Authorization': bearer
         },
         params: {
@@ -525,30 +526,91 @@ export const resetClassroomState = () => {
         throw errmess;
     })
     .then(response =>response.data)
-    .then(AllChats => dispatch(fetchAllChatsSucess(AllChats)))
-    .catch(error => dispatch(AllChatsLodingFaild(error.message)));
+    .then(OneChat => dispatch(fetchOneChatSucess(OneChat)))
+    .catch(error => dispatch(OneChatLodingFaild(error.message)));
 }
 
-export const fetchAllChatsRequest =()=>{
+export const fetchOneChatRequest =()=>{
     return{
-        type:ActionTypes.FETCH_ALL_CHAT_REQUIRE
+        type:ActionTypes.FETCH_ONE_CHAT_REQUIRE
     }
 }
-export const fetchAllChatsSucess =(AllChats)=>{
+
+export const fetchOneChatSucess =(OneChat)=>{
     return{
-        type:ActionTypes.FETCH_ALL_CHAT_SUCCESS,
-        payload:AllChats
+        type:ActionTypes.FETCH_ONE_CHAT_SUCCESS,
+        payload:OneChat
     }
 }
-export const AllChatsLodingFaild =(masseg)=>{
+export const OneChatLodingFaild =(masseg)=>{
     return{
-        type:ActionTypes.FETCH_ALL_CHAT_FAILD,
+        type:ActionTypes.FETCH_ONE_CHAT_FAILD,
         payload: masseg.data
     
     }
 }
-  
-
-   
 
 
+
+ export const fechOtherPersoneInfo =(userId)=> (dispatch)=>{
+     dispatch(fetchOtherPersoneInfoRequest())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.get(baseUrl + 'users/userInfo', {headers: { 
+        'Authorization': bearer
+        },
+        params: {
+            userId: userId
+        }
+    }
+    )
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(OtherPersoneInfo => dispatch(fetchOtherPersoneInfoSucess(OtherPersoneInfo)))
+    .catch(error => dispatch(OtherPersoneInfoLodingFaild(error.message)));
+}
+
+
+export const fetchOtherPersoneInfoRequest =()=>{
+    return{
+        type:ActionTypes.FETCH_USER_INFO_REQUIRE
+    }
+}
+
+export const fetchOtherPersoneInfoSucess =(OtherPersoneInfo)=>{
+    return{
+        type:ActionTypes.FETCH_USER_INFO_SUCCESS,
+        payload:OtherPersoneInfo
+    }
+}
+export const OtherPersoneInfoLodingFaild =(masseg)=>{
+    return{
+        type:ActionTypes.FETCH_USER_INFO_FAILD,
+        payload: masseg.data
+    
+    }
+} 
+
+const API = axios.create({ baseURL: baseUrl });
+
+const bearer = 'Bearer ' + localStorage.getItem('token');
+
+console.log('Before calling userChats API');
+export const userChats = (userId) => API.get(baseUrl + 'chat', {headers: { 'Authorization': bearer},params: {userId: userId}});
+console.log('After calling userChats API');
+//export const userChats = (userId) => API.get(baseUrl + 'chat', {headers: { 'Authorization': bearer},params: {userId: userId}})
+export const getUser = (userId) => API.get(baseUrl + 'users/userInfo', {headers: { 'Authorization': bearer},params: {userId: userId}})
+export const getMessages = (userId) => API.get(baseUrl + 'message', {headers: {  'Authorization': bearer},params: {userId: userId}})
+export const addMessage = (message) => API.post(baseUrl + 'message', { message }, { headers: { 'Authorization': bearer } });
