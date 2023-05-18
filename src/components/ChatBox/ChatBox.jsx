@@ -5,11 +5,9 @@ import { format } from "timeago.js";
 import InputEmoji from 'react-input-emoji'
 import axios from 'axios'
 import { baseUrl } from "../../shared/beasURL";
-import {  fetchuser,refreshState,  fetchOneChat ,addMessage,getMessages,getUser} from '../../redux/ActionCreaters';
-
+import {addMessage,getMessages,getUser} from '../../redux/ActionCreaters';
 
 const ChatBox = ({ chat, currentUser, setSendMessage,  receivedMessage }) => {
-  console.log('Rendering chat box component...');
   const [userData, setUserData] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -43,11 +41,9 @@ const ChatBox = ({ chat, currentUser, setSendMessage,  receivedMessage }) => {
         console.log(error);
       }
     };
-  
-    if (chat && chat._id && messages.length === 0) {
-      fetchMessages();
-    }
-  }, [chat, messages]);
+
+    if (chat !== null) fetchMessages();
+  }, [chat,messages]);
 
 
   // Always scroll to last Message
@@ -70,7 +66,6 @@ const ChatBox = ({ chat, currentUser, setSendMessage,  receivedMessage }) => {
   setSendMessage({...message, receiverId})
   // send message to database
   try {
-    const bearer = 'Bearer ' + localStorage.getItem('token');
     const { data } = await addMessage(message);
     setMessages([...messages, data]);
     setNewMessage("");

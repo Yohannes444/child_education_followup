@@ -3,14 +3,14 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from 'axios'
 import { baseUrl } from "../../shared/beasURL";
-import {  fetchuser,refreshState,  fetchOneChat ,fechOtherPersoneInfo,getUser} from '../../redux/ActionCreaters';
+import { getUser} from '../../redux/ActionCreaters';
 
 const Conversation = ({ data, currentUser, online }) => {
   console.log('Rendering form conversetion component...');
   const [userData, setUserData] = useState(null)
   const dispatch = useDispatch()
 
-/*   useEffect(()=> {
+   useEffect(()=> {
 
     const userId = data.members.find((id)=>id!==currentUser)
     const getUserData = async ()=> {
@@ -18,7 +18,6 @@ const Conversation = ({ data, currentUser, online }) => {
       {
           const {data} =await getUser(userId)
          setUserData(data)
-         dispatch({type:"FETCH_USER_INFO_SUCCESS", data:data})
       }
       catch(error)
       {
@@ -27,7 +26,7 @@ const Conversation = ({ data, currentUser, online }) => {
     }
 
     getUserData();
-  }, []) */
+  }, []) 
   return (
     <>
       <div className="follower conversation">

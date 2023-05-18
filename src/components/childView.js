@@ -19,8 +19,10 @@ const ParentView= (props)=>{
     const [file, setFile] = useState(null);
 
 
-    const handleContactTeacherClick =()=>{
+    const handleContactTeacherClick =(teacher)=>{
+        const teacherId=teacher.contactTeacherbutton
 
+        props.setReceiverId(teacherId)
     }
     const columns = [
         {title:'የትምህርት አይነት',field:'subject'},
@@ -32,15 +34,17 @@ const ParentView= (props)=>{
             title: 'መምህሩን/መምህሯን ለማናገር',
             field: 'contactTeacherbutton',
             render: teacherId =>
+            <Link  style={{ backgroundColor: 'rgb(65, 141, 65)',color: 'rgb(255,255,255' }} to='/chat'>
               <Button
                   variant="contained"
-                  color="primary"
+                  style={{ backgroundColor: 'rgb(65, 141, 65)' }}
                   onClick={() =>{
                       return handleContactTeacherClick( teacherId)
                   }}
               >
-                  መምህሩን/መምህሯን ለማውራት
+                 መምህሩን/መምህሯን ለማውራት
               </Button>
+              </Link>
             
             
           },
@@ -54,7 +58,6 @@ const ParentView= (props)=>{
         contactTeacherbutton:student.teacherId
       
       }));
-      console.log(data)
       const handleFileChange = (event) => {
         setFile(event.target.files[0]);
       };
@@ -173,7 +176,6 @@ const ParentView= (props)=>{
             </div>
           
           
-                {console.log(props.paymentState)}
             {props.paymentState.isLoading ?
                             (
                             

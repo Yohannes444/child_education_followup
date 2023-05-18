@@ -13,7 +13,7 @@ import   Contact  from './contactComponent'
 import  {connect}  from 'react-redux';
 import About from './AboutComponent'
 import { actions } from 'react-redux-form';
-import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState, fetchOneChat ,fechOtherPersoneInfo} from '../redux/ActionCreaters';
+import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState, fetchOneChat ,fechOtherPersoneInfo,fetchUserChat} from '../redux/ActionCreaters';
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount, fetchClassRoomList} from '../redux/actions/adminActions'
 import { postStudent,parentFetchClassRoom, fetchChildrens, fetchChildInfo, fetchMaterial, fetchAssignment, postMonthlyFee} from '../redux/actions/parentActions';
 import { wightListsToggler,fetchWithList ,fetchMonthlyFeeListes ,MonthlyFeeListToggler } from '../redux/actions/cashierAction';
@@ -53,10 +53,9 @@ const mapStateToProps = state => {
     MonthlyFeeList:state.MonthlyFeeList,
     getMonthlyFeeState:state.getMonthlyFeeState,
     classRoomList:state.classRoomList,
-    childInfo:'',
     allChats:state.allChats,
     oneChats:state.oneChats,
-    userInfo:state.userInfo
+    userInfo:state.userInfo,
   }
   
 }
@@ -97,6 +96,7 @@ const mapDispatchToProps  = (dispatch) => ({
   MonthlyFeeListToggler:(data)=>dispatch(MonthlyFeeListToggler(data)),
   fetchClassRoomList:()=>dispatch(fetchClassRoomList()),
   fetchOneChat:(userId) =>dispatch(fetchOneChat(userId)),
+  fetchUserChat:(userId) =>dispatch(fetchUserChat(userId)),
   fechOtherPersoneInfo:(userId)=>dispatch(fechOtherPersoneInfo(userId))
 
 });
@@ -106,8 +106,16 @@ class  Main extends Component {
     super(props);
     this.state = {
       childInfo: '',
+      receiverId:null,
+      isChatsLoaded:false
     };
     this.setChildInfo = this.setChildInfo.bind(this);
+    this.setReceiverId = this.setReceiverId.bind(this)
+  }
+  setReceiverId(value){
+    this.setState({
+      receiverId:value
+    })
   }
   setChildInfo(value) {
     this.setState({
@@ -125,10 +133,20 @@ class  Main extends Component {
   this.props.monthlyFeeListes()
   this.props.fetchClassRoomList()
 }
+ fetchUserChats =()=>{
+  if(this.props.user?.user && this.state.isChatsLoaded === false){
+    const userId = this.props.user.user._id
+    this.props.fetchUserChat(userId)
+    this.setState({
+      isChatsLoaded:true
+    })
+}}
+
 
   render(){
- 
-console.log(this.props.userInfo)
+    this.fetchUserChats()
+console.log(this.props.allChats)
+console.log(this.state.receiverId)
     return (
 
       <div className="App">
@@ -136,7 +154,6 @@ console.log(this.props.userInfo)
             loginUser={this.props.loginUser} 
             logoutUser={this.props.logoutUser}
             user={this.props.user}
-            fetchAllChats={this.props.fetchAllChats}
              />
 
           <TransitionGroup>
@@ -150,10 +167,10 @@ console.log(this.props.userInfo)
             <Route path='/creatClassRoom' component={()=>this.props.auth.isAuthenticated ? <CreatClassroom fetchTeacher={this.props.fetchTeacher} teachers={this.props.teachers.teachers} classRoom={this.props.classRoom} creatClassroom={this.props.creatClassroom} refreshState={this.props.refreshState} />:<HOME   user={this.props.user}/>}/>
             <Route path= '/cashierDashbord' component={()=>this.props.auth.isAuthenticated ? <CashierDashboard  cashiers={this.props.cashiers} activeToggler={this.props.toggleCashierAccount}/>:<HOME   user={this.props.user}/>}/>
             <Route path= '/teacherDashbord' component = {()=>this.props.auth.isAuthenticated ? <TeacherDashboard  teachers={this.props.teachers} activeToggler = {this.props.toggleTeacherAccount}/>:<HOME   user={this.props.user}/>}/>
-            <Route path= '/childInfo' component={()=>this.props.auth.isAuthenticated ? <ChildView paymentState={this.props.paymentState} postMonthlyFee={this.props.postMonthlyFee} fetchAssignment={this.props.fetchAssignment} fetchMaterial={this.props.fetchMaterial} student={this.state.childInfo}  childStore={this.props.childInfor} refreshState={this.props.refreshState} />:<HOME   user={this.props.user}/>}/>
+            <Route path= '/childInfo' component={()=>this.props.auth.isAuthenticated ? <ChildView setReceiverId={this.setReceiverId} paymentState={this.props.paymentState} postMonthlyFee={this.props.postMonthlyFee} fetchAssignment={this.props.fetchAssignment} fetchMaterial={this.props.fetchMaterial} student={this.state.childInfo}  childStore={this.props.childInfor} refreshState={this.props.refreshState} />:<HOME   user={this.props.user}/>}/>
             <Route path= '/childInfor/materials' component={()=>this.props.auth.isAuthenticated ? <MaterialList  uploadState={this.props.uploadState} student={this.state.childInfo} /> :<HOME   user={this.props.user}  />}/>
             <Route path= '/childInfor/assignemt' component={()=>this.props.auth.isAuthenticated ? <AssignmentView assignmentState={this.props.assignmentState} student={this.state.childInfo} /> :<HOME user={this.props.user} />}  />
-            <Route path= '/chat' component={()=>this.props.auth.isAuthenticated ? <ChatComponent  userInfo ={this.props.userInfo} fetchOtherPersonInfo={this.props.fechOtherPersoneInfo} allChats={this.props.allChats} user={this.props.user}  /> :<HOME user={this.props.user} />}  />
+            <Route path= '/chat' component={()=>this.props.auth.isAuthenticated ? <ChatComponent setReceiverId={this.setReceiverId} receiverId={this.state.receiverId} userInfo ={this.props.userInfo} fetchOtherPersonInfo={this.props.fechOtherPersoneInfo} allChats={this.props.allChats} user={this.props.user}  /> :<HOME user={this.props.user} />}  />
 
             <Route path="/aboutus" component={()=> <About/>}/>
             <Route path='/home' auth={this.props.auth}   

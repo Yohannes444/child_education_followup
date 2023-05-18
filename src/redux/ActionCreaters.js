@@ -603,14 +603,73 @@ export const OtherPersoneInfoLodingFaild =(masseg)=>{
     }
 } 
 
+
+export const fetchUserChat = (userId)=>(dispatch)=>{
+ dispatch(fetchUserChatRequest())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.get(baseUrl + 'chat', {headers: { 
+        'Authorization': bearer
+        },
+        params: {
+            userId: userId
+        }
+    }
+    )
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(UserChat => dispatch(fetchUserChatSucess(UserChat)))
+    .catch(error => dispatch(UserChatLodingFaild(error.message)));
+}
+
+export const fetchUserChatRequest =()=>{
+    return{
+        type:ActionTypes.FETCH_ALL_CHAT_REQUIRE
+    }
+}
+
+export const fetchUserChatSucess =(UserChat)=>{
+    return{
+        type:ActionTypes.FETCH_ALL_CHAT_SUCCESS,
+        payload:UserChat
+    }
+}
+export const UserChatLodingFaild =(masseg)=>{
+    return{
+        type:ActionTypes.FETCH_ALL_CHAT_FAILD,
+        payload: masseg.data
+    
+    }
+}
+
 const API = axios.create({ baseURL: baseUrl });
 
 const bearer = 'Bearer ' + localStorage.getItem('token');
 
-console.log('Before calling userChats API');
+
 export const userChats = (userId) => API.get(baseUrl + 'chat', {headers: { 'Authorization': bearer},params: {userId: userId}});
-console.log('After calling userChats API');
 //export const userChats = (userId) => API.get(baseUrl + 'chat', {headers: { 'Authorization': bearer},params: {userId: userId}})
 export const getUser = (userId) => API.get(baseUrl + 'users/userInfo', {headers: { 'Authorization': bearer},params: {userId: userId}})
 export const getMessages = (userId) => API.get(baseUrl + 'message', {headers: {  'Authorization': bearer},params: {userId: userId}})
 export const addMessage = (message) => API.post(baseUrl + 'message', { message }, { headers: { 'Authorization': bearer } });
+console.log('Before calling addChat API');
+export const addChat =(chat)=>{
+    
+    const receiverId =chat.receiverId
+    const senderId=chat.senderId
+    return (API.post(baseUrl + 'chat', { senderId:senderId,receiverId:receiverId }, { headers: { 'Authorization': bearer } }))
+}
+console.log('After calling addChat API');
+

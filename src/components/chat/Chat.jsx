@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { io } from "socket.io-client";
 import axios from 'axios'
 import { baseUrl } from "../../shared/beasURL";
-import {  fetchuser,refreshState, fetchOneChat ,fechOtherPersoneInfo,userChats} from '../../redux/ActionCreaters';
+import { addChat,userChats } from '../../redux/ActionCreaters';
+import { async } from "react-input-emoji";
 
 
 const Chat = (props) => {
@@ -20,13 +21,13 @@ const Chat = (props) => {
   const [currentChat, setCurrentChat] = useState(null);
   const [sendMessage, setSendMessage] = useState(null);
   const [receivedMessage, setReceivedMessage] = useState(null);
+  const [newChat, setNewChat] = useState(null)
   console.log('Rendering component from chat component...');
   // Get the chat in chat section
   useEffect(() => {
     const getChats = async () => {
       try {
-        const { data } = await userChats(user._id);
-        console.log(data)
+        const { data } = await userChats(user?._id);
         setChats(data);
       } catch (error) {
         console.log(error);
@@ -50,7 +51,11 @@ const Chat = (props) => {
       socket.current.emit("send-message", sendMessage);}
   }, [sendMessage]);
 
-
+useEffect(()=>{
+	if(newChat != null){
+		socket.current.emit("create-chat",newChat)
+	}
+},[newChat])
   // Get the message from socket server
   useEffect(() => {
     socket.current.on("recieve-message", (data) => {
@@ -61,7 +66,34 @@ const Chat = (props) => {
     );
   }, []);
 
+const handleCreateChat = async()=>{
+	const newChat={
+		senderId:user._id,
+		receiverId:props.receiverId
+		
+	}
 
+	console.log(newChat)
+	console.log(props.receiverId)
+	const receiverId =props.receiverId
+    
+  // add new chat to socket server
+  setNewChat({newChat, receiverId})
+  // add chat to database
+  try {
+    const didPost= false
+    if(didPost === false){
+      const { data } = await addChat(newChat);
+      setCurrentChat(data);
+      didPost=true
+    }
+    
+  }
+  catch
+  {
+    console.log("error")
+  }
+}
   const checkOnlineStatus = (chat) => {
     const chatMember = chat.members.find((member) => member !== user._id);
     const online = onlineUsers.find((user) => user.userId === chatMember);
@@ -75,8 +107,12 @@ const Chat = (props) => {
         <div className="Chat-container">
           <h2>Chats</h2>
           <div className="Chat-list">
-            {chats.map((chat) => (
+          {chats.map((chat) => {
+          
+            
+            return (
               <div
+                key={chat._id}
                 onClick={() => {
                   setCurrentChat(chat);
                 }}
@@ -88,7 +124,9 @@ const Chat = (props) => {
                   online={checkOnlineStatus(chat)}
                 />
               </div>
-            ))}
+            );
+          })}
+
           </div>
         </div>
       </div>
