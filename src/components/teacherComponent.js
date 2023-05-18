@@ -223,7 +223,7 @@ else if (props.uploadGreedState.success){
           </div>
         ):(console.log(""))
         }
-        {isClassRoomClicked && classView===false ? (<ClassRoomView greadIsClicked={greadIsClicked} setgreadIsClicked={setgreadIsClicked} handlback={handlback} setisUploadingAssignment={setisUploadingAssignment} isUploadingAssignment={isUploadingAssignment} setattendaceIsOpen={setattendaceIsOpen} attendaceIsOpen={attendaceIsOpen} setUploadTo={setClassRoom} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview}/>):console.log("")}
+        {isClassRoomClicked && classView===false ? (<ClassRoomView setReceiverId={props.setReceiverId} greadIsClicked={greadIsClicked} setgreadIsClicked={setgreadIsClicked} handlback={handlback} setisUploadingAssignment={setisUploadingAssignment} isUploadingAssignment={isUploadingAssignment} setattendaceIsOpen={setattendaceIsOpen} attendaceIsOpen={attendaceIsOpen} setUploadTo={setClassRoom} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview}/>):console.log("")}
 
 
         {isUploading? <UploadMaterialForm teacher={props.user} handlFormback={handlFormback} classRoom={classRoom} uploadMaterial={props.uploadMaterial} /> :console.log("")}

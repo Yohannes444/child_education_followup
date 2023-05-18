@@ -30,7 +30,12 @@ const calssRoomView = (props) => {
     props.setgreadIsClicked(!props.greadIsClicked)
   }
   
-  
+  const handleContactParentClick =(Parent)=>{
+    console.log(Parent)
+    const ParentId=Parent
+
+    props.setReceiverId(ParentId)
+}
   return (
     
     <div>
@@ -65,13 +70,15 @@ const calssRoomView = (props) => {
               <td>{`${student.firstName} ${student.lastName}`}</td>
               <td>{student._id}</td>
               <td>
+              <Link  style={{ backgroundColor: 'rgb(65, 141, 65)',color: 'rgb(255,255,255' }} to='/chat'>
                 <Button
                   onClick={() =>
-                    handleToggleAccount(student._id)
+                    handleContactParentClick(student.parent)
                   }
                 >
                   Contact Parent
                 </Button>
+                </Link>
               </td>
             </tr>
           ))}

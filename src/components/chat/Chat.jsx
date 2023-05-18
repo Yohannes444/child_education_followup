@@ -94,6 +94,22 @@ const handleCreateChat = async()=>{
     console.log("error")
   }
 }
+
+useEffect(() => {
+  if (props.receiverId !=null && chats.every(chat => !chat.members.includes(props.receiverId))) {
+    console.log('new chat has been created ')
+    handleCreateChat();
+  }
+  else if (props.receiverId !=null && chats.every(chat => chat.members.includes(props.receiverId))){
+    chats.map((chat) => {
+      if (chat.members.includes(props.receiverId)) {
+        console.log('this users alredy have created a chat')
+        props.setReceiverId(null)
+        setCurrentChat(chat);
+      } 
+  })
+}}, [props.receiverId]);
+
   const checkOnlineStatus = (chat) => {
     const chatMember = chat.members.find((member) => member !== user._id);
     const online = onlineUsers.find((user) => user.userId === chatMember);

@@ -195,6 +195,7 @@ console.log(this.state.receiverId)
                       childStore={this.props.childStore}    
                       fetchChildInfo={this.props.fetchChildInfo}   
                       childInfo={this.setChildInfo}
+                      setReceiverId={this.setReceiverId}
                       MonthlyFeeList={this.props.MonthlyFeeList}
                       MonthlyFeeListToggler={this.props.MonthlyFeeListToggler}
                       getMonthlyFeeState={this.props.getMonthlyFeeState}
