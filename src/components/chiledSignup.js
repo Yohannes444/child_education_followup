@@ -81,6 +81,7 @@ class childSignup extends Component {
                                 required
                                 className={styles.input}
                             />
+                            የተማሪ ፎቶ
                             <Control.file
                                 type="file"
                                 name="photo"
@@ -95,6 +96,7 @@ class childSignup extends Component {
                                 accept=".pdf,.png,.jpg,.jpeg,.gif" 
                                 className={styles.input}
                             />
+                            ትራንስክሪፕት
                             <Control.file
                                 type="file"
                                 name="transcript"
@@ -109,6 +111,7 @@ class childSignup extends Component {
                                 accept=".pdf,.png,.jpg,.jpeg,.gif" 
                                 className={styles.input}
                             />
+                            ደረሰኝ
                             <Control.file
                                 name="receipt"
                                 type="file"

@@ -76,7 +76,7 @@ class Signup extends Component {
         }
         else if (this.props.parentSign.parentADD){
             this.props.refreshState()
-            toast.success("New parent account has been add")
+            toast.success("New parent account has been add  please confirm your email")
            
         }
         else{
@@ -137,7 +137,7 @@ class Signup extends Component {
                             <Control.text
                                 name="username"
                                 type="text"
-                                placeholder="username"
+                                placeholder="UserName"
                                 model=".username"
                                 id="username"
                                 onChange={this.handleChange}
