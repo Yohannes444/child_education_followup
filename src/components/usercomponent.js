@@ -11,7 +11,6 @@ import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
 const User = (props) => {
     
-    
 
     if (props.user.isLoading) {
         return(
@@ -36,15 +35,14 @@ const User = (props) => {
       if (props.user.user.admin) {
         return (
           <div className='container'>
-            
-          <AdminView classRoomList={props.classRoomList}  />
+          <AdminView fetchFeedBack={props.fetchFeedBack} refreshState={props.refreshState} feedBackDelete={props.feedBackDelete} feedBack={props.feedBack} classRoomList={props.classRoomList}  />
           </div>
           );
       } else if (props.user.user.teacher) {
         return (
           <div className='container'>
           
-          <TeacherView setReceiverId={props.setReceiverId} uploadGreedState={props.uploadGreedState} handleSubmitGreed={props.handleSubmitGreed} assignmentState={props.assignmentState} uploadAssignment={props.uploadAssignment} attendanceState={props.attendanceState} handleAttendanceSubmit={props.handleAttendanceSubmit} uploadState={props.uploadState} user={props.user.user} uploadMaterial={props.uploadMaterial} asignedClassRoom={props.asignedClassRoom} refreshState={props.refreshState} />
+          <TeacherView fetchClassRoomGrade={props.fetchClassRoomGrade}  setReceiverId={props.setReceiverId} uploadGreedState={props.uploadGreedState} handleSubmitGreed={props.handleSubmitGreed} assignmentState={props.assignmentState} uploadAssignment={props.uploadAssignment} attendanceState={props.attendanceState} handleAttendanceSubmit={props.handleAttendanceSubmit} uploadState={props.uploadState} user={props.user.user} uploadMaterial={props.uploadMaterial} asignedClassRoom={props.asignedClassRoom} refreshState={props.refreshState} />
           </div>
           );
       } else if (props.user.user.cashier) {

@@ -13,11 +13,11 @@ import   Contact  from './contactComponent'
 import  {connect}  from 'react-redux';
 import About from './AboutComponent'
 import { actions } from 'react-redux-form';
-import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState, fetchOneChat ,fechOtherPersoneInfo,fetchUserChat} from '../redux/ActionCreaters';
+import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState, fetchOneChat ,fechOtherPersoneInfo,fetchUserChat,fetchFeedBack, deleteFeedBack } from '../redux/ActionCreaters';
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount, fetchClassRoomList} from '../redux/actions/adminActions'
 import { postStudent,parentFetchClassRoom, fetchChildrens, fetchChildInfo, fetchMaterial, fetchAssignment, postMonthlyFee} from '../redux/actions/parentActions';
 import { wightListsToggler,fetchWithList ,fetchMonthlyFeeListes ,MonthlyFeeListToggler } from '../redux/actions/cashierAction';
-import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance, uploadAssignment, handleSubmitGreed} from '../redux/actions/teacherActions'
+import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance, uploadAssignment, handleSubmitGreed, fetchClassRoomGrade} from '../redux/actions/teacherActions'
 import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group'
 import CashierDashboard from './cashierDashbord'
 import TeacherDashboard from './teacherDashbord'
@@ -25,8 +25,7 @@ import ChildView from "./childView"
 import AssignmentView from "./AssignmentListComponent"
 import MaterialList from "./MaterialListComponent"
 import ChatComponent from "./Chat/Chat"
-
-
+import ClassRoomGrade from "./classRoomGrade"
 
 const mapStateToProps = state => {
   return {
@@ -56,6 +55,9 @@ const mapStateToProps = state => {
     allChats:state.allChats,
     oneChats:state.oneChats,
     userInfo:state.userInfo,
+    ClassRoomsGrade:state.ClassRoomsGrade,
+    feedBack:state.feedBack,
+    feedBackDelete:state.feedBackDelete,
   }
   
 }
@@ -97,7 +99,11 @@ const mapDispatchToProps  = (dispatch) => ({
   fetchClassRoomList:()=>dispatch(fetchClassRoomList()),
   fetchOneChat:(userId) =>dispatch(fetchOneChat(userId)),
   fetchUserChat:(userId) =>dispatch(fetchUserChat(userId)),
-  fechOtherPersoneInfo:(userId)=>dispatch(fechOtherPersoneInfo(userId))
+  fechOtherPersoneInfo:(userId)=>dispatch(fechOtherPersoneInfo(userId)),
+  fetchClassRoomGrade:(classId)=>dispatch(fetchClassRoomGrade(classId)),
+  postFeedback: (feedback) => dispatch(postFeedback(feedback)),
+  fetchFeedBack:()=>dispatch(fetchFeedBack()),
+  deleteFeedBack:(feedbackId)=>dispatch(deleteFeedBack(feedbackId))
 
 });
 
@@ -132,6 +138,7 @@ class  Main extends Component {
   this.props.fetchChildrens()
   this.props.monthlyFeeListes()
   this.props.fetchClassRoomList()
+  this.props.fetchFeedBack()
 }
  fetchUserChats =()=>{
   if(this.props.user?.user && this.state.isChatsLoaded === false){
@@ -160,7 +167,7 @@ console.log(this.state.receiverId)
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
          <Switch>
             <Route path= '/parentPage' component ={()=>this.props.auth.isAuthenticated ? <ChildSignup  childFlag={this.props.childFlag} childSignup={this.props.childSignup} />:<HOME   user={this.props.user}/>}/>
-            <Route exact path='/contactus' component={()=><Contact resetFeedbackForm={this.props.resetFeedbackForm}/>  }/>
+            <Route exact path='/contactus' component={()=><Contact postFeedback={this.props.postFeedback} resetFeedbackForm={this.props.resetFeedbackForm}/>  }/>
             <Route path='/signup' component={()=> <Signup  parentSign={this.props.parent} parentSignup={this.props.parentSignup} refreshState={this.props.refreshState}/>} />
             <Route path= '/signupCashier' component={()=>this.props.auth.isAuthenticated ? <SignupCash cashierSignup={this.props.cashierSignup} cashierSign={this.props.cashierSign} refreshState={this.props.refreshState}/>:<HOME   user={this.props.user}/>}/>
             <Route path='/signupTeacher' component={()=>this.props.auth.isAuthenticated ?  <SignupTeach teacherSignup={this.props.teacherSignup} teacherSign={this.props.teacherSign} refreshState={this.props.refreshState}/>:<HOME   user={this.props.user}/>}/>
@@ -171,12 +178,13 @@ console.log(this.state.receiverId)
             <Route path= '/childInfor/materials' component={()=>this.props.auth.isAuthenticated ? <MaterialList  uploadState={this.props.uploadState} student={this.state.childInfo} /> :<HOME   user={this.props.user}  />}/>
             <Route path= '/childInfor/assignemt' component={()=>this.props.auth.isAuthenticated ? <AssignmentView assignmentState={this.props.assignmentState} student={this.state.childInfo} /> :<HOME user={this.props.user} />}  />
             <Route path= '/chat' component={()=>this.props.auth.isAuthenticated ? <ChatComponent setReceiverId={this.setReceiverId} receiverId={this.state.receiverId} userInfo ={this.props.userInfo} fetchOtherPersonInfo={this.props.fechOtherPersoneInfo} allChats={this.props.allChats} user={this.props.user}  /> :<HOME user={this.props.user} />}  />
-
+            <Route path= '/classRoomGade' component={()=>this.props.auth.isAuthenticated ?<ClassRoomGrade refreshState={this.props.refreshState} ClassRoomsGrade={this.props.ClassRoomsGrade} /> :<HOME user={this.props.user} /> }/>
             <Route path="/aboutus" component={()=> <About/>}/>
             <Route path='/home' auth={this.props.auth}   
               component={()=>this.props.auth.isAuthenticated ?  
                 <User ClassRooms={this.props.ClassRooms}  
                       user={this.props.user} 
+                      feedBack={this.props.feedBack}
                       childFlag={this.props.childFlag} 
                       childSignup={this.props.childSignup}
                       refreshState={this.props.refreshState}
@@ -201,6 +209,9 @@ console.log(this.state.receiverId)
                       getMonthlyFeeState={this.props.getMonthlyFeeState}
                       fetchMonthlyFeeListes={this.props.monthlyFeeListes}
                       classRoomList={this.props.classRoomList}
+                      fetchClassRoomGrade={this.props.fetchClassRoomGrade} 
+                      feedBackDelete={this.props.deleteFeedBack}
+                      fetchFeedBack={this.props.fetchFeedBack}
                 /> 
                 :
                 <HOME   user={this.props.user}/>} 

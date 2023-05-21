@@ -27,6 +27,12 @@ const Teacher = (props) => {
 
       console.log(classInfo)
     };
+    const handleViewGrade =(classRoomId)=>{
+      props.fetchClassRoomGrade(classRoomId)
+    }
+    const handleAttendance = (classRoomId)=>{
+
+    }
     const handlback =()=>{
       setClassView(true)
       setIsClassRoomClicked(false)
@@ -195,9 +201,11 @@ else if (props.uploadGreedState.success){
                   <Table bordered>
                     <thead>
                       <tr>
-                        <th>className</th>
-                        <th>clasSize</th>
+                        <th>ClassName</th>
+                        <th>ClasSize</th>
                         <th>Action</th>
+                        <th>Grade</th>
+                        <th>Attendance</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -211,6 +219,8 @@ else if (props.uploadGreedState.success){
                               view class room
                             </Button>
                           </td>
+                          <td><Link to='/classRoomGade'><Button onClick={() =>{ return handleViewGrade(classRooms._id)}}> view students grade</Button></Link></td>
+                          <td><Button onClick={() =>{ return handleAttendance(classRooms._id)}}> view class attendance</Button></td>
                         </tr>
                       ))}
                     </tbody>

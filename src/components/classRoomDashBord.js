@@ -14,14 +14,12 @@ const Dashboard = (props) => {
           title: 'teachersList List', 
           field: 'teachersListList', 
           render: rowData => {
-            console.log(rowData)
           return <TableDropdownColumn options={rowData.teachersListList} />}
         },
         { 
           title: 'Students List', 
           field: 'StudentsList', 
           render: rowData => {
-            console.log(rowData)
           return <TableDropdownColumn options={rowData.StudentsList} />}
         },
       ];

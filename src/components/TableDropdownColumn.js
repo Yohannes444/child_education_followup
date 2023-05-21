@@ -11,7 +11,6 @@ export const TableDropdownColumn = (props) => {
 
   return (
     <Select value={selectedOption} onChange={handleSelectChange}>
-     { console.log(props.options)}
       {props.options.map((option) => {
         
         return <MenuItem key={option} value={option}>

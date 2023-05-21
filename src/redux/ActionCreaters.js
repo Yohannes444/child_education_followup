@@ -5,6 +5,7 @@ import { parentFetchClassRoom ,fetchChildrens} from './actions/parentActions';
 import { fetchTeacherClassRoom } from './actions/teacherActions';
 import {fetchWithList,fetchMonthlyFeeListes} from './actions/cashierAction'
 import axios from 'axios';
+import { toast } from "react-toastify";
 
 
 export const requestLogin = (creds) => {
@@ -132,8 +133,8 @@ export const postFeedback = (feedback) => (dispatch) => {
           throw error;
     })
   .then(response => response.json())
-  .then(response => { console.log('Feedback', response); alert('Thank you for your feedback!\n'+JSON.stringify(response)); })
-  .catch(error =>  { console.log('Feedback', error.message); alert('Your feedback could not be posted\nError: '+error.message); });
+  .then(response => { console.log('Feedback', response); toast('Thank you for your feedback!\n'+JSON.stringify(response.feedBack)); })
+  .catch(error =>  { console.log('Feedback', error.message); toast('Your feedback could not be posted\nError: '+error.message); });
 };
 
 export const parentSignup = (parent) => (dispatch) => {
@@ -481,6 +482,11 @@ export const resetClassroomState = () => {
         type:ActionTypes.TOGGLEL_MONTHLY_FEE_LIST_REQUEST_FAILD,
     }
   }
+  export const resetClassRoomGrade = ()=>{
+    return{
+        type:ActionTypes.FETCH_CLASS_ROOM_GRADE_FAILD,
+    }
+}
   export const refreshState = () => {
     return dispatch => {
       dispatch(resetClassroomState());
@@ -496,6 +502,8 @@ export const resetClassroomState = () => {
       dispatch(resetGreedState())
       dispatch(resetMonthlyFeeState())
       dispatch(resetMonthlyFeeTogglerState())
+      dispatch(resetClassRoomGrade())
+      dispatch(FeedBackDeleteFaild())
     };
   };
   
@@ -654,6 +662,85 @@ export const UserChatLodingFaild =(masseg)=>{
     }
 }
 
+
+
+export const fetchFeedBack = () => {
+    return (dispatch) => {
+      dispatch(FeedBackLoding());
+      const bearer = 'Bearer ' + localStorage.getItem('token');
+      axios.get(baseUrl + 'feedback', {
+        headers: {
+          'Authorization': bearer
+        },
+      })
+      .then(response => {
+        if (response.status === 200){
+            return response
+        }
+         else{
+            throw new Error('Error ' + response.status + ': ' + response.statusText);
+        }
+      })
+      .then(response =>response.data)
+      .then(FeedBack => dispatch(FeedBackLoaded(FeedBack)))
+      .catch(error => dispatch(FeedBackFaild(error.message)));
+    };
+  };
+  
+export const FeedBackLoaded = (FeedBack) => {
+    return {
+    type: ActionTypes.FEEDBACK_LOADED,
+    payload: FeedBack,
+  }
+};
+export const FeedBackLoding= () => {
+    return {
+        type: ActionTypes.FEEDBACK_REQUEST,
+    }
+}
+
+  export const FeedBackFaild =(message)=>{
+    return{
+        type:ActionTypes.FEEDBACK_ERROR,
+        message
+    }
+}
+
+export const deleteFeedBack =(feedBackId)=>(dispatch)=> {
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.delete(baseUrl + 'feedback', {
+      headers: {
+        'Authorization': bearer
+      },
+      params:{
+        feedBackId:feedBackId
+      }
+    })
+    .then(response => {
+      if (response.status === 200){
+          return response
+      }
+       else{
+          throw new Error('Error ' + response.status + ': ' + response.statusText);
+      }
+    })
+    .then(response =>response.data)
+    .then(FeedBack => dispatch(feedBackDeleted(FeedBack)))
+    .catch(error => dispatch(FeedBackDeleteFaild(error.message)));
+}
+
+export const feedBackDeleted =(feedBack)=>{
+    return{
+        type:ActionTypes.DELETE_FEEDBACK_SUCCESS,
+        payload:feedBack
+    }
+}
+export const FeedBackDeleteFaild=(messag)=>{
+    return{
+        type:ActionTypes.DELETE_FEEDBACK_FAILD,
+        messag
+    }
+}
 const API = axios.create({ baseURL: baseUrl });
 
 const bearer = 'Bearer ' + localStorage.getItem('token');
@@ -664,12 +751,9 @@ export const userChats = (userId) => API.get(baseUrl + 'chat', {headers: { 'Auth
 export const getUser = (userId) => API.get(baseUrl + 'users/userInfo', {headers: { 'Authorization': bearer},params: {userId: userId}})
 export const getMessages = (userId) => API.get(baseUrl + 'message', {headers: {  'Authorization': bearer},params: {userId: userId}})
 export const addMessage = (message) => API.post(baseUrl + 'message', { message }, { headers: { 'Authorization': bearer } });
-console.log('Before calling addChat API');
 export const addChat =(chat)=>{
-    
     const receiverId =chat.receiverId
     const senderId=chat.senderId
     return (API.post(baseUrl + 'chat', { senderId:senderId,receiverId:receiverId }, { headers: { 'Authorization': bearer } }))
 }
-console.log('After calling addChat API');
 

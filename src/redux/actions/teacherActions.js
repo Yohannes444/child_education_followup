@@ -254,3 +254,50 @@ export const submitAttendance = (attendance) =>  (dispatch) => {
         messag
     }
   }
+
+  export const fetchClassRoomGrade = (classId)=>(dispatch)=>{
+    dispatch(fetchClassRoomGradeRequest())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.get(baseUrl + 'grade', {headers: { 
+        'Authorization': bearer
+        },
+        params: {
+            classId: classId
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(grades => dispatch(fetchClassRoomGradeSucess(grades)))
+    .catch(error => dispatch(ClassRoomGradeLodingFaild(error.message)));
+}
+
+export const fetchClassRoomGradeRequest= ()=>{
+    return{
+        type:ActionTypes.FETCH_CLASS_ROOM_GRADE_REQUST
+    }
+}
+export const fetchClassRoomGradeSucess =(grades)=>{
+    return {
+        type:ActionTypes.FETCH_CLASS_ROOM_GRADE_LOADED_SUCCESS,
+        payload:grades
+    }
+}
+export const ClassRoomGradeLodingFaild = (messag)=>{
+    return{
+        type:ActionTypes.FETCH_CLASS_ROOM_GRADE_FAILD,
+        messag
+    }
+}

@@ -43,12 +43,7 @@ class Header extends Component {
         this.setState({
             isChatLoaded: false
         })
-       /*  if(this.props.user.user && this.state.isChatLoaded === false){
-            this.props.fetchAllChats(this.props.user.user._id)
-            this.setState({
-                isChatLoaded: true
-            });
-        } */
+
     }
     handleLogin(event) {
         this.toggleModal();
@@ -59,14 +54,7 @@ class Header extends Component {
     handleLogout() {
         this.props.logoutUser();
     }
-    /* componentDidMount() {
-        if (this.props.user.user && !this.state.isChatLoaded) {
-          this.props.fetchAllChats(this.props.user.user._id);
-          this.setState({
-            isChatLoaded: true
-          });
-        }
-      } */
+   
 
     render() {
         return(

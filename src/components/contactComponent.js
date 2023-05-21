@@ -18,7 +18,8 @@ class  Contact extends Component{
 
     handleSubmit(Values) {
         console.log('Current State is: ' + JSON.stringify(Values));
-        this.props.resetFeedbackForm(Values.firstname,Values.lastname,Values.tlenum,Values.email,Values.messag,Values.agree,Values.contactType)
+        this.props.postFeedback(Values);
+        this.props.resetFeedbackForm(Values.firstName,Values.lastName,Values.phoneNumber,Values.email,Values.reference,Values.contact,Values.feedBack)
         
     }
     
@@ -71,9 +72,9 @@ class  Contact extends Component{
                     <div className='col-12 col-md-9'>
                     <Form model="feedback" onSubmit={(values)=>this.handleSubmit(values)}>
                             <Row className="form-group">
-                                <Label htmlFor="firstname" md={2}>First Name</Label>
+                                <Label htmlFor="firstName" md={2}>First Name</Label>
                                 <Col md={10}>
-                                    <Control.text model=".firstname"  id="firstname" name="firstname"
+                                    <Control.text model=".firstName"  id="firstName" name="firstName"
                                         placeholder="First Name"
                                         className='form-control'
                                         validators={{
@@ -82,7 +83,7 @@ class  Contact extends Component{
                                         />
                                         <Errors 
                                         className='text-danger'
-                                        model=".firstname"
+                                        model=".firstName"
                                         show='touched'
                                         messages={{
                                             required: 'Required',
@@ -94,9 +95,9 @@ class  Contact extends Component{
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="lastname" md={2}>Last Name</Label>
+                                <Label htmlFor="lastName" md={2}>Last Name</Label>
                                 <Col md={10}>
-                                    <Control.text model=".lastname" id="lastname" name="lastname"
+                                    <Control.text model=".lastName" id="lastName" name="lastName"
                                         placeholder="LastName"
                                         className='form-control'                                        
                                         validators={{
@@ -105,7 +106,7 @@ class  Contact extends Component{
                                         />
                                         <Errors 
                                         className='text-danger'
-                                        model=".lastname"
+                                        model=".lastName"
                                         show='touched'
                                         messages={{
                                             required: 'Required',
@@ -118,9 +119,9 @@ class  Contact extends Component{
                                 </Col>                        
                             </Row>
                             <Row className="form-group">
-                            <Label htmlFor="telnum" md={2}>Contact Tel.</Label>
+                            <Label htmlFor="phoneNumber" md={2}>Contact Tel.</Label>
                                 <Col md={10}>
-                                    <Control.text model=".telnum" id="telnum" name="telnum"
+                                    <Control.text model=".phoneNumber" id="phoneNumber" name="phoneNumber"
                                         placeholder="Tel. number"
                                         className='form-control'
                                         validators={{
@@ -129,7 +130,7 @@ class  Contact extends Component{
                                         />
                                         <Errors 
                                         className='text-danger'
-                                        model=".telnum"
+                                        model=".phoneNumber"
                                         show='touched'
                                         messages={{
                                             required: 'Required',
@@ -167,8 +168,8 @@ class  Contact extends Component{
                                 <Col md={{size: 6, offset: 2}}>
                                     <div className='form-check'>
                                         <Label check>
-                                            <Control.checkbox model=".agree"
-                                                name="agree"
+                                            <Control.checkbox model=".contact"
+                                                name="contact"
                                                 className='form-check.input'
                                                  /> {' '}
                                             <strong>May we contact you?</strong>
@@ -176,7 +177,7 @@ class  Contact extends Component{
                                     </div>
                                 </Col>
                                 <Col md={{size: 3, offset: 1}}>
-                                    <Control.select model=".contactType" name="contactType"
+                                    <Control.select model=".reference" name="reference"
                                             className='form-control'
                                             >
                                         <option>Tel.</option>
@@ -185,9 +186,9 @@ class  Contact extends Component{
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="message" md={2}>Your Feedback</Label>
+                                <Label htmlFor="feedBack" md={2}>Your Feedback</Label>
                                 <Col md={10}>
-                                    <Control.textarea model=".message" id="message" name="message"
+                                    <Control.textarea model=".feedBack" id="feedBack" name="feedBack"
                                         rows="12"
                                         className='form-control'/>
                                 </Col>

@@ -29,6 +29,9 @@ import { classRoomListLoader } from './reducers/classRoomListReducer';
 import { allChatsLoader }from './reducers/chatReducer'
 import { OneChatsLoader } from './reducers/oneChatReducer';
 import { userInfoLoader } from './reducers/userInfo'
+import { ClassRoomGradeLoader } from './reducers/getallGradeT'
+import { feedBackLoader } from './reducers/feadBackReducer';
+import { feedBackDelete } from './reducers/deleteFeadBack';
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -59,6 +62,9 @@ export const ConfigureStore = () => {
             allChats:allChatsLoader,
             oneChats:OneChatsLoader,
             userInfo:userInfoLoader,
+            ClassRoomsGrade:ClassRoomGradeLoader,
+            feedBack:feedBackLoader,
+            feedBackDelete:feedBackDelete,
             ...createForms({
                 feedback: InitialFeedback
             })

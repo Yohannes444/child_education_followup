@@ -18,8 +18,10 @@ const AttendanceForm = (props) => {
 
 const handleSubmit = (e) => {
   e.preventDefault();
+  const classroomId=props.classRoom._id
   const gradeData = {
     semester,
+    classroomId,
     student: props.classRoom.StudentsList.map((studentId) => ({
       studentId: studentId._id,
       subject:subject,
