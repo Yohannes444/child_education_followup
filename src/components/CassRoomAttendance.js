@@ -12,42 +12,33 @@ import './ClassRoomView.css';
 import { toast } from "react-toastify";
 
 
-const ParentView= (props)=>{
+const ClassRoomAttendaceView= (props)=>{
 
     const columns = [
-        {title:'subject',field:'subject'},
-        {title:'full Name',field:'fullName'},
-        { title: 'quiz', field: 'quiz' },
-        { title: 'midExam', field: 'midExam' },
-        { title: 'assessment', field: 'assessment' },
-        { title: 'finalExam', field: 'finalExam' },
+        {title:'Date',field:'date'},
+        {title:'Full Name',field:'fullName'},
+        {
+            title: 'present',
+            field: 'present',
+            render: (rowData) => (
+              <span style={{ color: rowData.present ? 'green' : 'red' }}>
+                {rowData.present.toString()}
+              </span>
+            ),
+          },
 
       ];
-      const data = props.ClassRoomsGrade?.ClassRoomsGrade.flatMap((students) => {
-        return students.map((student) => {
-          const fullName = [student.studentId.firstName, ' ', student.studentId.lastName].join('');
-          
+      
+      const data = props.Attendances?.Attendanc.map((attendance) => {
+        return attendance.present.map((record) => {
           return {
-            subject: student.subject,
-            fullName: fullName,
-            quiz: student.quiz,
-            midExam: student.midExam,
-            assessment: student.assessment,
-            finalExam: student.finalExam,
+            date: new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(attendance.date))),
+            fullName: `${record.studentId.firstName} ${record.studentId.lastName}`,
+            present: record.present
           };
         });
-      });
-      
-      console.log(props.ClassRoomsGrade)
-
-
-      if(props.ClassRoomsGrade.loadClassRoomGrade === true){
-        console.log(props.ClassRoomsGrade)
-
-      }
- 
-  
-      if(props.ClassRoomsGrade.isLoading){
+      }).flat();
+      if(props.Attendances.isLoading){
         return(
         
             <div className="container">
@@ -63,7 +54,7 @@ const ParentView= (props)=>{
             </div>
         )
     }
-    if(props.ClassRoomsGrade.errMess ){
+    if(props.Attendances.errMess ){
         return (
             <div className="container">
                 <div className="row">
@@ -73,7 +64,7 @@ const ParentView= (props)=>{
                 </Breadcrumb>
             </div>
                 <div className="row">
-                    <h4>{props.ClassRoomsGrade.errMess}</h4>
+                    <h4>{props.Attendances.errMess}</h4>
                 </div>
             </div>
         )
@@ -83,48 +74,34 @@ const ParentView= (props)=>{
             <div>
                   <Breadcrumb>
                     <BreadcrumbItem><Link to='/home'>home</Link></BreadcrumbItem>
-                    <BreadcrumbItem active>classRoomGade</BreadcrumbItem>
+                    <BreadcrumbItem active>attendace</BreadcrumbItem>
                 </Breadcrumb>
             <h2>Student Details this is from child view components</h2>
             <div>
         <Row>
             <Col>
                      
-            {props.ClassRoomsGrade.isLoading ?
+            {props.Attendances.isLoading ?
                             (
                             
                                 <div className="container">
-                                    <div className="row">
-                                    <Breadcrumb>
-                                        <BreadcrumbItem><Link to='/home'>home</Link></BreadcrumbItem>
-                                        <BreadcrumbItem active>classRoomGade</BreadcrumbItem>
-                                    </Breadcrumb>
-                                </div>
-                                    <div className="row">
+                               
                                         <Loading />
-                                    </div>
+                                   
                                 </div>
                             )
                             : (console.log)
                         }
-                        {props.ClassRoomsGrade.errMess ?
+                        {props.Attendances.errMess ?
                             (
                                 <div className="container">
-                                    <div className="row">
-                                    <Breadcrumb>
-                                        <BreadcrumbItem><Link to='/home'>home</Link></BreadcrumbItem>
-                                        <BreadcrumbItem active>classRoomGade</BreadcrumbItem>
-                                    </Breadcrumb>
-                                </div>
-                                    <div className="row">
-                                        <h4>{this.props.ClassRoomsGrade.errMess}</h4>
-                                    </div>
+                                    <h4>{this.props.Attendances.errMess}</h4>
                                 </div>
                             )
                             : (console.log)
                         }
                         <div style={{ maxWidth: '70rem' ,margin:'30px'}}>
-                        <MaterialTable title="Students Grade" columns={columns} data={data} />;                            
+                        <MaterialTable title="Attendance" columns={columns} data={data} />;                            
                         </div>                      
             
             
@@ -141,5 +118,5 @@ const ParentView= (props)=>{
     
 
   
-  export default ParentView;
+  export default ClassRoomAttendaceView;
   

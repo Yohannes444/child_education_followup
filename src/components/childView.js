@@ -24,6 +24,10 @@ const ParentView= (props)=>{
 
         props.setReceiverId(teacherId)
     }
+
+    const handleAttendaceClicked = ()=>{
+        props.fetchAttendace(props.student._id)
+    }
     const columns = [
         {title:'የትምህርት አይነት',field:'subject'},
         { title: 'quiz', field: 'quiz' },
@@ -49,7 +53,7 @@ const ParentView= (props)=>{
             
           },
       ];
-      const data = props.childStore.childInfo.map((student) => ({
+      const data = props.childStore?.childInfo.map((student) => ({
         subject:student.subject,
         quiz: student.quiz,
         midExam: student.midExam,
@@ -74,7 +78,6 @@ const ParentView= (props)=>{
       
     const handleMatrialClicked = (student)=>{
         props.fetchMaterial(student._id)
-        
     }
     const handleAssignmentClicked =(student)=>{
         props.fetchAssignment(student._id)
@@ -149,6 +152,17 @@ const ParentView= (props)=>{
             <Col sm={8}>
             <div className="d-flex justify-content-end mb-2">
                 
+            <Link
+                outline
+                color="success"
+                className="btn btn-success mr-2"
+                onClick={() => handleAttendaceClicked(props.student)}
+                style={{ backgroundColor: 'rgb(65, 141, 65)' }}
+                to="/childInfor/attendance"
+                >
+                መገኘት
+            </Link>
+
             <Link
                 outline
                 color="success"

@@ -32,58 +32,63 @@ export const loginError = (message) => {
 
 export const loginUser = (creds) => (dispatch) => {
     // We dispatch requestLogin to kickoff the call to the API
-    dispatch(requestLogin(creds))
-
+    dispatch(requestLogin(creds));
+  
     return fetch(baseUrl + 'users/login', {
-        method: 'POST',
-        headers: { 
-            'Content-Type':'application/json' 
-        },
-        body: JSON.stringify(creds)
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(creds)
     })
-    .then(response => {
-        console.log(response)
+      .then(response => {
+        console.log(response);
         if (response.ok) {
-            return response;
+          return response;
         } else {
-            var error = new Error('Error ' + response.status + ': ' + response.statusText);
-            error.response = response;
-            throw error;
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
         }
-        },
-        error => {
-            throw error;
-        })
-    .then(response => response.json())
-    .then(response => {
+      })
+      .then(response => response.json())
+      .then(response => {
         if (response.success) {
-            // If login was successful, set the token in local storage
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('creds', JSON.stringify(creds));
-            // Dispatch the success action
-            
-            dispatch(receiveLogin(response));
-            dispatch(fetchuser())
-            dispatch(fetchCashier())
-            dispatch(fetchTeacher())
-            dispatch(parentFetchClassRoom())
-            dispatch(fetchTeacherClassRoom())
-            dispatch(fetchWithList())
-            dispatch(fetchChildrens())
-            dispatch(fetchMonthlyFeeListes())
-            dispatch(fetchClassRoomList())
-
-
-        }
-        else {
+          // If login was successful, set the token in local storage
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('creds', JSON.stringify(creds));
+          // Dispatch the success action
+  
+          dispatch(receiveLogin(response));
+          dispatch(fetchuser());
+          dispatch(fetchCashier());
+          dispatch(fetchTeacher());
+          dispatch(parentFetchClassRoom());
+          dispatch(fetchTeacherClassRoom());
+          dispatch(fetchWithList());
+          dispatch(fetchChildrens());
+          dispatch(fetchMonthlyFeeListes());
+          dispatch(fetchClassRoomList());
+          dispatch(fetchFeedBack())
+        } else {
             var error = new Error('Error ' + response.status);
             error.response = response;
             throw error;
-        }
-    })
-    .catch(error => dispatch(loginError(error.message)))
-};
-
+          }
+        })
+        .catch(error => {
+          let errorMessage = 'Login failed. Please try again.'; // Default error message
+    
+          if (error && error.response && error.response.status === 401) {
+            errorMessage = 'Email not verified. you have not verify your email or you account hase beend desabled.';
+          } else if (error && error.message) {
+            errorMessage = error.message; // Use the error message if available
+          }
+    
+          dispatch(loginError(errorMessage));
+        });
+  };
+  
 export const requestLogout = () => {
     return {
       type: ActionTypes.LOGOUT_REQUEST
@@ -101,13 +106,7 @@ export const logoutUser = () => (dispatch) => {
     dispatch(requestLogout())
     localStorage.removeItem('token');
     localStorage.removeItem('creds');
-    dispatch(fetchuser())
-    dispatch(fetchCashier())
-    dispatch(fetchTeacher())
-    dispatch(parentFetchClassRoom())
-    dispatch(fetchTeacherClassRoom())
-    dispatch(fetchWithList())
-    dispatch(fetchChildrens())
+    
     dispatch(receiveLogout())
 }
 export const postFeedback = (feedback) => (dispatch) => {

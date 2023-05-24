@@ -31,7 +31,7 @@ const Teacher = (props) => {
       props.fetchClassRoomGrade(classRoomId)
     }
     const handleAttendance = (classRoomId)=>{
-
+        props.fetchAttendaceTeacher(classRoomId)
     }
     const handlback =()=>{
       setClassView(true)
@@ -220,7 +220,7 @@ else if (props.uploadGreedState.success){
                             </Button>
                           </td>
                           <td><Link to='/classRoomGade'><Button onClick={() =>{ return handleViewGrade(classRooms._id)}}> view students grade</Button></Link></td>
-                          <td><Button onClick={() =>{ return handleAttendance(classRooms._id)}}> view class attendance</Button></td>
+                          <td><Link to='/childInfor/attendanc'><Button onClick={() =>{ return handleAttendance(classRooms._id)}}> view class attendance</Button></Link></td>
                         </tr>
                       ))}
                     </tbody>
@@ -237,7 +237,7 @@ else if (props.uploadGreedState.success){
 
 
         {isUploading? <UploadMaterialForm teacher={props.user} handlFormback={handlFormback} classRoom={classRoom} uploadMaterial={props.uploadMaterial} /> :console.log("")}
-        {attendaceIsOpen?<AttendanceForm back={handlBackFormAttendance}   classroomId={classRoom._id} students={classRoom.StudentsList} handleSubmit={props.handleAttendanceSubmit}  />:console.log("")}
+        {attendaceIsOpen?<AttendanceForm back={handlBackFormAttendance} user={props.user}   classroomId={classRoom._id} students={classRoom.StudentsList} handleSubmit={props.handleAttendanceSubmit}  />:console.log("")}
         {isUploadingAssignment? <UploadAssignment uploadAssignment={props.uploadAssignment} teacher={props.user} back={handlBackFromUploadAssignmentForm} classRoom={classRoom} />:console.log("")}
         {greadIsClicked ? <GreedForm back={handlBackfromGreedForm} handleSubmitGreed={props.handleSubmitGreed} classRoom={classRoom} />:console.log("")}
       </div>

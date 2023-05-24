@@ -10,6 +10,13 @@ const green = '#3bb19b';
 const yellow ='#f1d21c';
 const black = '#000000';
 
+
+
+const imgStyle = {
+    width: '100%',
+    height: '100%',
+    maxWidth: '100%',
+  }
 const ParentView= (props)=>{
    const handlSelectChild = (student) =>{
      props.handlChildView(student)     
@@ -59,7 +66,7 @@ const ParentView= (props)=>{
                 {props.childStore.childLists.length > 0?  (props.childStore.childLists.map((student) =>(
                 <Col sm={6} md={4} key={student._id}>
                    <Card>
-                        <CardImg top width="100%" src={baseUrl+student.photo} alt={`${student.firstName} ${student.lastName}`} />
+                        <CardImg top width="100%" style={imgStyle} src={baseUrl+student.photo} alt={`${student.firstName} ${student.lastName}`} />
                         <CardBody>
                         <CardTitle>{student.firstName} {student.lastName}</CardTitle>
                         <CardSubtitle>SectionId: {student.section}</CardSubtitle>

@@ -42,7 +42,7 @@ const User = (props) => {
         return (
           <div className='container'>
           
-          <TeacherView fetchClassRoomGrade={props.fetchClassRoomGrade}  setReceiverId={props.setReceiverId} uploadGreedState={props.uploadGreedState} handleSubmitGreed={props.handleSubmitGreed} assignmentState={props.assignmentState} uploadAssignment={props.uploadAssignment} attendanceState={props.attendanceState} handleAttendanceSubmit={props.handleAttendanceSubmit} uploadState={props.uploadState} user={props.user.user} uploadMaterial={props.uploadMaterial} asignedClassRoom={props.asignedClassRoom} refreshState={props.refreshState} />
+          <TeacherView fetchAttendaceTeacher={props.fetchAttendaceTeacher} user={props.user} fetchClassRoomGrade={props.fetchClassRoomGrade}  setReceiverId={props.setReceiverId} uploadGreedState={props.uploadGreedState} handleSubmitGreed={props.handleSubmitGreed} assignmentState={props.assignmentState} uploadAssignment={props.uploadAssignment} attendanceState={props.attendanceState} handleAttendanceSubmit={props.handleAttendanceSubmit} uploadState={props.uploadState} user={props.user.user} uploadMaterial={props.uploadMaterial} asignedClassRoom={props.asignedClassRoom} refreshState={props.refreshState} />
           </div>
           );
       } else if (props.user.user.cashier) {

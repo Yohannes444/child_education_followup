@@ -32,6 +32,8 @@ import { userInfoLoader } from './reducers/userInfo'
 import { ClassRoomGradeLoader } from './reducers/getallGradeT'
 import { feedBackLoader } from './reducers/feadBackReducer';
 import { feedBackDelete } from './reducers/deleteFeadBack';
+import { AttendanceLoader } from './reducers/fetchAttendace'
+import { AttendancLoader } from './reducers/teacherAttendance'
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -65,6 +67,8 @@ export const ConfigureStore = () => {
             ClassRoomsGrade:ClassRoomGradeLoader,
             feedBack:feedBackLoader,
             feedBackDelete:feedBackDelete,
+            Attendances:AttendanceLoader,
+            Attendanc:AttendancLoader,
             ...createForms({
                 feedback: InitialFeedback
             })

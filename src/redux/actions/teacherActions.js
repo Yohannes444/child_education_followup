@@ -301,3 +301,51 @@ export const ClassRoomGradeLodingFaild = (messag)=>{
         messag
     }
 }
+
+
+export const fetchAttendaceTeacher = (classRoomId)=> (dispatch)=>{
+  dispatch(fetchAttendaceRequest())
+  const bearer = 'Bearer ' + localStorage.getItem('token');
+  axios.get(baseUrl + 'attendance/teacher', {headers: { 
+      'Authorization': bearer
+      },
+      params: {
+        classRoomId: classRoomId
+      }
+  })
+  .then(response => {
+      if (response.status === 200) {
+          return response;
+      }
+      else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+      }
+  },
+  error => {
+      var errmess = new Error(error.message);
+      throw errmess;
+  })
+  .then(response =>response.data)
+  .then(attendance => dispatch(fetchAttendaceSucess(attendance)))
+  .catch(error => dispatch(AttendaceLodingFaild(error.message)));
+}
+
+export const fetchAttendaceRequest= ()=>{
+  return{
+      type:ActionTypes.FETCH_STUDENT_ATTENDANCE_REQUST
+  }
+}
+export const fetchAttendaceSucess =(attendance)=>{
+  return {
+      type:ActionTypes.FETCH_STUDENT_ATTENDANCE_LOADED_SUCCESS,
+      payload:attendance
+  }
+}
+export const AttendaceLodingFaild = (messag)=>{
+  return{
+      type:ActionTypes.FETCH_STUDENT_ATTENDANCE_FAILD,
+      messag
+  }
+}

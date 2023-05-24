@@ -351,3 +351,51 @@ export const postMonthlyFee = (Receipt)=> (dispatch)=>{
         messag
     }
   }
+
+
+export const fetchAttendace = (childId)=> (dispatch)=>{
+    dispatch(fetchAttendaceRequest())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.get(baseUrl + 'attendance', {headers: { 
+        'Authorization': bearer
+        },
+        params: {
+            studentId: childId
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(attendance => dispatch(fetchAttendaceSucess(attendance)))
+    .catch(error => dispatch(AttendaceLodingFaild(error.message)));
+}
+
+export const fetchAttendaceRequest= ()=>{
+    return{
+        type:ActionTypes.FETCH_ATTENDANCE_REQUST
+    }
+}
+export const fetchAttendaceSucess =(attendance)=>{
+    return {
+        type:ActionTypes.FETCH_ATTENDANCE_LOADED_SUCCESS,
+        payload:attendance
+    }
+}
+export const AttendaceLodingFaild = (messag)=>{
+    return{
+        type:ActionTypes.FETCH_ATTENDANCE_FAILD,
+        messag
+    }
+}

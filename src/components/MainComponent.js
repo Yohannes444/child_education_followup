@@ -15,9 +15,9 @@ import About from './AboutComponent'
 import { actions } from 'react-redux-form';
 import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState, fetchOneChat ,fechOtherPersoneInfo,fetchUserChat,fetchFeedBack, deleteFeedBack } from '../redux/ActionCreaters';
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount, fetchClassRoomList} from '../redux/actions/adminActions'
-import { postStudent,parentFetchClassRoom, fetchChildrens, fetchChildInfo, fetchMaterial, fetchAssignment, postMonthlyFee} from '../redux/actions/parentActions';
+import { postStudent,parentFetchClassRoom, fetchChildrens, fetchChildInfo, fetchMaterial, fetchAssignment, postMonthlyFee,fetchAttendace} from '../redux/actions/parentActions';
 import { wightListsToggler,fetchWithList ,fetchMonthlyFeeListes ,MonthlyFeeListToggler } from '../redux/actions/cashierAction';
-import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance, uploadAssignment, handleSubmitGreed, fetchClassRoomGrade} from '../redux/actions/teacherActions'
+import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance, uploadAssignment, handleSubmitGreed, fetchClassRoomGrade,fetchAttendaceTeacher} from '../redux/actions/teacherActions'
 import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group'
 import CashierDashboard from './cashierDashbord'
 import TeacherDashboard from './teacherDashbord'
@@ -26,6 +26,10 @@ import AssignmentView from "./AssignmentListComponent"
 import MaterialList from "./MaterialListComponent"
 import ChatComponent from "./Chat/Chat"
 import ClassRoomGrade from "./classRoomGrade"
+import ChaildAttendance from "./singleChildAttendace"
+import {Loading} from "./loadingComponent"
+import { toast } from "react-toastify";
+import CassRoomAttendance from "./CassRoomAttendance"
 
 const mapStateToProps = state => {
   return {
@@ -58,6 +62,9 @@ const mapStateToProps = state => {
     ClassRoomsGrade:state.ClassRoomsGrade,
     feedBack:state.feedBack,
     feedBackDelete:state.feedBackDelete,
+    Attendances:state.Attendances,
+    Attendanc:state.Attendanc
+
   }
   
 }
@@ -103,7 +110,9 @@ const mapDispatchToProps  = (dispatch) => ({
   fetchClassRoomGrade:(classId)=>dispatch(fetchClassRoomGrade(classId)),
   postFeedback: (feedback) => dispatch(postFeedback(feedback)),
   fetchFeedBack:()=>dispatch(fetchFeedBack()),
-  deleteFeedBack:(feedbackId)=>dispatch(deleteFeedBack(feedbackId))
+  deleteFeedBack:(feedbackId)=>dispatch(deleteFeedBack(feedbackId)),
+  fetchAttendace:(childId)=>dispatch(fetchAttendace(childId)),
+  fetchAttendaceTeacher:(classRoomId)=>dispatch(fetchAttendaceTeacher(classRoomId))
 
 });
 
@@ -113,7 +122,8 @@ class  Main extends Component {
     this.state = {
       childInfo: '',
       receiverId:null,
-      isChatsLoaded:false
+      isChatsLoaded:false,
+      isFirstTime:false
     };
     this.setChildInfo = this.setChildInfo.bind(this);
     this.setReceiverId = this.setReceiverId.bind(this)
@@ -149,11 +159,38 @@ class  Main extends Component {
     })
 }}
 
-
   render(){
+
     this.fetchUserChats()
 console.log(this.props.allChats)
 console.log(this.state.receiverId)
+
+if(this.props.auth.errMess !==null && !this.props.auth.isAuthenticated){
+  toast.error(this.props.auth.errMess)
+}
+if(this.props.user.isLoading){
+  return(
+  
+      <div>
+        
+          <Header auth={this.props.auth} 
+            loginUser={this.props.loginUser} 
+            logoutUser={this.props.logoutUser}
+            user={this.props.user}
+             />
+          <div className="row">
+              <Loading />
+          </div>
+          <Footer/>
+
+      </div>
+  )
+}
+
+
+
+   else{ 
+    
     return (
 
       <div className="App">
@@ -162,7 +199,6 @@ console.log(this.state.receiverId)
             logoutUser={this.props.logoutUser}
             user={this.props.user}
              />
-
           <TransitionGroup>
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
          <Switch>
@@ -174,9 +210,11 @@ console.log(this.state.receiverId)
             <Route path='/creatClassRoom' component={()=>this.props.auth.isAuthenticated ? <CreatClassroom fetchTeacher={this.props.fetchTeacher} teachers={this.props.teachers.teachers} classRoom={this.props.classRoom} creatClassroom={this.props.creatClassroom} refreshState={this.props.refreshState} />:<HOME   user={this.props.user}/>}/>
             <Route path= '/cashierDashbord' component={()=>this.props.auth.isAuthenticated ? <CashierDashboard  cashiers={this.props.cashiers} activeToggler={this.props.toggleCashierAccount}/>:<HOME   user={this.props.user}/>}/>
             <Route path= '/teacherDashbord' component = {()=>this.props.auth.isAuthenticated ? <TeacherDashboard  teachers={this.props.teachers} activeToggler = {this.props.toggleTeacherAccount}/>:<HOME   user={this.props.user}/>}/>
-            <Route path= '/childInfo' component={()=>this.props.auth.isAuthenticated ? <ChildView setReceiverId={this.setReceiverId} paymentState={this.props.paymentState} postMonthlyFee={this.props.postMonthlyFee} fetchAssignment={this.props.fetchAssignment} fetchMaterial={this.props.fetchMaterial} student={this.state.childInfo}  childStore={this.props.childInfor} refreshState={this.props.refreshState} />:<HOME   user={this.props.user}/>}/>
+            <Route path= '/childInfo' component={()=>this.props.auth.isAuthenticated ? <ChildView fetchAttendace={this.props.fetchAttendace} setReceiverId={this.setReceiverId} paymentState={this.props.paymentState} postMonthlyFee={this.props.postMonthlyFee} fetchAssignment={this.props.fetchAssignment} fetchMaterial={this.props.fetchMaterial} student={this.state.childInfo}  childStore={this.props.childInfor} refreshState={this.props.refreshState} />:<HOME   user={this.props.user}/>}/>
             <Route path= '/childInfor/materials' component={()=>this.props.auth.isAuthenticated ? <MaterialList  uploadState={this.props.uploadState} student={this.state.childInfo} /> :<HOME   user={this.props.user}  />}/>
             <Route path= '/childInfor/assignemt' component={()=>this.props.auth.isAuthenticated ? <AssignmentView assignmentState={this.props.assignmentState} student={this.state.childInfo} /> :<HOME user={this.props.user} />}  />
+            <Route path= '/childInfor/attendance' component={()=>this.props.auth.isAuthenticated ? <ChaildAttendance Attendances={this.props.Attendances} /> :<HOME user={this.props.user} />}  />
+            <Route path= '/childInfor/attendanc' component={()=>this.props.auth.isAuthenticated ? <CassRoomAttendance Attendances={this.props.Attendanc} /> :<HOME user={this.props.user} />}  />
             <Route path= '/chat' component={()=>this.props.auth.isAuthenticated ? <ChatComponent setReceiverId={this.setReceiverId} receiverId={this.state.receiverId} userInfo ={this.props.userInfo} fetchOtherPersonInfo={this.props.fechOtherPersoneInfo} allChats={this.props.allChats} user={this.props.user}  /> :<HOME user={this.props.user} />}  />
             <Route path= '/classRoomGade' component={()=>this.props.auth.isAuthenticated ?<ClassRoomGrade refreshState={this.props.refreshState} ClassRoomsGrade={this.props.ClassRoomsGrade} /> :<HOME user={this.props.user} /> }/>
             <Route path="/aboutus" component={()=> <About/>}/>
@@ -212,6 +250,7 @@ console.log(this.state.receiverId)
                       fetchClassRoomGrade={this.props.fetchClassRoomGrade} 
                       feedBackDelete={this.props.deleteFeedBack}
                       fetchFeedBack={this.props.fetchFeedBack}
+                      fetchAttendaceTeacher={this.props.fetchAttendaceTeacher}
                 /> 
                 :
                 <HOME   user={this.props.user}/>} 
@@ -227,7 +266,7 @@ console.log(this.state.receiverId)
         
         
       </div>
-    );
+    );}
   }
   
 }

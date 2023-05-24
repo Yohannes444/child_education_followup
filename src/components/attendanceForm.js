@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Table, Button,Breadcrumb, BreadcrumbItem, } from 'reactstrap';
 import styles from "./styles.module.css";
 
-const AttendanceForm = ({ classroomId, students, handleSubmit,back }) => {
+const AttendanceForm = ({ classroomId, students, handleSubmit,back,user }) => {
   const [attendance, setAttendance] = useState({});
 
   const handleChange = (event, studentId) => {
@@ -20,6 +20,7 @@ const AttendanceForm = ({ classroomId, students, handleSubmit,back }) => {
       date: new Date(),
       students: students.map((student) => ({
         studentId: student._id,
+        teacherId:user._id,
         present: attendance[student._id] || false,
       })),
     };
