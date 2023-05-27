@@ -204,8 +204,6 @@ else if (props.uploadGreedState.success){
                         <th>ClassName</th>
                         <th>ClasSize</th>
                         <th>Action</th>
-                        <th>Grade</th>
-                        <th>Attendance</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -219,9 +217,7 @@ else if (props.uploadGreedState.success){
                               view class room
                             </Button>
                           </td>
-                          <td><Link to='/classRoomGade'><Button onClick={() =>{ return handleViewGrade(classRooms._id)}}> view students grade</Button></Link></td>
-                          <td><Link to='/childInfor/attendanc'><Button onClick={() =>{ return handleAttendance(classRooms._id)}}> view class attendance</Button></Link></td>
-                        </tr>
+                          </tr>
                       ))}
                     </tbody>
                   </Table>
@@ -233,7 +229,7 @@ else if (props.uploadGreedState.success){
           </div>
         ):(console.log(""))
         }
-        {isClassRoomClicked && classView===false ? (<ClassRoomView setReceiverId={props.setReceiverId} greadIsClicked={greadIsClicked} setgreadIsClicked={setgreadIsClicked} handlback={handlback} setisUploadingAssignment={setisUploadingAssignment} isUploadingAssignment={isUploadingAssignment} setattendaceIsOpen={setattendaceIsOpen} attendaceIsOpen={attendaceIsOpen} setUploadTo={setClassRoom} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview}/>):console.log("")}
+        {isClassRoomClicked && classView===false ? (<ClassRoomView fetchAttendaceTeacher={props.fetchAttendaceTeacher} fetchClassRoomGrade={props.fetchClassRoomGrade}  setReceiverId={props.setReceiverId} greadIsClicked={greadIsClicked} setgreadIsClicked={setgreadIsClicked} handlback={handlback} setisUploadingAssignment={setisUploadingAssignment} isUploadingAssignment={isUploadingAssignment} setattendaceIsOpen={setattendaceIsOpen} attendaceIsOpen={attendaceIsOpen} setUploadTo={setClassRoom} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview}/>):console.log("")}
 
 
         {isUploading? <UploadMaterialForm teacher={props.user} handlFormback={handlFormback} classRoom={classRoom} uploadMaterial={props.uploadMaterial} /> :console.log("")}

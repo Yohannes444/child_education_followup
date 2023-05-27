@@ -7,8 +7,10 @@ import { IconButton } from '@material-ui/core';
 import { Chat } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
-const green = '#3bb19b';
-const yellow ='#f1d21c';
+
+//const green = '#171d33';
+const green ='#212959'
+const yellow ='#b59619';
 const black = '#000000';
 
 class Header extends Component {
@@ -91,7 +93,7 @@ class Header extends Component {
                                           <Button outline className="btn" style={{backgroundColor: yellow}} onClick={this.toggleModal}>
                                             <span className="fa fa-sign-in fa-lg"></span> Login
                                             {this.props.auth.isFetching ?
-                                                <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                                                <span className="fa fa-spinner fa-pulse fa-fw" ></span>
                                                 : null
                                             }
                                         </Button>
@@ -114,7 +116,7 @@ class Header extends Component {
                                             <Button style={{backgroundColor: yellow}}  outline onClick={this.handleLogout}>
                                                 <span  className="fa fa-sign-out fa-lg"></span> Logout
                                                 {this.props.auth.isFetching ?
-                                                    <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                                                     <span className="fa fa-spinner fa-pulse fa-fw"></span>
                                                     : null
                                                 }
                                             </Button>
@@ -142,12 +144,12 @@ class Header extends Component {
                         <Form onSubmit={this.handleLogin}>
                             <FormGroup>
                                 <Label htmlFor="username">Username</Label>
-                                <Input type="text" id="username" name="username"
+                                <Input type="text" id="username" name="username" required
                                     innerRef={(input) => this.username = input} />
                             </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="password">Password</Label>
-                                <Input type="password" id="password" name="password"
+                                <Input type="password" id="password" name="password"required
                                     innerRef={(input) => this.password = input}  />
                             </FormGroup>
                             <FormGroup check>

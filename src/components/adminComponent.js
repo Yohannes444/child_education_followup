@@ -78,7 +78,6 @@ const  AdminView =(props)=> {
                         <span  className="fa fa-sign-un fa-lg "></span> TEACHER DASHBORD
                     </Link>
                     <Button onClick={handleFeadback} style={{backgroundColor: yellow}} to='/signupCashier'>feed Back</Button>
-                     <h3>userView</h3>
                         <hr />
                     </div>
                 {isDashBordOpen?( <ClassRoomList classRoomList={props.classRoomList} />) :console.log("")}

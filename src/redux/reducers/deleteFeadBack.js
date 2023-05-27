@@ -6,7 +6,6 @@ export const feedBackDelete = (state = {
     }, action) => {
     switch (action.type) {
         case ActionTypes.DELETE_FEEDBACK_SUCCESS:
-            var chat = action.payload;
             return {...state,
                 errMess: '',
                 deleteFeedBack:true,

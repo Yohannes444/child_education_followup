@@ -62,10 +62,7 @@ const Dashboard = (props) => {
   return (
     
     <div>
-      <Breadcrumb>
-        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-        <BreadcrumbItem active>admins cashier Dashboard </BreadcrumbItem>
-      </Breadcrumb>
+     
       <h1>List of Calass Room</h1>
       <MaterialTable title="Class Room List" columns={columns} data={data} />;
      

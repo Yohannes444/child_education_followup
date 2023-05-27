@@ -23,9 +23,15 @@ class uploadAssignment extends Component {
         this.props.back()
     }
     handleChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
-
-      }
+        const { name, value } = e.target;
+        if (name === "description") {
+         let wordCount = value.split(' ').length;
+        this.setState({ [name]: value, descriptionError: wordCount>50 });
+        } else {
+         this.setState({ [name]: value });
+        }
+       }
+       
     
 
     async handleSubmit(event) {
@@ -84,6 +90,8 @@ class uploadAssignment extends Component {
                                 required
                                 className={styles.input}
                             />
+                            {this.state.descriptionError && <div className={styles.error}>description shuld be less than 50 words</div>}
+
                             <Control.textarea 
                                 name="quation"
                                 id="quation"

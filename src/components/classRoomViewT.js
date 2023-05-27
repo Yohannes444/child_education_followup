@@ -6,6 +6,12 @@ const calssRoomView = (props) => {
 
   const handleToggleAccount = async (id) => {
   };
+  const handleViewGrade =(classRoomId)=>{
+    props.fetchClassRoomGrade(classRoomId)
+  }
+  const handleAttendance = (classRoomId)=>{
+      props.fetchAttendaceTeacher(classRoomId)
+  }
   const handlUploadAssignment = (classRoomInfo) =>{
     props.setUploadTo(classRoomInfo)
     props.setIsClassRoomClicked(false)
@@ -52,6 +58,9 @@ const calssRoomView = (props) => {
             <Button onClick={()=>handlattendance(props.classroomview)}>track attendance</Button>
             <Button onClick={()=>handleUploadMaterial(props.classroomview)}>upload material</Button>
             <Button onClick={()=>handlUploadAssignment(props.classroomview)}>upload assignment</Button>
+            <Link to='/classRoomGade'><Button onClick={() =>{ return handleViewGrade(props.classroomview._id)}}> view students grade</Button></Link>
+            <Link to='/childInfor/attendanc'><Button onClick={() =>{ return handleAttendance(props.classroomview._id)}}> view class attendance</Button></Link>
+                        
         </div>
       <h4 className="class-room-view" >List of students in the class room</h4>
     {props.classroomview.StudentsList.length > 0?

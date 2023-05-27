@@ -24,8 +24,30 @@ class Signup extends Component {
     }
 
     handleChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        if (name === "firstName" ) {
+          // Remove non-alphabetic characters using regex
+          const lettersOnly = /^[a-zA-Z]+$/.test(value);
+          this.setState({ [name]: value, firstNameError: !lettersOnly  });
+        }else if ( name === "lastName") {
+            // Remove non-alphabetic characters using regex
+            const lettersOnly = /^[a-zA-Z]+$/.test(value);
+            this.setState({ [name]: value, lastNameError: !lettersOnly  });
+          }else if (name === "username") {
+            const startsWithLetter = /^[a-zA-Z]/.test(value);
+            this.setState({ [name]: value, usernameError: !startsWithLetter });
+          }else if (name === "email") {
+            const startsWithLetter = /^[a-zA-Z]/.test(value);
+            this.setState({ [name]: value, emailError: !startsWithLetter });
+          }else if (name === "password") {
+            const isPasswordValid = value.length >= 6;
+            this.setState({ [name]: value, passwordError: !isPasswordValid });
+          }  else {
+          this.setState({ [name]: value });
+        }
       }
+
+ 
     
   
 
@@ -99,7 +121,7 @@ class Signup extends Component {
                     <div className={styles.right}>
                      
                         <LocalForm className={styles.form_container} onSubmit={(values) => this.handleSubmit(values)}>
-                            <h1 style={{color:'#f1d21c'}}>Create Account</h1>
+                            <h1 style={{color:'#148010'}}>Create Account</h1>
                             <Control.text
                                 type = "text"
                                 name="firstName"
@@ -110,6 +132,8 @@ class Signup extends Component {
                                 required
                                 className={styles.input}
                             />
+                            {this.state.firstNameError && <div className={styles.error}>firsNname must be only caracters</div>}
+
                            <Control.text
                                 type="text"
                                 name="lastName"
@@ -120,6 +144,7 @@ class Signup extends Component {
                                 required
                                 className={styles.input}
                             />
+                            {this.state.lastNameError && <div className={styles.error}>lastName must be only caracters</div>}
                             <Control.text
                                 type="email"
                                 name="email"
@@ -130,6 +155,7 @@ class Signup extends Component {
                                 required
                                 className={styles.input}
                             />
+                              {this.state.emailError && <div className={styles.error}>email must start with a letter</div>}
                             <Control.text
                                 name="username"
                                 type="text"
@@ -140,6 +166,7 @@ class Signup extends Component {
                                 required
                                 className={styles.input}
                             />
+                            {this.state.usernameError && <div className={styles.error}>Username must start with a letter</div>}
                             <Control.password
                                 type="password"
                                 name='password'
@@ -150,7 +177,8 @@ class Signup extends Component {
                                 required
                                 className={styles.input}
                             /> 
-                             <div >this is sopust to be an error</div>
+                            {this.state.passwordError && <div className={styles.error}>Password must be at least 6 characters long</div>}
+
                             <button type="submit" className={styles.green_btn}>
                                 Sing Up
                             </button>

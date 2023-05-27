@@ -22,7 +22,7 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-color: #3bb19b;
+	background-color: #212959;
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
 }
@@ -93,7 +93,7 @@
 }
 
 .green_btn {
-	background-color: #3bb19b;
+	background-color: #dda610;
 	color: white;
 	margin: 10px;
 }
@@ -125,7 +125,7 @@
   .Table td {
 	padding: 0.75rem;
 	vertical-align: top;
-	border-top: 1px solid #dee2e6;
+	border-top: 1px solid #dee6de;
   }
   
   @media (max-width: 767px) {
@@ -151,7 +151,7 @@
 	  text-align: left;
 	  width: 100%;
 	  border-top: none;
-	  border-bottom: 1px solid #dee2e6;
+	  border-bottom: 1px solid #dee6de;
 	  position: relative;
 	  padding-left: 50%; /* Add space for the label */
 	}
@@ -169,3 +169,9 @@
 	}
   }
   
+
+  .error {
+	color: red;
+	font-size: 14px;
+	margin-top: 5px;
+  }

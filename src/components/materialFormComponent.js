@@ -21,11 +21,18 @@ class createMatereal extends Component {
     handlFormback= ()=>{
         this.props.handlFormback()
     }
-    handleChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
 
-      }
-    
+    handleChange = (e) => {
+         const { name, value } = e.target;
+         if (name === "description") {
+          let wordCount = value.split(' ').length;
+         this.setState({ [name]: value, descriptionError: wordCount>50 });
+         } else {
+          this.setState({ [name]: value });
+         }
+        }
+        
+ 
 
     async handleSubmit(event) {
         const { subject,description,file,teacher,classRoom} = this.state;
@@ -67,22 +74,24 @@ class createMatereal extends Component {
                             <Control.text
                                 type = "text"
                                 name="subject"
-                                id = "firstName"
+                                id = "subject"
                                 placeholder="subject name"
-                                model=".firstName"
+                                model=".subject"
                                 onChange={this.handleChange}
                                 required
                                 className={styles.input}
                             />
                            <Control.textarea
                                 name="description"
-                                id="lastName"
-                                placeholder="write description the material "
-                                model=".lastName"
+                                id="description"
+                                placeholder="write description of the material 
+                                less than 50 wordes"
+                                model=".description"
                                 onChange={this.handleChange}
                                 required
                                 className={styles.input}
                             />
+                            {this.state.descriptionError && <div className={styles.error}>description shuld be less than 50 words</div>}
                             <Control.file
                                 type="file"
                                 name="file"

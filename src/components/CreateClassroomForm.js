@@ -26,7 +26,14 @@ class creatClassroom extends Component {
     }
 
     handleChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        if (name === "clasSize" ) {
+          // Remove non-alphabetic characters using regex
+          const lettersOnly = value <51;
+          this.setState({ [name]: value, clasSizeError: !lettersOnly  });
+        } else {
+          this.setState({ [name]: value });
+        }
       }
       
 
@@ -112,7 +119,7 @@ class creatClassroom extends Component {
                     <div className={styles.right}>
                      
                         <LocalForm className={styles.form_container} onSubmit={(values) => this.handleSubmit(values)}>
-                            <h1 style={{color:'#f1d21c'}}>Create Account</h1>
+                            <h1 style={{color:'#148010'}}>Create Class Room</h1>
                             <Control.text
                                 type = "text"
                                 name="className"
@@ -128,13 +135,16 @@ class creatClassroom extends Component {
                             name="clasSize"
                             id="clasSize"
                             className={styles.input}
-                            placeholder="class size = 30"
+                            placeholder="number of student in the class room 
+                            class size = 30"
                             model=".clasSize"
                             onChange={this.handleChange}
                             required
                             
                             step={1}
-                            /><label>
+                            />
+                            {this.state.clasSizeError && <div className={styles.error}>number of student in the class room must be less than 51</div>}
+                            <label>
                              <MultiselectCheckboxes
                                 //value={this.state.teachersList}
                                 options={options}

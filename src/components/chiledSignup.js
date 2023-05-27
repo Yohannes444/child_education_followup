@@ -21,8 +21,18 @@ class childSignup extends Component {
     }
      
     handleChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
-
+        const { name, value } = e.target;
+        if (name === "firstName" ) {
+          // Remove non-alphabetic characters using regex
+          const lettersOnly = /^[a-zA-Z]+$/.test(value);
+          this.setState({ [name]: value, firstNameError: !lettersOnly  });
+        }else if ( name === "lastName") {
+            // Remove non-alphabetic characters using regex
+            const lettersOnly = /^[a-zA-Z]+$/.test(value);
+            this.setState({ [name]: value, lastNameError: !lettersOnly  });
+          } else {
+          this.setState({ [name]: value });
+        }
       }
     
 
@@ -71,6 +81,8 @@ class childSignup extends Component {
                                 required
                                 className={styles.input}
                             />
+                            {this.state.firstNameError && <div className={styles.error}>የተማሪው ስም የእንግሊዘኛ ፊደል ማለትም A እስክ Z ብቻ መሆን አለበት</div>}
+
                            <Control.text
                                 type="text"
                                 name="lastName"
@@ -81,6 +93,8 @@ class childSignup extends Component {
                                 required
                                 className={styles.input}
                             />
+                             {this.state.lastNameError && <div className={styles.error}>የተማሪው ስም የእንግሊዘኛ ፊደል ማለትም A እስክ Z ብቻ መሆን አለበት</div>}
+                           
                             የተማሪ ፎቶ
                             <Control.file
                                 type="file"
