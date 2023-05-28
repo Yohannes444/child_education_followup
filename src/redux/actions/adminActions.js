@@ -240,3 +240,49 @@ export const ClassRoomListLodingFaild =(masseg)=>{
     
     }
 }
+
+
+
+export const fetchAllParents = ()=>(dispatch)=>{
+    dispatch(fetchAllParentsRequest())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.get(baseUrl + 'users/allparetns', {headers: { 
+        'Authorization': bearer
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(AllParents => dispatch(fetchAllParentsSucess(AllParents)))
+    .catch(error => dispatch(AllParentsLodingFaild(error.message)));
+}
+
+export const fetchAllParentsRequest= ()=>{
+    return{
+        type:ActionTypes.FETCH_ALL_PARENTS_REQUST
+    }
+}
+export const fetchAllParentsSucess =(AllParentss)=>{
+    return {
+        type:ActionTypes.FETCH_ALL_PARENTS_LOADED,
+        payload:AllParentss
+    }
+}
+export const AllParentsLodingFaild = (messag)=>{
+    return{
+        type:ActionTypes.FETCH__ALL_PARENTS_FAILD,
+        messag
+    }
+}

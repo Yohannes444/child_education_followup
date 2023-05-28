@@ -37,6 +37,7 @@ import { AttendancLoader } from './reducers/teacherAttendance'
 import { AllMonthlyFee } from './reducers/fetchAllMonthlyfee';
 import { AllStudentsLoader } from './reducers/fetchAllChildren';
 import { OneStudentMonthlyLoader } from './reducers/fetchStudentsMonthlyFee'
+import { AllParentsLoader } from './reducers/allParents';
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -75,6 +76,7 @@ export const ConfigureStore = () => {
             allMonthlyFee:AllMonthlyFee,
             allstudents: AllStudentsLoader,
             oneMonthlyFee:OneStudentMonthlyLoader,
+            allParents:AllParentsLoader,
             ...createForms({
                 feedback: InitialFeedback
             })

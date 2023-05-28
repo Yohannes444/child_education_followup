@@ -14,7 +14,7 @@ import  {connect}  from 'react-redux';
 import About from './AboutComponent'
 import { actions } from 'react-redux-form';
 import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState, fetchOneChat ,fechOtherPersoneInfo,fetchUserChat,fetchFeedBack, deleteFeedBack } from '../redux/ActionCreaters';
-import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount, fetchClassRoomList} from '../redux/actions/adminActions'
+import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount, fetchClassRoomList,fetchAllParents} from '../redux/actions/adminActions'
 import { postStudent,parentFetchClassRoom, fetchChildrens, fetchChildInfo, fetchMaterial, fetchAssignment, postMonthlyFee,fetchAttendace} from '../redux/actions/parentActions';
 import { wightListsToggler,fetchWithList ,fetchMonthlyFeeListes ,MonthlyFeeListToggler ,fetchMonthlyFeeList,AllStudentList,fetchOneMonthlyFee} from '../redux/actions/cashierAction';
 import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance, uploadAssignment, handleSubmitGreed, fetchClassRoomGrade,fetchAttendaceTeacher} from '../redux/actions/teacherActions'
@@ -68,7 +68,7 @@ const mapStateToProps = state => {
     allMonthlyFee:state.allMonthlyFee,
     allstudents:state.allstudents ,
     oneMonthlyFee:state.oneMonthlyFee,
-       
+    allParents:state.allParents,
 
   }
   
@@ -120,7 +120,8 @@ const mapDispatchToProps  = (dispatch) => ({
   fetchAttendaceTeacher:(classRoomId)=>dispatch(fetchAttendaceTeacher(classRoomId)),
   fetchMonthlyFeeList:()=>dispatch(fetchMonthlyFeeList()),
   AllStudentList:()=>dispatch(AllStudentList()),
-  fetchOneMonthlyFee:(studentId)=>dispatch(fetchOneMonthlyFee(studentId))
+  fetchOneMonthlyFee:(studentId)=>dispatch(fetchOneMonthlyFee(studentId)),
+  fetchAllParents:()=>dispatch(fetchAllParents())
 
 });
 
@@ -159,6 +160,7 @@ class  Main extends Component {
   this.props.fetchFeedBack()
   this.props.fetchMonthlyFeeList()
   this.props.AllStudentList()
+  this.props.fetchAllParents()
 }
  fetchUserChats =()=>{
   if(this.props.user?.user && this.state.isChatsLoaded === false){
@@ -264,6 +266,8 @@ if(this.props.user.isLoading){
                       allMonthlyFee={this.props.allMonthlyFee}
                       allstudents={this.props.allstudents}
                       fetchOneMonthlyFee={this.props.fetchOneMonthlyFee}
+                      allParents={this.props.allParents}
+                      
                 /> 
                 :
                 <HOME   user={this.props.user}/>} 

@@ -29,6 +29,10 @@ const  AdminView =(props)=> {
         props.feedBackDelete(feedBackId)
         props.fetchFeedBack()
   }
+  const handleDashbordCliked =()=>{
+    setIsAdminDashbordOpen(!isAdminDashbordOpen)
+    setIsDashBordOpen(false)
+  }
         return(
             <di>
                 <div className="row">
@@ -65,7 +69,7 @@ const  AdminView =(props)=> {
                         <span  className="fa fa-sign-un fa-lg "></span> TEACHER DASHBORD
                     </Link>
                     <Button onClick={handleFeadback} style={{backgroundColor: yellow}} to='/signupCashier'>feed Back</Button>
-                    <Button onClick={()=>setIsAdminDashbordOpen(!isAdminDashbordOpen)} style={{backgroundColor: yellow}}>Admin Dashbord</Button>
+                    <Button onClick={handleDashbordCliked} style={{backgroundColor: yellow}}>Admin Dashbord</Button>
                         <hr />
                     </div>
                 {isDashBordOpen?( <ClassRoomList classRoomList={props.classRoomList} />) :console.log("")}
@@ -92,7 +96,7 @@ const  AdminView =(props)=> {
                     <Button onClick={()=>handleDelete(feedback._id)} style={{ backgroundColor: 'rgb(200,33,2)',}} >Delete</Button>
                   </div>
                     ))}
-                    {isAdminDashbordOpen ? <Dashboard />:console.log('')}
+                    {isAdminDashbordOpen ? <Dashboard allParents={props.allParents} />:console.log('')}
 
             </di>
         )

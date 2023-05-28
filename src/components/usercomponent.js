@@ -35,7 +35,7 @@ const User = (props) => {
       if (props.user.user.admin) {
         return (
           <div className='container'>
-          <AdminView fetchFeedBack={props.fetchFeedBack} refreshState={props.refreshState} feedBackDelete={props.feedBackDelete} feedBack={props.feedBack} classRoomList={props.classRoomList}  />
+          <AdminView allParents={props.allParents} fetchFeedBack={props.fetchFeedBack} refreshState={props.refreshState} feedBackDelete={props.feedBackDelete} feedBack={props.feedBack} classRoomList={props.classRoomList}  />
           </div>
           );
       } else if (props.user.user.teacher) {

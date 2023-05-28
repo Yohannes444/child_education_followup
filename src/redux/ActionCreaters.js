@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionsType';
 import { baseUrl } from '../shared/beasURL'
-import { fetchCashier, fetchTeacher,fetchClassRoomList } from './actions/adminActions';
+import { fetchCashier, fetchTeacher,fetchClassRoomList ,fetchAllParents} from './actions/adminActions';
 import { parentFetchClassRoom ,fetchChildrens} from './actions/parentActions';
 import { fetchTeacherClassRoom } from './actions/teacherActions';
 import {fetchWithList,fetchMonthlyFeeListes ,fetchMonthlyFeeList,AllStudentList} from './actions/cashierAction'
@@ -71,7 +71,8 @@ export const loginUser = (creds) => (dispatch) => {
           dispatch(fetchClassRoomList());
           dispatch(fetchFeedBack());
           dispatch(fetchMonthlyFeeList());
-          dispatch(AllStudentList())
+          dispatch(AllStudentList());
+          dispatch(fetchAllParents())
         } else {
             var error = new Error('Error ' + response.status);
             error.response = response;
