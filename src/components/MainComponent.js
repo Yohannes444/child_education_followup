@@ -16,7 +16,7 @@ import { actions } from 'react-redux-form';
 import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState, fetchOneChat ,fechOtherPersoneInfo,fetchUserChat,fetchFeedBack, deleteFeedBack } from '../redux/ActionCreaters';
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount, fetchClassRoomList} from '../redux/actions/adminActions'
 import { postStudent,parentFetchClassRoom, fetchChildrens, fetchChildInfo, fetchMaterial, fetchAssignment, postMonthlyFee,fetchAttendace} from '../redux/actions/parentActions';
-import { wightListsToggler,fetchWithList ,fetchMonthlyFeeListes ,MonthlyFeeListToggler } from '../redux/actions/cashierAction';
+import { wightListsToggler,fetchWithList ,fetchMonthlyFeeListes ,MonthlyFeeListToggler ,fetchMonthlyFeeList} from '../redux/actions/cashierAction';
 import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance, uploadAssignment, handleSubmitGreed, fetchClassRoomGrade,fetchAttendaceTeacher} from '../redux/actions/teacherActions'
 import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group'
 import CashierDashboard from './cashierDashbord'
@@ -30,6 +30,7 @@ import ChaildAttendance from "./singleChildAttendace"
 import {Loading} from "./loadingComponent"
 import { toast } from "react-toastify";
 import CassRoomAttendance from "./CassRoomAttendance"
+
 
 const mapStateToProps = state => {
   return {
@@ -63,7 +64,8 @@ const mapStateToProps = state => {
     feedBack:state.feedBack,
     feedBackDelete:state.feedBackDelete,
     Attendances:state.Attendances,
-    Attendanc:state.Attendanc
+    Attendanc:state.Attendanc,
+    allMonthlyFee:state.allMonthlyFee    
 
   }
   
@@ -112,7 +114,8 @@ const mapDispatchToProps  = (dispatch) => ({
   fetchFeedBack:()=>dispatch(fetchFeedBack()),
   deleteFeedBack:(feedbackId)=>dispatch(deleteFeedBack(feedbackId)),
   fetchAttendace:(childId)=>dispatch(fetchAttendace(childId)),
-  fetchAttendaceTeacher:(classRoomId)=>dispatch(fetchAttendaceTeacher(classRoomId))
+  fetchAttendaceTeacher:(classRoomId)=>dispatch(fetchAttendaceTeacher(classRoomId)),
+  fetchMonthlyFeeList:()=>dispatch(fetchMonthlyFeeList())
 
 });
 
@@ -149,6 +152,7 @@ class  Main extends Component {
   this.props.monthlyFeeListes()
   this.props.fetchClassRoomList()
   this.props.fetchFeedBack()
+  this.props.fetchMonthlyFeeList()
 }
  fetchUserChats =()=>{
   if(this.props.user?.user && this.state.isChatsLoaded === false){
@@ -250,6 +254,7 @@ if(this.props.user.isLoading){
                       feedBackDelete={this.props.deleteFeedBack}
                       fetchFeedBack={this.props.fetchFeedBack}
                       fetchAttendaceTeacher={this.props.fetchAttendaceTeacher}
+                      allMonthlyFee={this.props.allMonthlyFee}
                 /> 
                 :
                 <HOME   user={this.props.user}/>} 

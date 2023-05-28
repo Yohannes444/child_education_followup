@@ -132,7 +132,7 @@ class Signup extends Component {
                                 required
                                 className={styles.input}
                             />
-                            {this.state.firstNameError && <div className={styles.error}>firsNname must be only caracters</div>}
+                            {this.state.firstNameError && <div className={styles.error}>firsName must be only caracters</div>}
 
                            <Control.text
                                 type="text"

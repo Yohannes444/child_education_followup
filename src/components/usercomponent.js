@@ -49,7 +49,7 @@ const User = (props) => {
         return (
           <div className='container'>
 
-          <CashierView fetchMonthlyFeeListes={props.fetchMonthlyFeeListes} getMonthlyFeeState={props.getMonthlyFeeState} MonthlyFeeListToggler={props.MonthlyFeeListToggler} MonthlyFeeList={props.MonthlyFeeList} refreshState={props.refreshState} toggleWightList={props.toggleWightList} wightLists={props.wightLists} wightListsToggler={props.wightListsToggler} />
+          <CashierView allMonthlyFee={props.allMonthlyFee} fetchMonthlyFeeListes={props.fetchMonthlyFeeListes} getMonthlyFeeState={props.getMonthlyFeeState} MonthlyFeeListToggler={props.MonthlyFeeListToggler} MonthlyFeeList={props.MonthlyFeeList} refreshState={props.refreshState} toggleWightList={props.toggleWightList} wightLists={props.wightLists} wightListsToggler={props.wightListsToggler} />
           </div>
           );
       } else if (props.user.user.parent) {

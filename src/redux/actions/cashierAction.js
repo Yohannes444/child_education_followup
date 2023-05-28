@@ -193,3 +193,48 @@ axios.put(baseUrl + 'monthlyFee', data, {
         payload: messag,
     }
   }
+
+  export const fetchMonthlyFeeList =()=> (dispatch)=>{
+    dispatch(fetchMonthlyFeeListRequest())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.get(baseUrl + 'monthlyFee/all', {headers: { 
+        'Authorization': bearer
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(MonthlyFeeList => dispatch(fetchMonthlyFeeListSucess(MonthlyFeeList)))
+    .catch(error => dispatch(MonthlyFeeListLodingFaild(error.message)));
+}
+
+export const fetchMonthlyFeeListRequest =()=>{
+    return{
+        type:ActionTypes.FETCH_ALL_MONTHLY_FEE_LIST_REQUIRE
+    }
+}
+export const fetchMonthlyFeeListSucess =(MonthlyFeeList)=>{
+    return{
+        type:ActionTypes.FETCH_ALL_MONTHLY_FEE_LIST_SUCCESS,
+        payload:MonthlyFeeList
+    }
+}
+export const MonthlyFeeListLodingFaild =(masseg)=>{
+    return{
+        type:ActionTypes.FETCH_ALL_MONTHLY_FEE_LIST_FAILD,
+        payload: masseg
+    
+    }
+}

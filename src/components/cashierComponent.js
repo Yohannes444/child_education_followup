@@ -5,6 +5,7 @@ import WightList from './waitListView'
 import {Loading} from "./loadingComponent"
 import { toast } from "react-toastify";
 import MonthlyFeeList from "./monthlyFeeListComponent"
+import AllMonthlyFeeList from './allMonthlyFee'
 const green = '#3bb19b';
 const yellow ='#f1d21c';
 const black = '#000000';
@@ -12,6 +13,7 @@ const black = '#000000';
 const Cashier= (props)=>{
     const [isWatchWightList,setIsWatchWightList]= useState(false)
     const [isMonthlyFeeClickd,setIsMonthlyFeeClickd] =useState(false)
+    const [isAllMonthlyFeeOpen,setIsAllMonthlyFeeOpen]=useState(false)
        const handlWightListView= ()=>{
             setIsWatchWightList(!isWatchWightList)
             setIsMonthlyFeeClickd(false)
@@ -19,6 +21,9 @@ const Cashier= (props)=>{
        const handleMonthlyFeeClickd = () =>{
             setIsWatchWightList(false)
             setIsMonthlyFeeClickd(!isMonthlyFeeClickd)
+       }
+       const handleAllMonthlyFeeClickd=()=>{
+        setIsAllMonthlyFeeOpen(!isAllMonthlyFeeOpen)
        }
     
         return(
@@ -31,7 +36,8 @@ const Cashier= (props)=>{
                     <div className="col-12">
                         <h3>userView</h3>
                         <Button  style={{ backgroundColor: black }} onClick={() =>handlWightListView()} >WATCH WIGHTlISTS</Button>
-                        <Button  style={{ backgroundColor: black }} onClick={() =>handleMonthlyFeeClickd()} >WATCH MONTHLY FEE LIST</Button>
+                        <Button  style={{ backgroundColor: black }} onClick={() =>handleMonthlyFeeClickd()} >WATCH NEW MONTHLY FEE LIST</Button>
+                        <Button  style={{ backgroundColor: black }} onClick={() =>handleAllMonthlyFeeClickd()} >WATCH ALL MONTHLY FEE LIST</Button>
                     </div>
                 </div>
                 <p>this is from the Cashier component</p>
@@ -138,6 +144,7 @@ const Cashier= (props)=>{
                         }
                 {isWatchWightList ?(<WightList refreshState={props.refreshState} wightLists ={props.wightLists} wightListsToggler={props.wightListsToggler}/>):(console.log)}
                 {isMonthlyFeeClickd? <MonthlyFeeList MonthlyFeeList={props.MonthlyFeeList} refreshState={props.refreshState} MonthlyFeeListToggler={props.MonthlyFeeListToggler} /> :console.log("")}
+                {isAllMonthlyFeeOpen? <AllMonthlyFeeList allMonthlyFee={props.allMonthlyFee}/>:console.log('')}
 
             </div>
         )

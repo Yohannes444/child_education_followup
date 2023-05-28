@@ -34,6 +34,7 @@ import { feedBackLoader } from './reducers/feadBackReducer';
 import { feedBackDelete } from './reducers/deleteFeadBack';
 import { AttendanceLoader } from './reducers/fetchAttendace'
 import { AttendancLoader } from './reducers/teacherAttendance'
+import { AllMonthlyFee } from './reducers/fetchAllMonthlyfee';
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -69,6 +70,7 @@ export const ConfigureStore = () => {
             feedBackDelete:feedBackDelete,
             Attendances:AttendanceLoader,
             Attendanc:AttendancLoader,
+            allMonthlyFee:AllMonthlyFee,
             ...createForms({
                 feedback: InitialFeedback
             })

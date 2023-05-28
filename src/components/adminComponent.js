@@ -9,6 +9,7 @@ import {Loading} from "./loadingComponent"
 import { Grid } from '@material-ui/core';
 import { Email, Phone,Delete } from "@material-ui/icons";
 import { toast } from "react-toastify";
+import Dashboard from  './adminDashbord'
 
 const green = '#3bb19b';
 const yellow ='#f1d21c';
@@ -17,22 +18,8 @@ const black = '#000000';
 const  AdminView =(props)=> {
    const  [isDashBordOpen,setIsDashBordOpen]= useState(true)
    const  [isFeedBackOpen,setIsFeedBackOpen]= useState(false)
-   const columns = [
-    { title: 'first Name', field: 'firstName' },
-    { title: 'last Name', field: 'lastName' },
-    { title: 'email', field: 'email' },
-    { title: 'phone Number',field: 'phoneNumber'},
-    { title: 'feedback', field: 'feedback' }
-    
-  ];
-  console.log(props?.feedBack?.feedBack)
-  const data = props?.feedBack?.feedBack.map((feedBack) => ({
-    firstName: feedBack.firstName,
-    lastName: feedBack.lastName,
-    email: feedBack.email,
-    phoneNumber:feedBack.phoneNumber,
-    feedback: feedBack.feedBack
-  }));
+   const [isAdminDashbordOpen,setIsAdminDashbordOpen] =useState(false)
+   
   const handleFeadback =()=>{
     setIsDashBordOpen(!isDashBordOpen)
     setIsFeedBackOpen(!isFeedBackOpen)
@@ -58,7 +45,7 @@ const  AdminView =(props)=> {
                     <p> </p>
                     <Link outline 
                         className="btn btn-border" 
-                        style={{backgroundColor: green}} to='/signupTeacher'>
+                        style={{backgroundColor: yellow}} to='/signupTeacher'>
                         <span  className="fa fa-sign-un fa-lg "></span> ADD TEACHER
                     </Link>
                     <Link outline 
@@ -68,7 +55,7 @@ const  AdminView =(props)=> {
                     </Link>
                     <Link outline 
                         className="btn btn-border" 
-                        style={{backgroundColor: green}} to='/cashierDashbord'>
+                        style={{backgroundColor: yellow}} to='/cashierDashbord'>
                         <span  className="fa fa-sign-un fa-lg "></span> CASHIER DASHBORD
                     </Link>
 
@@ -78,6 +65,7 @@ const  AdminView =(props)=> {
                         <span  className="fa fa-sign-un fa-lg "></span> TEACHER DASHBORD
                     </Link>
                     <Button onClick={handleFeadback} style={{backgroundColor: yellow}} to='/signupCashier'>feed Back</Button>
+                    <Button onClick={()=>setIsAdminDashbordOpen(!isAdminDashbordOpen)} style={{backgroundColor: yellow}}>Admin Dashbord</Button>
                         <hr />
                     </div>
                 {isDashBordOpen?( <ClassRoomList classRoomList={props.classRoomList} />) :console.log("")}
@@ -104,8 +92,8 @@ const  AdminView =(props)=> {
                     <Button onClick={()=>handleDelete(feedback._id)} style={{ backgroundColor: 'rgb(200,33,2)',}} >Delete</Button>
                   </div>
                     ))}
+                    {isAdminDashbordOpen ? <Dashboard />:console.log('')}
 
-                <p>this is from the admin component  </p>
             </di>
         )
     
