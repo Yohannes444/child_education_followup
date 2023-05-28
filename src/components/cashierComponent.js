@@ -27,8 +27,8 @@ const Cashier= (props)=>{
        const handleAllMonthlyFeeClickd=()=>{
         setIsAllMonthlyFeeOpen(!isAllMonthlyFeeOpen)
        }
-       const handleViewPyament=()=>{
-
+       const handleViewPyament=(studentId)=>{
+            props.fetchOneMonthlyFee(studentId)
        }
        const columns = [
         {title:'student name',field:'studentName'},
@@ -38,12 +38,12 @@ const Cashier= (props)=>{
             title: 'view payment',
             field: 'payment',
             render: student =>{
-              console.log(student)
-            return (<Button color="success" className="mx-3" onClick={() =>{ 
-               handleViewPyament(student.approveButton._id)
+              
+            return (  <Link to="studnet/monthlyfee"  > <Button color="success" className="mx-3" onClick={() =>{ 
+               handleViewPyament(student.payment._id)
               }}>
               view payment
-          </Button>)}
+          </Button></Link>)}
             
             
           }
@@ -144,7 +144,7 @@ const Cashier= (props)=>{
                                     </Breadcrumb>
                                 </div>
                                     <div className="row">
-                                        <h4>{this.props.MonthlyFeeList.errMess}</h4>
+                                        <h4>{this.props.MonthlyFeeList?.errMess}</h4>
                                     </div>
                                 </div>
                             )
@@ -178,7 +178,7 @@ const Cashier= (props)=>{
                 {isAllMonthlyFeeOpen? <AllMonthlyFeeList allMonthlyFee={props.allMonthlyFee}/>:console.log('')}
 
 
-                <MaterialTable title="Attendance" columns={columns} data={data} />;                            
+                <MaterialTable title="MonthlyFee" columns={columns} data={data} />;                            
 
             </div>
         )

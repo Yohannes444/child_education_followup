@@ -12,7 +12,7 @@ import './ClassRoomView.css';
 import { toast } from "react-toastify";
 
 
-const AllMonthlyFee= (props)=>{
+const StudentsMonthlyFee= (props)=>{
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [selectedFileType, setSelectedFileType] = useState(null);
@@ -36,8 +36,8 @@ const AllMonthlyFee= (props)=>{
           },
 
       ];
-      
-      const data = props.allMonthlyFee?.allMonthlyFee.map((monthlyFee) => {
+      console.log(props.oneMonthlyFee?.oneMonthlyFee)
+      const data = props.oneMonthlyFee?.oneMonthlyFee.map((monthlyFee) => {
 
           return {
             date: new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(monthlyFee.date))),
@@ -62,7 +62,7 @@ const AllMonthlyFee= (props)=>{
             }
           }
       
-      if(props.allMonthlyFee.isLoading){
+      if(props.oneMonthlyFee.isLoading){
         return(
         
             <div className="container">
@@ -78,7 +78,7 @@ const AllMonthlyFee= (props)=>{
             </div>
         )
     }
-    if(props.allMonthlyFee.errMess ){
+    if(props.oneMonthlyFee.errMess ){
         return (
             <div className="container">
                 <div className="row">
@@ -88,7 +88,7 @@ const AllMonthlyFee= (props)=>{
                 </Breadcrumb>
             </div>
                 <div className="row">
-                    <h4>{props.allMonthlyFee.errMess}</h4>
+                    <h4>{props.oneMonthlyFee.errMess}</h4>
                 </div>
             </div>
         )
@@ -98,14 +98,14 @@ const AllMonthlyFee= (props)=>{
             <div>
                   <Breadcrumb>
                     <BreadcrumbItem><Link to='/home'>home</Link></BreadcrumbItem>
-                    <BreadcrumbItem active>attendace</BreadcrumbItem>
+                    <BreadcrumbItem active>MonthlyFee</BreadcrumbItem>
                 </Breadcrumb>
-            <h2>This is all the payment done for all students</h2>
+            <h2>The following is the pyment done for the Student  </h2>
             <div>
         <Row>
             <Col>
                      
-            {props.allMonthlyFee.isLoading ?
+            {props.oneMonthlyFee.isLoading ?
                             (
                             
                                 <div className="container">
@@ -116,10 +116,10 @@ const AllMonthlyFee= (props)=>{
                             )
                             : (console.log)
                         }
-                        {props.allMonthlyFee.errMess ?
+                        {props.oneMonthlyFee.errMess ?
                             (
                                 <div className="container">
-                                    <h4>{this.props.allMonthlyFee.errMess}</h4>
+                                    <h4>{this.props.oneMonthlyFee.errMess}</h4>
                                 </div>
                             )
                             : (console.log)
@@ -145,5 +145,5 @@ const AllMonthlyFee= (props)=>{
     
 
   
-  export default AllMonthlyFee;
+  export default StudentsMonthlyFee;
   

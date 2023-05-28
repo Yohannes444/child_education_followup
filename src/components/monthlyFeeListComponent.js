@@ -19,12 +19,12 @@ const ParentView= (props)=>{
         if(validator){
             setApprove(true)
             const data = {approved, id};
-            console.log(data)
+          
             props.MonthlyFeeListToggler(data)
           }else{
             setApprove(false)
             const data = {approve: false, id};
-            console.log(data)
+          
             props.MonthlyFeeListToggler(data)
           }
       }
@@ -73,7 +73,6 @@ const ParentView= (props)=>{
               </Button>}
             
       ];
-      
       const data = props.MonthlyFeeList.MonthlyFeeList.map((MonthlyFeeList) => ({
         fullName: `${MonthlyFeeList.studentId.firstName} ${MonthlyFeeList.studentId.lastName}`,
         receipt: (

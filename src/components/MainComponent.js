@@ -16,7 +16,7 @@ import { actions } from 'react-redux-form';
 import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState, fetchOneChat ,fechOtherPersoneInfo,fetchUserChat,fetchFeedBack, deleteFeedBack } from '../redux/ActionCreaters';
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount, fetchClassRoomList} from '../redux/actions/adminActions'
 import { postStudent,parentFetchClassRoom, fetchChildrens, fetchChildInfo, fetchMaterial, fetchAssignment, postMonthlyFee,fetchAttendace} from '../redux/actions/parentActions';
-import { wightListsToggler,fetchWithList ,fetchMonthlyFeeListes ,MonthlyFeeListToggler ,fetchMonthlyFeeList,AllStudentList} from '../redux/actions/cashierAction';
+import { wightListsToggler,fetchWithList ,fetchMonthlyFeeListes ,MonthlyFeeListToggler ,fetchMonthlyFeeList,AllStudentList,fetchOneMonthlyFee} from '../redux/actions/cashierAction';
 import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance, uploadAssignment, handleSubmitGreed, fetchClassRoomGrade,fetchAttendaceTeacher} from '../redux/actions/teacherActions'
 import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group'
 import CashierDashboard from './cashierDashbord'
@@ -30,7 +30,7 @@ import ChaildAttendance from "./singleChildAttendace"
 import {Loading} from "./loadingComponent"
 import { toast } from "react-toastify";
 import CassRoomAttendance from "./CassRoomAttendance"
-
+import StudentMonthlyPaymetes from "./oneStudentMonthlyFee"
 
 const mapStateToProps = state => {
   return {
@@ -66,7 +66,9 @@ const mapStateToProps = state => {
     Attendances:state.Attendances,
     Attendanc:state.Attendanc,
     allMonthlyFee:state.allMonthlyFee,
-    allstudents:state.allstudents    
+    allstudents:state.allstudents ,
+    oneMonthlyFee:state.oneMonthlyFee,
+       
 
   }
   
@@ -117,7 +119,8 @@ const mapDispatchToProps  = (dispatch) => ({
   fetchAttendace:(childId)=>dispatch(fetchAttendace(childId)),
   fetchAttendaceTeacher:(classRoomId)=>dispatch(fetchAttendaceTeacher(classRoomId)),
   fetchMonthlyFeeList:()=>dispatch(fetchMonthlyFeeList()),
-  AllStudentList:()=>dispatch(AllStudentList())
+  AllStudentList:()=>dispatch(AllStudentList()),
+  fetchOneMonthlyFee:(studentId)=>dispatch(fetchOneMonthlyFee(studentId))
 
 });
 
@@ -223,6 +226,7 @@ if(this.props.user.isLoading){
             <Route path= '/childInfor/attendanc' component={()=>this.props.auth.isAuthenticated && this.props.user.user.teacher ? <CassRoomAttendance Attendances={this.props.Attendanc} /> :<HOME user={this.props.user} />}  />
             <Route path= '/chat' component={()=>this.props.auth.isAuthenticated && (this.props.user.user.parent ||this.props.user.user.teacher) ? <ChatComponent setReceiverId={this.setReceiverId} receiverId={this.state.receiverId} userInfo ={this.props.userInfo} fetchOtherPersonInfo={this.props.fechOtherPersoneInfo} allChats={this.props.allChats} user={this.props.user}  /> :<HOME user={this.props.user} />}  />
             <Route path= '/classRoomGade' component={()=>this.props.auth.isAuthenticated ?<ClassRoomGrade refreshState={this.props.refreshState} ClassRoomsGrade={this.props.ClassRoomsGrade} /> :<HOME user={this.props.user} /> }/>
+            <Route path= '/studnet/monthlyfee' component={()=>this.props.auth.isAuthenticated && this.props.user.user.cashier?<StudentMonthlyPaymetes  oneMonthlyFee={this.props.oneMonthlyFee} /> :<HOME user={this.props.user} /> }/>
             <Route path="/aboutus" component={()=> <About/>}/>
             <Route path='/home' auth={this.props.auth}   
               component={()=>this.props.auth.isAuthenticated ?  
@@ -259,6 +263,7 @@ if(this.props.user.isLoading){
                       fetchAttendaceTeacher={this.props.fetchAttendaceTeacher}
                       allMonthlyFee={this.props.allMonthlyFee}
                       allstudents={this.props.allstudents}
+                      fetchOneMonthlyFee={this.props.fetchOneMonthlyFee}
                 /> 
                 :
                 <HOME   user={this.props.user}/>} 

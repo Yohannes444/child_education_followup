@@ -128,7 +128,9 @@ export const fetchMonthlyFeeListesRequest =()=>{
         type:ActionTypes.FETCH_MONTHLY_FEE_LIST_REQUIRE
     }
 }
+
 export const fetchMonthlyFeeListesSucess =(MonthlyFeeList)=>{
+    console.log(MonthlyFeeList)
     return{
         type:ActionTypes.FETCH_MONTHLY_FEE_LIST_SUCCESS,
         payload:MonthlyFeeList
@@ -282,5 +284,55 @@ export const AllStudentListLodingFaild =(masseg)=>{
         type:ActionTypes.FETCH_ALL_STUDENTS_FAILD,
         payload: masseg
     
+    }
+}
+
+
+
+
+export const fetchOneMonthlyFee = (studentId)=> (dispatch)=>{
+    dispatch(MonthlyFeeRequest())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.get(baseUrl + 'monthlyFee/student', {headers: { 
+        'Authorization': bearer
+        },
+        params: {
+            studentId: studentId
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(attendance => dispatch(MonthlyFeeSucess(attendance)))
+    .catch(error => dispatch(MonthlyFeeLodingFaild(error.message)));
+}
+
+export const MonthlyFeeRequest= ()=>{
+    return{
+        type:ActionTypes.FETCH_STUDENT_MONTHLY_FEE_REQUST
+    }
+}
+export const MonthlyFeeSucess =(attendance)=>{
+    return {
+        type:ActionTypes.FETCH_STUDENT_MONTHLY_FEE_LOADED_SUCCESS,
+        payload:attendance
+    }
+}
+export const MonthlyFeeLodingFaild = (messag)=>{
+    return{
+        type:ActionTypes.FETCH_STUDENT_MONTHLY_FEE_FAILD,
+        messag
     }
 }

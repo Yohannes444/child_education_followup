@@ -15,13 +15,13 @@ export const MonthlyFeeListReducer = (state = {
                 errMess:null
             };
         case ActionTypes.FETCH_MONTHLY_FEE_LIST_SUCCESS:
-            var wightList = action.payload;
-            console.log(wightList)
+            var monthlyFeeList = action.payload;
+            console.log(monthlyFeeList)
             return {...state,
                 isLoading: false,
                 errMess: '',
                 monthlyFeeLoaded:true,
-                MonthlyFeeList:state.MonthlyFeeList.concat(wightList)
+                MonthlyFeeList:state.MonthlyFeeList.concat(monthlyFeeList)
 
             };
         case ActionTypes.FETCH_MONTHLY_FEE_LIST_FAILD:
