@@ -42,14 +42,14 @@ const User = (props) => {
         return (
           <div className='container'>
           
-          <TeacherView fetchAttendaceTeacher={props.fetchAttendaceTeacher} user={props.user} fetchClassRoomGrade={props.fetchClassRoomGrade}  setReceiverId={props.setReceiverId} uploadGreedState={props.uploadGreedState} handleSubmitGreed={props.handleSubmitGreed} assignmentState={props.assignmentState} uploadAssignment={props.uploadAssignment} attendanceState={props.attendanceState} handleAttendanceSubmit={props.handleAttendanceSubmit} uploadState={props.uploadState} user={props.user.user} uploadMaterial={props.uploadMaterial} asignedClassRoom={props.asignedClassRoom} refreshState={props.refreshState} />
+          <TeacherView  fetchAttendaceTeacher={props.fetchAttendaceTeacher} fetchClassRoomGrade={props.fetchClassRoomGrade}  setReceiverId={props.setReceiverId} uploadGreedState={props.uploadGreedState} handleSubmitGreed={props.handleSubmitGreed} assignmentState={props.assignmentState} uploadAssignment={props.uploadAssignment} attendanceState={props.attendanceState} handleAttendanceSubmit={props.handleAttendanceSubmit} uploadState={props.uploadState} user={props.user.user} uploadMaterial={props.uploadMaterial} asignedClassRoom={props.asignedClassRoom} refreshState={props.refreshState} />
           </div>
           );
       } else if (props.user.user.cashier) {
         return (
           <div className='container'>
 
-          <CashierView allMonthlyFee={props.allMonthlyFee} fetchMonthlyFeeListes={props.fetchMonthlyFeeListes} getMonthlyFeeState={props.getMonthlyFeeState} MonthlyFeeListToggler={props.MonthlyFeeListToggler} MonthlyFeeList={props.MonthlyFeeList} refreshState={props.refreshState} toggleWightList={props.toggleWightList} wightLists={props.wightLists} wightListsToggler={props.wightListsToggler} />
+          <CashierView allstudents={props.allstudents} allMonthlyFee={props.allMonthlyFee} fetchMonthlyFeeListes={props.fetchMonthlyFeeListes} getMonthlyFeeState={props.getMonthlyFeeState} MonthlyFeeListToggler={props.MonthlyFeeListToggler} MonthlyFeeList={props.MonthlyFeeList} refreshState={props.refreshState} toggleWightList={props.toggleWightList} wightLists={props.wightLists} wightListsToggler={props.wightListsToggler} />
           </div>
           );
       } else if (props.user.user.parent) {

@@ -16,7 +16,7 @@ import { actions } from 'react-redux-form';
 import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState, fetchOneChat ,fechOtherPersoneInfo,fetchUserChat,fetchFeedBack, deleteFeedBack } from '../redux/ActionCreaters';
 import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount, fetchClassRoomList} from '../redux/actions/adminActions'
 import { postStudent,parentFetchClassRoom, fetchChildrens, fetchChildInfo, fetchMaterial, fetchAssignment, postMonthlyFee,fetchAttendace} from '../redux/actions/parentActions';
-import { wightListsToggler,fetchWithList ,fetchMonthlyFeeListes ,MonthlyFeeListToggler ,fetchMonthlyFeeList} from '../redux/actions/cashierAction';
+import { wightListsToggler,fetchWithList ,fetchMonthlyFeeListes ,MonthlyFeeListToggler ,fetchMonthlyFeeList,AllStudentList} from '../redux/actions/cashierAction';
 import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance, uploadAssignment, handleSubmitGreed, fetchClassRoomGrade,fetchAttendaceTeacher} from '../redux/actions/teacherActions'
 import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group'
 import CashierDashboard from './cashierDashbord'
@@ -65,7 +65,8 @@ const mapStateToProps = state => {
     feedBackDelete:state.feedBackDelete,
     Attendances:state.Attendances,
     Attendanc:state.Attendanc,
-    allMonthlyFee:state.allMonthlyFee    
+    allMonthlyFee:state.allMonthlyFee,
+    allstudents:state.allstudents    
 
   }
   
@@ -115,7 +116,8 @@ const mapDispatchToProps  = (dispatch) => ({
   deleteFeedBack:(feedbackId)=>dispatch(deleteFeedBack(feedbackId)),
   fetchAttendace:(childId)=>dispatch(fetchAttendace(childId)),
   fetchAttendaceTeacher:(classRoomId)=>dispatch(fetchAttendaceTeacher(classRoomId)),
-  fetchMonthlyFeeList:()=>dispatch(fetchMonthlyFeeList())
+  fetchMonthlyFeeList:()=>dispatch(fetchMonthlyFeeList()),
+  AllStudentList:()=>dispatch(AllStudentList())
 
 });
 
@@ -153,6 +155,7 @@ class  Main extends Component {
   this.props.fetchClassRoomList()
   this.props.fetchFeedBack()
   this.props.fetchMonthlyFeeList()
+  this.props.AllStudentList()
 }
  fetchUserChats =()=>{
   if(this.props.user?.user && this.state.isChatsLoaded === false){
@@ -255,6 +258,7 @@ if(this.props.user.isLoading){
                       fetchFeedBack={this.props.fetchFeedBack}
                       fetchAttendaceTeacher={this.props.fetchAttendaceTeacher}
                       allMonthlyFee={this.props.allMonthlyFee}
+                      allstudents={this.props.allstudents}
                 /> 
                 :
                 <HOME   user={this.props.user}/>} 

@@ -238,3 +238,49 @@ export const MonthlyFeeListLodingFaild =(masseg)=>{
     
     }
 }
+
+
+export const AllStudentList =()=> (dispatch)=>{
+    dispatch(AllStudentListRequest())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.get(baseUrl + 'child/all', {headers: { 
+        'Authorization': bearer
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(AllStudentList => dispatch(AllStudentListSucess(AllStudentList)))
+    .catch(error => dispatch(AllStudentListLodingFaild(error.message)));
+}
+
+export const AllStudentListRequest =()=>{
+    return{
+        type:ActionTypes.FETCH_ALL_STUDENTS_REQUIRE
+    }
+}
+export const AllStudentListSucess =(AllStudentList)=>{
+    return{
+        type:ActionTypes.FETCH_ALL_STUDENTS_SUCCESS,
+        payload:AllStudentList
+    }
+}
+export const AllStudentListLodingFaild =(masseg)=>{
+    return{
+        type:ActionTypes.FETCH_ALL_STUDENTS_FAILD,
+        payload: masseg
+    
+    }
+}

@@ -6,6 +6,8 @@ import {Loading} from "./loadingComponent"
 import { toast } from "react-toastify";
 import MonthlyFeeList from "./monthlyFeeListComponent"
 import AllMonthlyFeeList from './allMonthlyFee'
+import MaterialTable from 'material-table';
+
 const green = '#3bb19b';
 const yellow ='#f1d21c';
 const black = '#000000';
@@ -25,6 +27,35 @@ const Cashier= (props)=>{
        const handleAllMonthlyFeeClickd=()=>{
         setIsAllMonthlyFeeOpen(!isAllMonthlyFeeOpen)
        }
+       const handleViewPyament=()=>{
+
+       }
+       const columns = [
+        {title:'student name',field:'studentName'},
+        {title:'class Room Name',field:'classroom'},
+        {title:'receipt',field:'receipt'},
+        {
+            title: 'view payment',
+            field: 'payment',
+            render: student =>{
+              console.log(student)
+            return (<Button color="success" className="mx-3" onClick={() =>{ 
+               handleViewPyament(student.approveButton._id)
+              }}>
+              view payment
+          </Button>)}
+            
+            
+          }
+      ];
+      
+      const data = props.allstudents?.allstudents.map((student) => {
+          return {
+            studentName: `${student.firstName} ${student.lastName}`,
+            classroom: student.section.className,
+            payment: student
+          }
+        });
     
         return(
             <div>
@@ -145,6 +176,9 @@ const Cashier= (props)=>{
                 {isWatchWightList ?(<WightList refreshState={props.refreshState} wightLists ={props.wightLists} wightListsToggler={props.wightListsToggler}/>):(console.log)}
                 {isMonthlyFeeClickd? <MonthlyFeeList MonthlyFeeList={props.MonthlyFeeList} refreshState={props.refreshState} MonthlyFeeListToggler={props.MonthlyFeeListToggler} /> :console.log("")}
                 {isAllMonthlyFeeOpen? <AllMonthlyFeeList allMonthlyFee={props.allMonthlyFee}/>:console.log('')}
+
+
+                <MaterialTable title="Attendance" columns={columns} data={data} />;                            
 
             </div>
         )

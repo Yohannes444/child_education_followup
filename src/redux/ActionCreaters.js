@@ -3,7 +3,7 @@ import { baseUrl } from '../shared/beasURL'
 import { fetchCashier, fetchTeacher,fetchClassRoomList } from './actions/adminActions';
 import { parentFetchClassRoom ,fetchChildrens} from './actions/parentActions';
 import { fetchTeacherClassRoom } from './actions/teacherActions';
-import {fetchWithList,fetchMonthlyFeeListes ,fetchMonthlyFeeList} from './actions/cashierAction'
+import {fetchWithList,fetchMonthlyFeeListes ,fetchMonthlyFeeList,AllStudentList} from './actions/cashierAction'
 import axios from 'axios';
 import { toast } from "react-toastify";
 
@@ -70,7 +70,8 @@ export const loginUser = (creds) => (dispatch) => {
           dispatch(fetchMonthlyFeeListes());
           dispatch(fetchClassRoomList());
           dispatch(fetchFeedBack());
-          dispatch(fetchMonthlyFeeList())
+          dispatch(fetchMonthlyFeeList());
+          dispatch(AllStudentList())
         } else {
             var error = new Error('Error ' + response.status);
             error.response = response;
