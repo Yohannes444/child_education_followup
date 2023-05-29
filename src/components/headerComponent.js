@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom';
 
 
 //const green = '#171d33';
-const green ='#212959'
-const yellow ='#b59619';
+const green ='#5888b9'
+const yellow ='#dda610';
 const black = '#000000';
 
 class Header extends Component {
@@ -60,12 +60,12 @@ class Header extends Component {
 
     render() {
         return(
-            <React.Fragment>
+            <React.Fragment >
                 <Navbar style={{backgroundColor: green}} dark expand="md">
-                    <div className="container">
+                    <div  className="container">
                         <NavbarToggler onClick={this.toggleNav} />
-                        <NavbarBrand className="mr-auto" href="/">
-                            <img src="assets/images/logo.png" height="60" width="101"
+                        <NavbarBrand  href="/">
+                            <img src="assets/images/logo.png"  width="20"
                                 alt="Ristorante Con Fusion" />
                         </NavbarBrand>
                         <Collapse isOpen={this.state.isNavOpen} navbar>
@@ -128,6 +128,7 @@ class Header extends Component {
                         </Collapse>
                     </div>
                 </Navbar>
+                { !this.props.auth.isAuthenticated ?
                 <Jumbotron style={{backgroundColor: '#3bb19baf',backgroundImage: `url('assets/images/ppp_7_1500x700.jpg')`}}>
                     <div className="container">
                         <div className="row row-header">
@@ -137,7 +138,7 @@ class Header extends Component {
                             </div>
                         </div>
                     </div>
-                </Jumbotron>
+                </Jumbotron>:console.log('')}
                 <Modal style={{color: black}}  isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
                     <ModalBody>

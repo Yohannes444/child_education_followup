@@ -9,6 +9,9 @@ import { Provider } from 'react-redux'
 import { ConfigureStore } from './redux/configurStore' 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+//import { ProSidebarProvider } from "react-sidebar";
+import { ProSidebarProvider } from 'react-pro-sidebar';
+
 const store = ConfigureStore();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -28,8 +31,9 @@ root.render(
         style={{ width: "100%", maxWidth: "500px", margin: "auto" }}
         toastStyle={{ background: "#333", color: "#fff", borderRadius: "4px" }}
       />
-        <App />
-      
+       <ProSidebarProvider>
+          <App />
+        </ProSidebarProvider>
     </React.Fragment>
   </Provider>
 );

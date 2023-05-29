@@ -19,7 +19,10 @@ const imgStyle = {
   }
 const ParentView= (props)=>{
    const handlSelectChild = (student) =>{
-     props.handlChildView(student)     
+    const section=student.section.className
+    const { _id, firstName, lastName, photo,createdAt } = student;
+    const childData = { _id, firstName, lastName, photo,createdAt,section };
+    props.handlChildView(childData);
    }
 
       if(props.childStore.isLoading){
@@ -69,7 +72,7 @@ const ParentView= (props)=>{
                         <CardImg top width="100%" style={imgStyle} src={baseUrl+student.photo} alt={`${student.firstName} ${student.lastName}`} />
                         <CardBody>
                         <CardTitle>{student.firstName} {student.lastName}</CardTitle>
-                        <CardSubtitle>SectionId: {student.section}</CardSubtitle>
+                        <CardSubtitle>Grade: {student.section.className}</CardSubtitle>
                         <Link outline 
                         className="btn btn-border"
                         onClick={() =>{

@@ -13,7 +13,8 @@ import { toast } from "react-toastify";
 
 
 const ParentView= (props)=>{
-
+    const handleEditClick =(resultId)=>{
+    }
     const columns = [
         {title:'subject',field:'subject'},
         {title:'full Name',field:'fullName'},
@@ -21,6 +22,20 @@ const ParentView= (props)=>{
         { title: 'midExam', field: 'midExam' },
         { title: 'assessment', field: 'assessment' },
         { title: 'finalExam', field: 'finalExam' },
+        {
+            title: 'edit result',
+            field: 'editresult',
+            render: wightlist =>{
+              console.log(wightlist)
+            return (<Button color="success" className="mx-3" onClick={() =>{ 
+              
+               handleEditClick( wightlist.editresult._id)
+              }}>
+              Edit
+          </Button>)}
+            
+            
+          },
 
       ];
       const data = props.ClassRoomsGrade?.ClassRoomsGrade.flatMap((students) => {
@@ -34,17 +49,12 @@ const ParentView= (props)=>{
             midExam: student.midExam,
             assessment: student.assessment,
             finalExam: student.finalExam,
+            editresult:student
           };
         });
       });
       
-      console.log(props.ClassRoomsGrade)
-
-
-      if(props.ClassRoomsGrade.loadClassRoomGrade === true){
-        console.log(props.ClassRoomsGrade)
-
-      }
+    
  
   
       if(props.ClassRoomsGrade.isLoading){

@@ -77,7 +77,7 @@ const calssRoomView = (props) => {
           {props.classroomview.StudentsList.map((student) => (
             <tr key={student._id}>
               <td>{`${student.firstName} ${student.lastName}`}</td>
-              <td>{student._id}</td>
+              <td>{`TMN-${ Intl.DateTimeFormat('en-US', { year: 'numeric'}).format(new Date(Date.parse(student.createdAt))).substring(4, 2)}/${student._id.substring(0, 6)}`}</td>
               <td>
               <Link  style={{ backgroundColor: 'rgb(65, 141, 65)',color: 'rgb(255,255,255' }} to='/chat'>
                 <Button

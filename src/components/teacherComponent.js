@@ -182,19 +182,7 @@ else if (props.uploadGreedState.success){
         
         {classView?(
           <div>
-            <div className="row">
-                <Breadcrumb>
-                  <BreadcrumbItem>
-                    <Link to="/home">Home</Link>
-                  </BreadcrumbItem>
-                  <BreadcrumbItem active>TeacherView</BreadcrumbItem>
-                </Breadcrumb>
-                <div className="col-12">
-                  <h3>userView</h3>
-                  <hr />
-                </div>
-              </div>
-              
+           
               <h1>Assigned class Rooms</h1>
               <div style={{ display: "flex", alignItems: "center" }}>
                 <div style={{ width: "75%" }}>

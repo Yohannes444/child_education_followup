@@ -1,6 +1,7 @@
 import React, { Component, useState } from 'react';
 import {Table, Card, CardImg, CardImgOverlay, CardText, CardBody,CardSubtitle,
-    CardTitle, CardHeader, Button, Row ,Breadcrumb, BreadcrumbItem, Col, ButtonGroup} from 'reactstrap';
+        CardTitle, CardHeader, Button, Row ,Breadcrumb, BreadcrumbItem, Col,  ModalHeader, ModalBody, ModalFooter
+        } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/beasURL';
 import {Loading} from "./loadingComponent"
@@ -9,7 +10,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from 'react-modal';
 import { IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-
+import { AttachFile, Payment } from '@material-ui/icons'
+import styles from './materialTable.css';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -25,12 +27,14 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-
+  
 const MaterialListView= (props)=>{
 
     const [selectedFile, setSelectedFile] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [file, setFile] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleModal = () => setIsOpen(!isOpen);
   const classes = useStyles();
 
   const columns = [
@@ -46,7 +50,27 @@ const MaterialListView= (props)=>{
       ),
     },
   ];
-
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+  const handleAttendaceClicked = ()=>{
+    props.fetchAttendace(props.student._id)
+}
+const handleMatrialClicked = (student)=>{
+    props.fetchMaterial(student._id)
+}
+const handleAssignmentClicked =(student)=>{
+    props.fetchAssignment(student._id)
+}
+const handleSubmit = () => {
+    // Handle submission logic here
+    const studentId=props.student._id
+    const receipt=file
+    const date= new Date()
+    const info={studentId,receipt,date}
+    props.postMonthlyFee(info)
+    toggleModal();
+  };
   const handleFileClick = (file) => {
     setSelectedFile(file);
     setIsModalOpen(true);
@@ -110,14 +134,61 @@ const MaterialListView= (props)=>{
                     alt={`${props.student.firstName} ${props.student.lastName}`} />
                     <CardBody>
                     <CardTitle>{props.student.firstName} {props.student.lastName}</CardTitle>
-                    <CardSubtitle>SectionId: {props.student.section}</CardSubtitle>
+                    <CardSubtitle>Grade:{ props.student.section}</CardSubtitle>
                     </CardBody>
                 </Card>
               
             </Col>
             <Col sm={8}>
-          
-            <MaterialTable title="Education Materials" columns={columns} data={data} />
+            <div className="d-flex justify-content-end mb-2">
+            <Link
+                outline
+                color="success"
+                className="btn btn-success mr-2"
+                style={{ backgroundColor: 'rgb(65, 141, 65)' }}
+                to="/childInfo"
+                >
+                ውጤት
+            </Link>
+            <Link
+                outline
+                color="success"
+                className="btn btn-success mr-2"
+                onClick={() => handleAttendaceClicked(props.student)}
+                style={{ backgroundColor: 'rgb(65, 141, 65)' }}
+                to="/childInfor/attendance"
+                >
+                መገኘት
+            </Link>
+
+            <Link
+                outline
+                color="success"
+                className="btn btn-success mr-2"
+                
+                style={{ backgroundColor: 'rgb(255, 255, 255)',color:'rgb(0,0,0)' }}
+                to="/childInfor/materials"
+                >
+                የትምህርት ግብአቶች
+            </Link>
+            <Link
+                outline
+                color="success"
+                className="btn btn-success mr-2"
+                onClick={() => handleAssignmentClicked(props.student)}
+                style={{ backgroundColor: 'rgb(65, 141, 65)' }}
+                to="/childInfor/assignemt"
+                >
+                የቤት ስራወች
+            </Link>
+            
+            
+              <Button color="primary" style={{ backgroundColor: 'rgb(65, 141, 65)' }} onClick={toggleModal}>የትምህርት ቤት ክፍያ</Button>
+
+            </div>
+            
+            <MaterialTable title="Education Materials" columns={columns} data={data} className={styles.custom_table} />
+
            
             <Modal
                 isOpen={isModalOpen}
@@ -148,6 +219,21 @@ const MaterialListView= (props)=>{
 
             
             </Col>
+            <Modal isOpen={isOpen} toggle={toggleModal}>
+                <ModalHeader toggle={toggleModal}>የወር ክፍያ</ModalHeader>
+                <ModalBody>
+                <label>ደረሰኝ</label>
+                <br />
+                <Button startIcon={<AttachFile />} component="label">
+                    ደረሰኙን ይምረጡ
+                    <input name="file" type="file" style={{ position: 'absolute', left: '200px' }} onChange={handleFileChange} />
+                </Button>
+                </ModalBody>
+                <ModalFooter>
+                <Button color="primary" onClick={handleSubmit}>ለመላክ</Button>
+                <Button color="secondary" onClick={toggleModal}>ለመሰረዝ</Button>
+                </ModalFooter>
+            </Modal>
         </Row>
         
         

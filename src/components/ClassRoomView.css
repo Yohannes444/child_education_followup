@@ -11,11 +11,13 @@
   }
   
   h1 {
-    color: #f1d21c;
+    align-items: center;
+    color: #202931;
     font-family: 'Roboto', sans-serif;
   }
   
   h3 {
+    align-items: center;
     color:#3bb19b;
     font-family: Arial, Helvetica, sans-serif;
   }

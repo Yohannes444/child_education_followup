@@ -61,7 +61,7 @@ const Dashboard = (props) => {
   else{
   return (
     
-    <div>
+    <div >
      
       <h1>List of Calass Room</h1>
       <MaterialTable title="Class Room List" columns={columns} data={data} />;

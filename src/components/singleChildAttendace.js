@@ -11,15 +11,25 @@ import { AttachFile, Payment } from '@material-ui/icons';
 import './ClassRoomView.css';
 import { toast } from "react-toastify";
 
-
 const AttendaceView= (props)=>{
-
+    const [file, setFile] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleModal = () => setIsOpen(!isOpen);
     const columns = [
         {title:'ቀን',field:'date'},
         {title:'ሙሉ ስም',field:'fullName'},
         { title: 'መገኘት', field: 'present' },
 
       ];
+      const handleSubmit = () => {
+        // Handle submission logic here
+        const studentId=props.student._id
+        const receipt=file
+        const date= new Date()
+        const info={studentId,receipt,date}
+        props.postMonthlyFee(info)
+        toggleModal();
+      };
       
       const data = props.Attendances?.Attendances.map((Attendance) => {
         return {
@@ -28,7 +38,18 @@ const AttendaceView= (props)=>{
           present: Attendance.present.present
         };
       })
-  
+      const handleFileChange = (event) => {
+        setFile(event.target.files[0]);
+      };
+    const handleAttendaceClicked = ()=>{
+        props.fetchAttendace(props.student._id)
+    }
+    const handleMatrialClicked = (student)=>{
+        props.fetchMaterial(student._id)
+    }
+    const handleAssignmentClicked =(student)=>{
+        props.fetchAssignment(student._id)
+    }
       if(props.Attendances.isLoading){
         return(
         
@@ -71,7 +92,72 @@ const AttendaceView= (props)=>{
             <h2>Student Details this is from child view components</h2>
             <div>
         <Row>
-            <Col>
+        <Col sm={4}>
+            <animated.div>
+                <Card style={{ boxShadow: "0 4px 18px 0 rgba(0,0,0,0.8)" }}>
+                <motion.img
+                    top
+                    width="100%"
+                    src={baseUrl + props.student.photo}
+                    alt={`${props.student.firstName} ${props.student.lastName}`}
+                    initial={{ scale: 0.5, y: 50 }}
+                    animate={{ scale: 1, y: 0 }}
+                    transition={{ duration: 1, type: 'spring', stiffness: 100 }}
+                    />
+                    <CardBody>
+                    <CardTitle>{props.student.firstName} {props.student.lastName}</CardTitle>
+                    <CardSubtitle>Grade:{ props.student.section}</CardSubtitle>
+                    </CardBody>
+                </Card>
+                </animated.div>
+            </Col>
+            <Col sm={8}>
+            <div className="d-flex justify-content-end mb-2">
+            <Link
+                outline
+                color="success"
+                className="btn btn-success mr-2"
+                style={{ backgroundColor: 'rgb(65, 141, 65)' }}
+                to="/childInfo"
+                >
+                ውጤት
+            </Link>
+            <Link
+                outline
+                color="success"
+                className="btn btn-success mr-2"
+                style={{ backgroundColor: 'rgb(255, 255, 255)' ,color:'rgb(0,0,0)' }}
+                to="/childInfor/attendance"
+                >
+                መገኘት
+            </Link>
+
+            <Link
+                outline
+                color="success"
+                className="btn btn-success mr-2"
+                onClick={() => handleMatrialClicked(props.student)}
+                style={{ backgroundColor: 'rgb(65, 141, 65)' }}
+                to="/childInfor/materials"
+                >
+                የትምህርት ግብአቶች
+            </Link>
+
+            <Link
+                outline
+                color="success"
+                className="btn btn-success mr-2"
+                onClick={() => handleAssignmentClicked(props.student)}
+                style={{ backgroundColor: 'rgb(65, 141, 65)' }}
+                to="/childInfor/assignemt"
+                >
+                የቤት ስራወች
+            </Link>
+            
+              <Button color="primary" style={{ backgroundColor: 'rgb(65, 141, 65)' }} onClick={toggleModal}>የትምህርት ቤት ክፍያ</Button>
+
+            </div>
+          
                      
             {props.Attendances.isLoading ?
                             (
@@ -99,6 +185,21 @@ const AttendaceView= (props)=>{
             
             </Col>
 
+            <Modal isOpen={isOpen} toggle={toggleModal}>
+                <ModalHeader toggle={toggleModal}>የወር ክፍያ</ModalHeader>
+                <ModalBody>
+                <label>ደረሰኝ</label>
+                <br />
+                <Button startIcon={<AttachFile />} component="label">
+                    ደረሰኙን ይምረጡ
+                    <input name="file" type="file" style={{ position: 'absolute', left: '200px' }} onChange={handleFileChange} />
+                </Button>
+                </ModalBody>
+                <ModalFooter>
+                <Button color="primary" onClick={handleSubmit}>ለመላክ</Button>
+                <Button color="secondary" onClick={toggleModal}>ለመሰረዝ</Button>
+                </ModalFooter>
+            </Modal>
           
         </Row>
         
