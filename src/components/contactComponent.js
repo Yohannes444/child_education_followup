@@ -46,22 +46,20 @@ class  Contact extends Component{
                     <div className="col-12 col-sm-4 offset-sm-1">
                             <h5>Our Address</h5>
                             <address>
-                            121, Clear Water Bay Road<br />
-                            Clear Water Bay, Kowloon<br />
-                            HONG KONG<br />
-                            <i className="fa fa-phone"></i>: +251 0000 0000<br />
-                            <i className="fa fa-fax"></i>: +251 0000 0000<br />
-                            <i className="fa fa-envelope"></i>: <a href="mailto:confusion@food.net">childfollow-up@gmail.com</a>
+                            04, gonder ber Road<br />
+                            Debre Tabore<br />
+                            <i className="fa fa-phone"></i>: +251 9794 5862<br />
+                            <i className="fa fa-fax"></i>: +251 9794 5862<br />
+                            <i className="fa fa-envelope"></i>: <a href="#">childfollow-up@gmail.com</a>
                             </address>
                     </div>
                     <div className="col-12 col-sm-6 offset-sm-1">
-                        <h5>Map of our Location</h5>
                     </div>
                     <div className="col-12 col-sm-11 offset-sm-1">
                         <div className="btn-group" role="group">
-                            <a role="button" className="btn btn-primary" href="tel:+85212345678"><i className="fa fa-phone"></i> Call</a>
+                            <a role="button" className="btn btn-primary" href="tel:+251979458662"><i className="fa fa-phone"></i> Call</a>
                             <a role="button" className="btn btn-info" href='#'><i className="fa fa-skype"></i> Skype</a>
-                            <a role="button" className="btn btn-success" href="mailto:confusion@food.net"><i className="fa fa-envelope-o"></i> Email</a>
+                            <a role="button" className="btn btn-success" href="#"><i className="fa fa-envelope-o"></i> Email</a>
                         </div>
                     </div>
                 </div>

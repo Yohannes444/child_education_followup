@@ -11,7 +11,6 @@ function Footer(props) {
                         
                         <li><Link to="/home">Home</Link></li>
                         <li><Link to="/aboutus">About Us</Link></li>
-                        <li><Link to="/menu">Menu</Link></li>
                         <li><Link to="contactus.html">Contact</Link></li>
                         
                     </ul>
@@ -19,13 +18,13 @@ function Footer(props) {
                 <div className="col-7 col-sm-5">
                     <h5>Our Address</h5>
                     <address>
-		              121, ----- ----- -----<br />
+		              04, shouth gonder Debre Tabor<br />
 		              _____ _____ _____<br />
 		              DEBRE TABOR<br />
-		              <i className="fa fa-phone fa-lg"></i>: +251 0000 0000<br />
-		              <i className="fa fa-fax fa-lg"></i>: ++251  0000 0000<br />
+		              <i className="fa fa-phone fa-lg"></i>: +251 97945 8662<br />
+		              <i className="fa fa-fax fa-lg"></i>: ++251  97945 8662<br />
 		              <i className="fa fa-envelope fa-lg"></i>: <a href="mailto:confusion@food.net">
-                         confusion@food.net</a>
+                         childFollow@ed.net</a>
                     </address>
                 </div>
                 <div className="col-12 col-sm-4 align-self-center">

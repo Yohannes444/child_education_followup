@@ -15,7 +15,7 @@ class childSignup extends Component {
             photo:"",
             transcript: "",
             receipt: "",
-            selectedClassRoom:this.props.classRoom._id
+            selectedClassRoom:this.props.classRoom?._id
         };
         this.handleSubmit = this.handleSubmit.bind(this);  
     }
@@ -70,7 +70,7 @@ class childSignup extends Component {
                      
                         <LocalForm enctype="multipart/form-data" className={styles.form_container} onSubmit={(values) => this.handleSubmit(values)}>
                             <h1 style={{color:'#f1d21c'}}>ልጅውን ይመዝግቡ</h1>
-                            <h3>{this.props.classRoom.className}</h3>
+                            <h3>{this.props.classRoom?.className}</h3>
                             <Control.text
                                 type = "text"
                                 name="firstName"

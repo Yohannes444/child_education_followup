@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Table, Button,Breadcrumb, BreadcrumbItem, } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import ClassRoomList from './classroomListP';
@@ -19,7 +19,13 @@ const ParentView= (props)=>{
    const [child,setChild] = useState()
    const [ischildSelected,setIschildSelected] = useState(false)
    
-
+   useEffect(() => {
+    if (props.childStore?.childLists?.length > 0) {
+      setIsChildsClicked(true);
+    } else {
+      setregstering(true);
+    }
+  }, [props.childStore.childLists]);
     const handleToggleAccount = () => {
         setClassRoo(!classRoo);
         setSelectedClassRoom('')
@@ -49,7 +55,7 @@ const ParentView= (props)=>{
                         <BreadcrumbItem  ><Link to='/home'>ዋና ገጽ</Link></BreadcrumbItem>
                         <BreadcrumbItem active>የአሳዳጊ ገጽ</BreadcrumbItem>
                     </Breadcrumb>
-                    <div className="col-12">
+                    <div style={{align:"center"}} className="col-12">
                         <h3>አሳዳጊ ግጽ</h3>
                         <hr />
                     </div>

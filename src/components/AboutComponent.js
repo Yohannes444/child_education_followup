@@ -8,42 +8,6 @@ import {Loading} from "./loadingComponent"
 
   
 
-function RenderLeader({leaders, isLoading, errMess}){
-        if(isLoading){
-            return(
-                <Loading/>
-            )
-        }else if(errMess){
-            return(
-                <h4>{errMess}</h4>
-            )
-        }
-        if(leaders != null)
-        return(
-            <div>
-            {leaders.map((leader)=>{
-                return(
-            <Media list>
-                 <Media tag="li">
-            <Media left >
-              <Media object src={baseURL+leader.image} alt="leadr image" className="m2" />
-            </Media>
-            <Media body>
-              <Media heading>
-               child Education Follow-up 
-              </Media>
-              <p>lormen We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
-              We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!
-             <p>this is the list</p>
-            </Media>
-            </Media>
-          </Media>
-          )
-        
-    })}
-    </div>
-    )
-    }
     function About(props) {
 
    /*  const leaders = props.leaders.map((leader) => {
@@ -67,8 +31,7 @@ function RenderLeader({leaders, isLoading, errMess}){
             <div className="row row-content">
                 <div className="col-12 col-md-6">
                     <h2>Our History</h2>
-                    <p>Started in 2010, Ristorante con Fusion quickly established itself as a culinary icon par excellence in Hong Kong. With its unique brand of world fusion cuisine that can be found nowhere else, it enjoys patronage from the A-list clientele in Hong Kong.  Featuring four of the best three-star Michelin chefs in the world, you never know what will arrive on your plate the next time you visit us.</p>
-                    <p>The restaurant traces its humble beginnings to <em>The Frying Pan</em>, a successful chain started by our CEO, Mr. Peter Pan, that featured for the first time the world's best cuisines in a pan.</p>
+                    <p>In 2023, our organization began a transformative journey in child education. With a shared vision of empowering children through knowledge, we pioneered innovative approaches and cutting-edge technologies. Our short yet impactful history is marked by inspiring moments of growth as children discover their potential, develop essential skills, and embrace a love for learning. Looking ahead, we are committed to shaping the future of education, adapting to emerging trends, and building a generation that will shape the world with brilliance and compassion. Together, let's create a brighter future for every child.</p>
                 </div>
                 <div className="col-12 col-md-5">
                     <Card>
@@ -76,9 +39,9 @@ function RenderLeader({leaders, isLoading, errMess}){
                         <CardBody>
                             <dl className="row p-1">
                                 <dt className="col-6">Started</dt>
-                                <dd className="col-6">3 Feb. 2013</dd>
+                                <dd className="col-6">3 Feb. 2023</dd>
                                 <dt className="col-6">Major Stake Holder</dt>
-                                <dd className="col-6">HK Fine Foods Inc.</dd>
+                                <dd className="col-6">HK temene follow_up.</dd>
                                 <dt className="col-6">Last Year's Turnover</dt>
                                 <dd className="col-6">$1,250,375</dd>
                                 <dt className="col-6">Employees</dt>
@@ -91,11 +54,9 @@ function RenderLeader({leaders, isLoading, errMess}){
                     <Card>
                         <CardBody className="bg-faded">
                             <blockquote className="blockquote">
-                                <p className="mb-0">You better cut the pizza in four pieces because
-                                    I'm not hungry enough to eat six.</p>
+                                <p className="mb-0">education is not for life education is life itself.</p>
                                 <footer className="blockquote-footer">Yogi Berra,
-                                <cite title="Source Title">The Wit and Wisdom of Yogi Berra,
-                                    P. Pepe, Diversion Books, 2014</cite>
+                                <cite title="Source Title">parents are major players in children's life parents shuld be infolved in thir child's education</cite>
                                 </footer>
                             </blockquote>
                         </CardBody>
@@ -107,11 +68,7 @@ function RenderLeader({leaders, isLoading, errMess}){
                     <h2>Corporate Leadership</h2>
                 </div>
                 <div className="col-12">
-                    
-                        
-                        <RenderLeader leaders={props.leaders} isLoading={props.leadersLoding} errMess={props.leadersErrMess} /> 
-                        
-                    
+ 
                 </div>
             </div>
         </div>

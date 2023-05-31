@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Vedana&display=swap');
+
 .welcome-message {
-    
+    background: linear-gradient(to bottom, #3bb19b, #3bb19baf);
     background-size: cover;
     background-position: center;
     padding: 2rem;
@@ -25,17 +27,31 @@
     justify-content: space-between;
     margin-left: 10%;
     margin-right: 10%;
+    
   }
   
   .card-itself {
-    width: calc(33.33% - 10px); /* Adjust the width as needed */
     margin-bottom: 20px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2); 
+    background-color:  rgba(202, 212, 223, 0.952);
+
+   /* Update the box shadow */
   }
+  
   
   .card-img-top {
     height: 200px; /* Adjust the image height as needed */
     object-fit: cover;
   }
+  
+  .section-header-2{
+    text-align: center;
+    color: rgba(248, 190, 30, 0.918);
+    font-weight: bold;
+   
+    border-radius: 10px;
+  }
+  
   
   .card-title {
     font-size: 1.2rem;
@@ -47,14 +63,17 @@
     font-size: 1rem;
     margin-bottom: 1rem;
   }
+
   .section-header {
-    text-align: center;
-    background-color: rgb(247, 245, 241);
-    color: rgb(6, 59, 102);
-    padding: 10px;
-    font-weight: bold;
-    margin-left: 10%;
-    margin-right: 10%;
-    border-radius: 10px;
-  }
-  
+  text-align: center;
+  background-color:  rgba(202, 212, 223, 0.952);
+  color: rgb(6, 59, 102);
+  padding: 10px;
+  font-weight: bold;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  font-family: 'Venarda', sans-serif; /* Specify Vedana font and fallback to sans-serif */
+}
