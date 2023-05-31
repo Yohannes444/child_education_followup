@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom';
 import styles from "./styles.module.css";
 import {  Control,LocalForm } from 'react-redux-form';
 //import RenderLeader from './RenderLeader'
+import ReplyAllOutlinedIcon from '@mui/icons-material/ReplyAllOutlined';
+import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import GradingOutlinedIcon from '@mui/icons-material/GradingOutlined';
+import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
+import PlaylistAddOutlinedIcon from '@mui/icons-material/PlaylistAddOutlined';
 
 class createMatereal extends Component {
 
@@ -21,7 +30,45 @@ class createMatereal extends Component {
     handlFormback= ()=>{
         this.props.handlFormback()
     }
+    handleViewGrade =(classRoomId)=>{
+        this.props.fetchClassRoomGrade(classRoomId)
 
+     }
+      handleAttendance = (classRoomId)=>{
+          this.props.fetchAttendaceTeacher(classRoomId)
+
+     }
+      handlUploadAssignment = (classRoomInfo) =>{
+        this.props.setUploadTo(classRoomInfo)
+        this.props.setIsClassRoomClicked(false)
+        this.props.setIsUploeading(false)
+        this.props.setisUploadingAssignment(! this.props.isUploadingAssignment)
+        this.props.setattendaceIsOpen(false)
+       
+     }
+      handleUploadMaterial = (classRoomInfo)=>{
+        this.props.setUploadTo(classRoomInfo)
+        this.props.setIsUploeading(! this.props.isUploading)
+        this.props.setIsClassRoomClicked(false)
+        this.props.setisUploadingAssignment(false)
+        this.props.setattendaceIsOpen(false)
+
+     }
+      handlattendance = (classRoomInfo) =>{
+        this.props.setUploadTo(classRoomInfo)
+        this.props.setIsClassRoomClicked(false)
+        this.props.setIsUploeading(false)
+        this.props.setattendaceIsOpen(! this.props.attendaceIsOpen)
+        this.props.setgreadIsClicked(false)
+   
+     }
+      handlGreed = (classRoomInfo)=>{
+        this.props.setUploadTo(classRoomInfo)
+        this.props.setIsUploeading(false)
+        this.props.setIsClassRoomClicked(false)
+        this.props.setattendaceIsOpen(false)
+        this.props.setgreadIsClicked(! this.props.greadIsClicked)
+     }
     handleChange = (e) => {
          const { name, value } = e.target;
          if (name === "description") {
@@ -54,6 +101,31 @@ class createMatereal extends Component {
          
         
         return(
+            <div>
+                <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
+                <Sidebar style={{ height: "100vh" }}>
+                  <Menu >
+                    <MenuItem
+                      icon={<MenuOutlinedIcon />}
+                      onClick={() => {
+                        console.log("opps");
+                      }}
+                      style={{ textAlign: "center" }}
+                    >
+                      {" "}
+                      <h2>Teacher M</h2>
+                      </MenuItem>
+                      <MenuItem icon={<GradingOutlinedIcon />} > <Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} }  onClick={()=>this.handlGreed( this.props.classroomview)} >add grade</Button></MenuItem>
+                    <MenuItem icon={<PlaylistAddOutlinedIcon />}> <Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} } onClick={()=>this.handlattendance( this.props.classroomview)}>track attendance</Button></MenuItem>
+                    <MenuItem style={{backgroundColor: "#e9ca1b"}} icon={<DriveFolderUploadOutlinedIcon  />}><Button style={{backgroundColor: "#e9ca1b",color: "#5888b9", border: "none"} } onClick={()=>"this.handleUploadMaterial( this.props.classroomview)"}>upload material</Button></MenuItem>
+                    <MenuItem icon={<AssignmentOutlinedIcon />}> <Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} } onClick={()=>this.handlUploadAssignment( this.props.classroomview)}>upload assignment</Button></MenuItem>
+                    <MenuItem icon={<FactCheckOutlinedIcon />}> <Link to='/classRoomGade'><Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} }  onClick={() =>{ return this.handleViewGrade( this.props.classroomview._id)}}> view students grade</Button></Link>  </MenuItem>
+                    <MenuItem icon={<ListAltOutlinedIcon />}> <Link to='/childInfor/attendanc'><Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} }  onClick={() =>{ return this.handleAttendance( this.props.classroomview._id)}}> view class attendance</Button></Link></MenuItem>
+                 </Menu>
+                </Sidebar>
+                <main>
+                
+                <div style={{ flexGrow: 1 }}>
         <div className="container bg-f5f5f5">
             <div className="row">
                    
@@ -62,14 +134,14 @@ class createMatereal extends Component {
             <div className="row row-content">
                 <div className={styles.signup_container}>
                 <div className={styles.signup_form_container}>
-                    <div>                
-                        <Button onClick={()=>this.handlFormback()}>back to the class room</Button>
+                    <div>    
+                        <ReplyAllOutlinedIcon onClick={()=>this.handlFormback()}/>            
                     </div>
 
                     <div className={styles.right}>
                      
                         <LocalForm enctype="multipart/form-data" className={styles.form_container} onSubmit={(values) => this.handleSubmit(values)}>
-                            <h1 style={{color:'#f1d21c'}}>Upload material</h1>
+                            <h1 style={{color:'#5888b9'}}>Upload material</h1>
                             <h3>{this.props.classRoom.className}</h3>
                             <Control.text
                                 type = "text"
@@ -114,6 +186,10 @@ class createMatereal extends Component {
                     </div>
                 </div>
             </div>
+            </div>
+            </div>
+            </div>
+            </main>
             </div>
         </div>
     )}

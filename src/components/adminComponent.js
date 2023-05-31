@@ -46,9 +46,9 @@ const  AdminView =(props)=> {
     setIsDashBordOpen(!isDashBordOpen)
   }
         return(
-            <di>
-             <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
-                <Sidebar style={{ height: "100vh" }}>
+            <di >
+             <div id="appee" style={({ height: "100vh" }, { display: "flex"  })}>
+                <Sidebar style={{ flexGrow: 0.3 }}>
                   <Menu >
                     <MenuItem
                       icon={<MenuOutlinedIcon />}
@@ -69,10 +69,10 @@ const  AdminView =(props)=> {
                     <MenuItem icon={<GroupAddOutlinedIcon />}> <Link outline className="btn btn-border"  style={{color: "#5888b9"}} to='/signupCashier'><span  className="fa fa-sign-un fa-lg "></span> ADD CASHIER</Link></MenuItem>
                   </Menu>
                 </Sidebar>
-                <main>
+                <main style={{ flexGrow: 1 }} >
                 
-                <div style={{ flexGrow: 1 }}>
-                      {isDashBordOpen? <ClassRoomList classRoomList={props.classRoomList} /> :console.log("")}
+                <div >
+                      {isDashBordOpen? <ClassRoomList classRoomList={props.classRoomList}  /> :console.log("")}
                       {props.feedBackDelete.deleteFeedBack === true ? (
                                 props.refreshState(),
                                 toast.success("fead has been deleted seccess fully")

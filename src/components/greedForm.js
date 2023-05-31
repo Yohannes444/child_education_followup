@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
 import { Table, Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import styles from './styles.module.css';
 import { Control } from 'react-redux-form';
+import ReplyAllOutlinedIcon from '@mui/icons-material/ReplyAllOutlined';
+import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import GradingOutlinedIcon from '@mui/icons-material/GradingOutlined';
+import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
+import PlaylistAddOutlinedIcon from '@mui/icons-material/PlaylistAddOutlined';
 
 const GradeForm = (props) => {
   const [semester, setSemester] = useState('');
@@ -20,9 +30,50 @@ const GradeForm = (props) => {
     props.back();
   };
 
+  const handleViewGrade =(classRoomId)=>{
+    props.fetchClassRoomGrade(classRoomId)
+
+ }
+  const handleAttendance = (classRoomId)=>{
+      props.fetchAttendaceTeacher(classRoomId)
+
+ }
+  const handlUploadAssignment = (classRoomInfo) =>{
+    props.setUploadTo(classRoomInfo)
+    props.setIsClassRoomClicked(false)
+    props.setIsUploeading(false)
+    props.setisUploadingAssignment(! props.isUploadingAssignment)
+    props.setattendaceIsOpen(false)
+   
+ }
+  const handleUploadMaterial = (classRoomInfo)=>{
+    props.setUploadTo(classRoomInfo)
+    props.setIsUploeading(! props.isUploading)
+    props.setIsClassRoomClicked(false)
+    props.setisUploadingAssignment(false)
+    props.setattendaceIsOpen(false)
+
+ }
+  const handlattendance = (classRoomInfo) =>{
+    props.setUploadTo(classRoomInfo)
+    props.setIsClassRoomClicked(false)
+    props.setIsUploeading(false)
+    props.setattendaceIsOpen(! props.attendaceIsOpen)
+    props.setgreadIsClicked(false)
+
+ }
+  const handlGreed = (classRoomInfo)=>{
+    props.setUploadTo(classRoomInfo)
+    props.setIsUploeading(false)
+    props.setIsClassRoomClicked(false)
+    props.setattendaceIsOpen(false)
+    props.setgreadIsClicked(! props.greadIsClicked)
+ }
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    
+    
     // Validation checks
     let hasError = false;
     if (assessment.some((value) => value > 30)) {
@@ -116,17 +167,42 @@ const GradeForm = (props) => {
   };
 
   return (
-    <div>
+    <div >
+       <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
+                <Sidebar style={{ height: "100vh" }}>
+                  <Menu >
+                    <MenuItem
+                      icon={<MenuOutlinedIcon />}
+                      onClick={() => {
+                        console.log("opps");
+                      }}
+                      style={{ textAlign: "center" }}
+                    >
+                      {" "}
+                      <h2>Teacher G</h2>
+                      </MenuItem>
+                      <MenuItem style={{backgroundColor: "#e9ca1b"}} icon={<GradingOutlinedIcon />}onClick={""} > <Button style={{backgroundColor: "#e9ca1b",color: "#5888b9", border: "none"} }  onClick={()=>"handlGreed(props.classroomview)"} >add grade</Button></MenuItem>
+                    <MenuItem icon={<PlaylistAddOutlinedIcon />}> <Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} } onClick={()=>handlattendance(props.classroomview)}>track attendance</Button></MenuItem>
+                    <MenuItem icon={<DriveFolderUploadOutlinedIcon  />}><Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} } onClick={()=>handleUploadMaterial(props.classroomview)}>upload material</Button></MenuItem>
+                    <MenuItem icon={<AssignmentOutlinedIcon />}> <Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} } onClick={()=>handlUploadAssignment(props.classroomview)}>upload assignment</Button></MenuItem>
+                    <MenuItem icon={<FactCheckOutlinedIcon />}> <Link to='/classRoomGade'><Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} }  onClick={() =>{ return handleViewGrade(props.classroomview._id)}}> view students grade</Button></Link>  </MenuItem>
+                    <MenuItem icon={<ListAltOutlinedIcon />}> <Link to='/childInfor/attendanc'><Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} }  onClick={() =>{ return handleAttendance(props.classroomview._id)}}> view class attendance</Button></Link></MenuItem>
+                 </Menu>
+                </Sidebar>
+                <main>
+                
+                <div>
       <div>
-        <Button onClick={handleFormBack}>Back to the class room</Button>
+        <ReplyAllOutlinedIcon onClick={handleFormBack}/>
       </div>
-      <div>
+      <div >
         <h2>Add Grade</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}  >
           <div>
             <label htmlFor="semester">Semester:</label>
             <input
               type="text"
+              placeholder="1st "
               id="semester"
               value={semester}
               onChange={(e) => setSemester(e.target.value)}
@@ -135,6 +211,7 @@ const GradeForm = (props) => {
             <input
               type="text"
               id="subject"
+              placeholder="maths "
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
             />
@@ -154,7 +231,7 @@ const GradeForm = (props) => {
               {props.classRoom.StudentsList.map((studentId, index) => (
                 <tr key={studentId._id}>
                   <td>{`${studentId.firstName} ${studentId.lastName}`}</td>
-                  <td>{studentId._id}</td>
+                  <td>{`TMN-${ Intl.DateTimeFormat('en-US', { year: 'numeric'}).format(new Date(Date.parse(studentId.createdAt))).substring(4, 2)}/${studentId._id.substring(0, 6)}`}</td>
                   <td>
                     <input
                       type="number"
@@ -219,6 +296,9 @@ const GradeForm = (props) => {
             <Button type="submit">Submit</Button>
           </div>
         </form>
+      </div>
+      </div>
+        </main>
       </div>
     </div>
   );

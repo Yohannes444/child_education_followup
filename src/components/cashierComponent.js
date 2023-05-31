@@ -10,7 +10,7 @@ import MaterialTable from 'material-table';
 
 const green = '#3bb19b';
 const yellow ='#f1d21c';
-const black = '#000000';
+const black = '#dda610';
 
 const Cashier= (props)=>{
     const [isWatchWightList,setIsWatchWightList]= useState(false)
@@ -39,7 +39,7 @@ const Cashier= (props)=>{
             field: 'payment',
             render: student =>{
               
-            return (  <Link to="studnet/monthlyfee"  > <Button color="success" className="mx-3" onClick={() =>{ 
+            return (  <Link to="studnet/monthlyfee"  > <Button style={{color:"rgb(255,255,255)"}} color="success" className="mx-3" onClick={() =>{ 
                handleViewPyament(student.payment._id)
               }}>
               view payment
@@ -66,9 +66,10 @@ const Cashier= (props)=>{
                     </Breadcrumb>
                     <div className="col-12">
                         <h3>userView</h3>
-                        <Button  style={{ backgroundColor: black }} onClick={() =>handlWightListView()} >WATCH WIGHTlISTS</Button>
-                        <Button  style={{ backgroundColor: black }} onClick={() =>handleMonthlyFeeClickd()} >WATCH NEW MONTHLY FEE LIST</Button>
-                        <Button  style={{ backgroundColor: black }} onClick={() =>handleAllMonthlyFeeClickd()} >WATCH ALL MONTHLY FEE LIST</Button>
+                        <Button color="warning" style={{ marginRight: "10px" ,color:"rgb(0,0,0)"}} onClick={() => handlWightListView()}>WATCH Wait List</Button>
+                        <Button color="warning" style={{ marginRight: "10px" ,color:"rgb(0,0,0)"}} onClick={() => handleMonthlyFeeClickd()}>WATCH NEW MONTHLY FEE LIST</Button>
+                        <Button color="warning" style={{ color:"rgb(0,0,0)"}}  onClick={() => handleAllMonthlyFeeClickd()}>WATCH ALL MONTHLY FEE LIST</Button>
+
                     </div>
                 </div>
                 <p>this is from the Cashier component</p>

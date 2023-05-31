@@ -206,12 +206,15 @@ if(this.props.user.isLoading){
     return (
 
       <div className="App">
-         <Header auth={this.props.auth} 
-            loginUser={this.props.loginUser} 
+        <div  style={{  zIndex: 999 }}>
+          <Header
+            auth={this.props.auth}
+            loginUser={this.props.loginUser}
             logoutUser={this.props.logoutUser}
             user={this.props.user}
-            
-             />
+          />
+        </div>
+         
           <TransitionGroup>
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
          <Switch>
@@ -271,7 +274,7 @@ if(this.props.user.isLoading){
                       
                 /> 
                 :
-                <HOME   user={this.props.user}/>} 
+                <HOME  auth={this.props.auth}    user={this.props.user}/>} 
             />
             <Route path='/users'    render={()=> <User user={this.props.user} />}/>
 

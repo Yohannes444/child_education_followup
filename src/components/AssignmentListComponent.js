@@ -130,7 +130,6 @@ const handleAssignmentClicked =(student)=>{
                     <BreadcrumbItem active>የቤት ስራወች </BreadcrumbItem>
                     
                 </Breadcrumb>
-            <h2>Student Details this is from child view components</h2>
             <div>
         <Row>
             <Col sm={4}>
@@ -195,7 +194,7 @@ const handleAssignmentClicked =(student)=>{
             </div>
            
           
-            <MaterialTable title="Education Materials" columns={columns} data={data}  className={styles.custom_table} />
+            <MaterialTable style={{  zIndex: 0 }} title="የተማሪው መገኘት" columns={columns} data={data}  className={styles.custom_table} />
             <Modal
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)}
@@ -223,7 +222,7 @@ const handleAssignmentClicked =(student)=>{
             </Modal>
             
             </Col>
-            <Modal isOpen={isOpen} toggle={toggleModal}>
+            <Modal style={{  zIndex:10 }} isOpen={isOpen} toggle={toggleModal}>
                 <ModalHeader toggle={toggleModal}>የወር ክፍያ</ModalHeader>
                 <ModalBody>
                 <label>ደረሰኝ</label>

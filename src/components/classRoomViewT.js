@@ -2,6 +2,17 @@ import React from 'react';
 import { Table, Button,Breadcrumb, BreadcrumbItem, } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './ClassRoomView.css';
+
+
+import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import GradingOutlinedIcon from '@mui/icons-material/GradingOutlined';
+import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
+import PlaylistAddOutlinedIcon from '@mui/icons-material/PlaylistAddOutlined';
+import ReplyAllOutlinedIcon from '@mui/icons-material/ReplyAllOutlined';
 const calssRoomView = (props) => {
 
   const handleToggleAccount = async (id) => {
@@ -44,8 +55,33 @@ const calssRoomView = (props) => {
 }
   return (
     
-    <div>
-      <Button onClick={() =>{props.handlback()}} >Back</Button>
+    <div className='row' style={( { display: "inline" })}>
+      
+      <div  id="app" style={({ height: "100vh" }, { display: "flex" })}>
+                <Sidebar className="col-sm-1 col-lg-3" style={{ height: "100vh" }}>
+                  <Menu >
+                    <MenuItem
+                      icon={<MenuOutlinedIcon />}
+                      onClick={() => {
+                        console.log("opps");
+                      }}
+                      style={{ textAlign: "center" }}
+                    >
+                      {" "}
+                      <h2>Teacher</h2>
+                      </MenuItem>
+                      <MenuItem icon={<GradingOutlinedIcon />}onClick={""} > <Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} }  onClick={()=>handlGreed(props.classroomview)} >add grade</Button></MenuItem>
+                    <MenuItem icon={<PlaylistAddOutlinedIcon />}> <Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} } onClick={()=>handlattendance(props.classroomview)}>track attendance</Button></MenuItem>
+                    <MenuItem icon={<DriveFolderUploadOutlinedIcon  />}><Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} } onClick={()=>handleUploadMaterial(props.classroomview)}>upload material</Button></MenuItem>
+                    <MenuItem icon={<AssignmentOutlinedIcon />}> <Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} } onClick={()=>handlUploadAssignment(props.classroomview)}>upload assignment</Button></MenuItem>
+                    <MenuItem icon={<FactCheckOutlinedIcon />}> <Link to='/classRoomGade'><Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} }  onClick={() =>{ return handleViewGrade(props.classroomview._id)}}> view students grade</Button></Link>  </MenuItem>
+                    <MenuItem icon={<ListAltOutlinedIcon />}> <Link to='/childInfor/attendanc'><Button style={{backgroundColor: "rgb(249, 249, 249, 0.7)",color: "#5888b9", border: "none"} }  onClick={() =>{ return handleAttendance(props.classroomview._id)}}> view class attendance</Button></Link></MenuItem>
+                 </Menu>
+                </Sidebar>
+                <main className="col-sm-6 col-lg-9">
+                
+                <div style={{ flexGrow: 1 }} >
+                  <ReplyAllOutlinedIcon onClick={() =>{props.handlback()}} />
 
       <div className="class-room-view">
       <h1>Class Room View</h1>
@@ -53,7 +89,7 @@ const calssRoomView = (props) => {
       
       
         </div>
-        <div className="buttons-container">
+      {/*   <div className="buttons-container">
             <Button onClick={()=>handlGreed(props.classroomview)}>add grade</Button>
             <Button onClick={()=>handlattendance(props.classroomview)}>track attendance</Button>
             <Button onClick={()=>handleUploadMaterial(props.classroomview)}>upload material</Button>
@@ -61,11 +97,11 @@ const calssRoomView = (props) => {
             <Link to='/classRoomGade'><Button onClick={() =>{ return handleViewGrade(props.classroomview._id)}}> view students grade</Button></Link>
             <Link to='/childInfor/attendanc'><Button onClick={() =>{ return handleAttendance(props.classroomview._id)}}> view class attendance</Button></Link>
                         
-        </div>
-      <h4 className="class-room-view" >List of students in the class room</h4>
-    {props.classroomview.StudentsList.length > 0?
-      (<div>      
-        <Table bordered>
+        </div> */}
+      <h4 >List of students in the class room</h4>
+      {props.classroomview.StudentsList.length > 0?
+      (<div >      
+        <Table bordered >
         <thead>
           <tr>
             <th>Name</th>
@@ -73,7 +109,7 @@ const calssRoomView = (props) => {
             <th>Parent</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody >
           {props.classroomview.StudentsList.map((student) => (
             <tr key={student._id}>
               <td>{`${student.firstName} ${student.lastName}`}</td>
@@ -93,6 +129,9 @@ const calssRoomView = (props) => {
           ))}
         </tbody>
       </Table></div>):(<h4 className="class-room-view">ther is no student in this class room</h4>)}
+          </div>
+        </main>
+      </div>
     </div>
   )}
 

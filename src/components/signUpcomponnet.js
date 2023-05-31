@@ -80,19 +80,9 @@ class Signup extends Component {
             );
         }
         else if (this.props.parentSign.errMess) {
-            return(
-                <div className="container">
-                    <div className="row">
-                        <Breadcrumb>
-                            <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                            <BreadcrumbItem active>add parent account </BreadcrumbItem>
-                        </Breadcrumb>
-                    </div>
-                    <div className="row">
-                        <h4>{this.props.parentSign.errMess}</h4>
-                    </div>
-                </div>
-            )
+          toast.error(this.props.parentSign.errMess)
+          this.props.refreshState()
+           
         }
         else if (this.props.parentSign.parentADD){
             this.props.refreshState()
@@ -107,10 +97,6 @@ class Signup extends Component {
                     <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
                     <BreadcrumbItem active>signup</BreadcrumbItem>
                 </Breadcrumb>
-                <div className="col-12">
-                    <h3>About Us</h3>
-                    <hr />
-                </div>                
             </div>
             
             <div className="row row-content">

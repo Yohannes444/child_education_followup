@@ -60,6 +60,7 @@ class Header extends Component {
 
     render() {
         return(
+            <div  >
             <React.Fragment >
                 <Navbar style={{backgroundColor: green}} dark expand="md">
                     <div  className="container">
@@ -128,17 +129,7 @@ class Header extends Component {
                         </Collapse>
                     </div>
                 </Navbar>
-                { !this.props.auth.isAuthenticated ?
-                <Jumbotron style={{backgroundColor: '#3bb19baf',backgroundImage: `url('assets/images/ppp_7_1500x700.jpg')`}}>
-                    <div className="container">
-                        <div className="row row-header">
-                            <div className="col-12 col-sm-6">
-                                <h1>Child Education Follow-up System</h1>
-                                <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
-                            </div>
-                        </div>
-                    </div>
-                </Jumbotron>:console.log('')}
+                
                 <Modal style={{color: black}}  isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
                     <ModalBody>
@@ -165,6 +156,7 @@ class Header extends Component {
                     </ModalBody>
                 </Modal>
             </React.Fragment>
+            </div>
         );
     }
 }

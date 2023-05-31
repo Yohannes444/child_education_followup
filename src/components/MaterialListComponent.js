@@ -123,7 +123,6 @@ const handleSubmit = () => {
                     <BreadcrumbItem active> የትምህርት ግብአቶች </BreadcrumbItem>
                     
                 </Breadcrumb>
-            <h2>Student Details this is from child view components</h2>
             <div>
         <Row>
             <Col sm={4}>
@@ -187,10 +186,11 @@ const handleSubmit = () => {
 
             </div>
             
-            <MaterialTable title="Education Materials" columns={columns} data={data} className={styles.custom_table} />
+            <MaterialTable style={{  zIndex: 0 }}  title="የትምህርት ግብአቶች" columns={columns} data={data} className={styles.custom_table} />
 
            
             <Modal
+            style={{  zIndex: 999 }}
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)}
                 className={classes.modal}

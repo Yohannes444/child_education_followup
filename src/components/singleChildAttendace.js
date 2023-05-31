@@ -89,7 +89,6 @@ const AttendaceView= (props)=>{
                     <BreadcrumbItem><Link to='/childInfo'>የልጅ ጅጽ</Link></BreadcrumbItem>
                     <BreadcrumbItem active>የተማሪ መገኘት</BreadcrumbItem>
                 </Breadcrumb>
-            <h2>Student Details this is from child view components</h2>
             <div>
         <Row>
         <Col sm={4}>

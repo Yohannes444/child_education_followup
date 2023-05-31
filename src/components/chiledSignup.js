@@ -110,7 +110,7 @@ class childSignup extends Component {
                                 accept=".pdf,.png,.jpg,.jpeg,.gif" 
                                 className={styles.input}
                             />
-                            ትራንስክሪፕት
+                            ትራንስክሪፕት/የልደት ካርድ
                             <Control.file
                                 type="file"
                                 name="transcript"

@@ -153,7 +153,7 @@ const ParentView= (props)=>{
                     </div>
                     
                     <FadeTransform in transformProps={{exitTransform: 'scale(0.5) translateY(-50%)' }}>
-                             <MaterialTable title="Monthly Fee List" columns={columns} data={data}/>
+                             <MaterialTable title="Wait List" columns={columns} data={data}/>
 
                         <Modal isOpen={isModalOpen} toggle={() => setIsModalOpen(false)}>
                             <ModalHeader toggle={() => setIsModalOpen(false)}>

@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Breadcrumb, BreadcrumbItem,Table,Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import ClassRoomView from './classRoomViewT'
@@ -8,6 +8,15 @@ import AttendanceForm from './attendanceForm'
 import UploadAssignment from './assignmentForm'
 import GreedForm from './greedForm'
 import { toast } from "react-toastify";
+
+import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import GradingOutlinedIcon from '@mui/icons-material/GradingOutlined';
+import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
+import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
+import PlaylistAddOutlinedIcon from '@mui/icons-material/PlaylistAddOutlined';
 
 const Teacher = (props) => {
   const [classroomview,setclassroomview]=useState()
@@ -27,6 +36,27 @@ const Teacher = (props) => {
 
       console.log(classInfo)
     };
+
+    useEffect(() => {
+      if (isUploading === true) {
+        setattendaceIsOpen(false);
+        setisUploadingAssignment(false);
+        setgreadIsClicked(false);
+      } else if (attendaceIsOpen === true) {
+        setIsUploeading(false);
+        setisUploadingAssignment(false);
+        setgreadIsClicked(false);
+      } else if (isUploadingAssignment === true) {
+        setIsUploeading(false);
+        setattendaceIsOpen(false);
+        setgreadIsClicked(false);
+      } else if (greadIsClicked === true) {
+        setIsUploeading(false);
+        setattendaceIsOpen(false);
+        setisUploadingAssignment(false);
+      }
+    }, [isUploading, attendaceIsOpen, isUploadingAssignment, greadIsClicked]);
+  
     const handleViewGrade =(classRoomId)=>{
       props.fetchClassRoomGrade(classRoomId)
     }
@@ -178,7 +208,7 @@ else if (props.uploadGreedState.success){
     else{
        
     return (
-      <div>
+      <div >
         
         {classView?(
           <div>
@@ -220,10 +250,18 @@ else if (props.uploadGreedState.success){
         {isClassRoomClicked && classView===false ? (<ClassRoomView fetchAttendaceTeacher={props.fetchAttendaceTeacher} fetchClassRoomGrade={props.fetchClassRoomGrade}  setReceiverId={props.setReceiverId} greadIsClicked={greadIsClicked} setgreadIsClicked={setgreadIsClicked} handlback={handlback} setisUploadingAssignment={setisUploadingAssignment} isUploadingAssignment={isUploadingAssignment} setattendaceIsOpen={setattendaceIsOpen} attendaceIsOpen={attendaceIsOpen} setUploadTo={setClassRoom} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview}/>):console.log("")}
 
 
-        {isUploading? <UploadMaterialForm teacher={props.user} handlFormback={handlFormback} classRoom={classRoom} uploadMaterial={props.uploadMaterial} /> :console.log("")}
-        {attendaceIsOpen?<AttendanceForm back={handlBackFormAttendance} user={props.user}   classroomId={classRoom._id} students={classRoom.StudentsList} handleSubmit={props.handleAttendanceSubmit}  />:console.log("")}
-        {isUploadingAssignment? <UploadAssignment uploadAssignment={props.uploadAssignment} teacher={props.user} back={handlBackFromUploadAssignmentForm} classRoom={classRoom} />:console.log("")}
-        {greadIsClicked ? <GreedForm back={handlBackfromGreedForm} handleSubmitGreed={props.handleSubmitGreed} classRoom={classRoom} />:console.log("")}
+        {isUploading? <UploadMaterialForm fetchAttendaceTeacher={props.fetchAttendaceTeacher} fetchClassRoomGrade={props.fetchClassRoomGrade}  setReceiverId={props.setReceiverId} greadIsClicked={greadIsClicked} setgreadIsClicked={setgreadIsClicked} handlback={handlback} setisUploadingAssignment={setisUploadingAssignment} isUploadingAssignment={isUploadingAssignment} setattendaceIsOpen={setattendaceIsOpen} attendaceIsOpen={attendaceIsOpen} setUploadTo={setClassRoom} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview} teacher={props.user} handlFormback={handlFormback} classRoom={classRoom} uploadMaterial={props.uploadMaterial} /> :console.log("")}
+
+
+        {attendaceIsOpen?<AttendanceForm fetchAttendaceTeacher={props.fetchAttendaceTeacher} fetchClassRoomGrade={props.fetchClassRoomGrade}  setReceiverId={props.setReceiverId} greadIsClicked={greadIsClicked} setgreadIsClicked={setgreadIsClicked} handlback={handlback} setisUploadingAssignment={setisUploadingAssignment} isUploadingAssignment={isUploadingAssignment} setattendaceIsOpen={setattendaceIsOpen} attendaceIsOpen={attendaceIsOpen} setUploadTo={setClassRoom} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview} back={handlBackFormAttendance} user={props.user}   classroomId={classRoom._id} students={classRoom.StudentsList} handleSubmit={props.handleAttendanceSubmit}  />:console.log("")}
+
+
+        {isUploadingAssignment? <UploadAssignment fetchAttendaceTeacher={props.fetchAttendaceTeacher} fetchClassRoomGrade={props.fetchClassRoomGrade}  setReceiverId={props.setReceiverId} greadIsClicked={greadIsClicked} setgreadIsClicked={setgreadIsClicked} handlback={handlback} setisUploadingAssignment={setisUploadingAssignment} isUploadingAssignment={isUploadingAssignment} setattendaceIsOpen={setattendaceIsOpen} attendaceIsOpen={attendaceIsOpen} setUploadTo={setClassRoom} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview} uploadAssignment={props.uploadAssignment} teacher={props.user} back={handlBackFromUploadAssignmentForm} classRoom={classRoom} />:console.log("")}
+
+
+
+        {greadIsClicked ? <GreedForm fetchAttendaceTeacher={props.fetchAttendaceTeacher} fetchClassRoomGrade={props.fetchClassRoomGrade}  setReceiverId={props.setReceiverId} greadIsClicked={greadIsClicked} setgreadIsClicked={setgreadIsClicked} handlback={handlback} setisUploadingAssignment={setisUploadingAssignment} isUploadingAssignment={isUploadingAssignment} setattendaceIsOpen={setattendaceIsOpen} attendaceIsOpen={attendaceIsOpen} setUploadTo={setClassRoom} setIsClassRoomClicked ={setIsClassRoomClicked} setIsUploeading={setIsUploeading} isUploading={isUploading} classroomview={classroomview} back={handlBackfromGreedForm} handleSubmitGreed={props.handleSubmitGreed} classRoom={classRoom} />:console.log("")}
+
       </div>
     );
   };

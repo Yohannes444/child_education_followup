@@ -1,0 +1,60 @@
+.welcome-message {
+    
+    background-size: cover;
+    background-position: center;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #fff; /* set the text color to white for better visibility */
+  }
+  
+  /* Add more styles as needed */
+  .welcome-message h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .welcome-message p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  
+  .card-itself {
+    width: calc(33.33% - 10px); /* Adjust the width as needed */
+    margin-bottom: 20px;
+  }
+  
+  .card-img-top {
+    height: 200px; /* Adjust the image height as needed */
+    object-fit: cover;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  .section-header {
+    text-align: center;
+    background-color: rgb(247, 245, 241);
+    color: rgb(6, 59, 102);
+    padding: 10px;
+    font-weight: bold;
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 10px;
+  }
+  
