@@ -11,6 +11,7 @@ import KitchenOutlinedIcon from '@mui/icons-material/KitchenOutlined';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import styles from "./styles.module.css";
+import { toast } from "react-toastify";
 
 const Dashboard = (props) => {
   const handleDashbordCliked =()=>{
@@ -18,7 +19,10 @@ const Dashboard = (props) => {
   const handleToggleAccount = async (id) => {
     props.activeToggler(id)
   };
-  if (props.cashiers.isLoading) {
+  const handleDelteCashier =async(cashierId)=>{
+    props.deleteCashierAccunt(cashierId)
+  }
+  if (props.cashiers.isLoading || props.deleteCashier.isLoading) {
     return(
         <div className="container">
             <div className="row">
@@ -32,6 +36,14 @@ const Dashboard = (props) => {
             </div>
         </div>
     );
+  }
+  else if(props.deleteCashier.errMess){
+    toast.error(props.deleteCashier.errMess)
+    props.refreshState()
+  }
+  else if(props.deleteCashier.success){
+      toast.success("cashier accont has ben deleted successfuly")
+      props.refreshState()
   }
   else if (props.cashiers.errMess) {
       return(
@@ -86,6 +98,7 @@ const Dashboard = (props) => {
             <th>Email</th>
             <th>Enabled</th>
             <th>Action</th>
+            <th>delete</th>
           </tr>
         </thead>
         <tbody>
@@ -95,7 +108,7 @@ const Dashboard = (props) => {
               <td>{cashier.email}</td>
               <td>{cashier.active ? 'Yes' : 'No'}</td>
               <td>
-                <Button
+                <Button color="warning"
                   onClick={() =>
                     handleToggleAccount(cashier._id)
                   }
@@ -103,6 +116,7 @@ const Dashboard = (props) => {
                   {cashier.active ? 'Disable' : 'Enable'}
                 </Button>
               </td>
+              <td><Button color="danger" onClick= {()=>handleDelteCashier(cashier._id)} >Delete</Button></td>
             </tr>
           ))}
         </tbody>

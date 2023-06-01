@@ -286,3 +286,99 @@ export const AllParentsLodingFaild = (messag)=>{
         messag
     }
 }
+
+export const deleteCashierAccunt =(cashierId)=>(dispatch)=>{
+    dispatch(deleteCashierRequest())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.delete(baseUrl + 'users/cashier', {headers: { 
+        'Authorization': bearer
+        },
+        params: {
+            cashierId: cashierId
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(AllParents => dispatch(deleteCashierSucess(AllParents)))
+    .catch(error => dispatch(deletCashierFaild(error.message)));
+}
+
+export const deleteCashierRequest= ()=>{
+    return{
+        type:ActionTypes.DELETE_CASHIER_REQUST
+    }
+}
+export const deleteCashierSucess =(AllParentss)=>{
+    return {
+        type:ActionTypes.DELETE_CASHIER_LOADED,
+        payload:AllParentss
+    }
+}
+export const deletCashierFaild = (messag)=>{
+    return{
+        type:ActionTypes.DELETE_CASHIER_FAILD,
+        messag
+    }
+}
+
+
+
+export const deleteTeacherAccount =(teacherId)=>(dispatch)=>{
+    dispatch(deleteTeacherRequest())
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    axios.delete(baseUrl + 'users/teacher', {headers: { 
+        'Authorization': bearer
+        },
+        params: {
+            teacherId: teacherId
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response;
+        }
+        else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    },
+    error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response =>response.data)
+    .then(AllParents => dispatch(deleteTeacherSucess(AllParents)))
+    .catch(error => dispatch(deletTeacherFaild(error.message)));
+}
+
+export const deleteTeacherRequest= ()=>{
+    return{
+        type:ActionTypes.DELETE_TEACHER_REQUST
+    }
+}
+export const deleteTeacherSucess =(AllParentss)=>{
+    return {
+        type:ActionTypes.DELETE_TEACHER_LOADED,
+        payload:AllParentss
+    }
+}
+export const deletTeacherFaild = (messag)=>{
+    return{
+        type:ActionTypes.DELETE_TEACHER_FAILD,
+        messag
+    }
+}

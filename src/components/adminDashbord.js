@@ -178,10 +178,7 @@ const AdminDashboard = (props) => {
         {/* Render the bar chart */}
         <Bar data={data} options={options} />
       </div>
-      <div style={{ width: "800px", height: "600px" }}>
-        {/* Render the doughnut chart */}
-        <Doughnut data={dataUser} options={options1} />
-      </div>
+      
     </div>
   );
 };

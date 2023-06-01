@@ -38,6 +38,8 @@ import { AllMonthlyFee } from './reducers/fetchAllMonthlyfee';
 import { AllStudentsLoader } from './reducers/fetchAllChildren';
 import { OneStudentMonthlyLoader } from './reducers/fetchStudentsMonthlyFee'
 import { AllParentsLoader } from './reducers/allParents';
+import { deleteCashier } from './reducers/deleteCasheir';
+import { deleteTeacher } from './reducers/deleteTeacher'
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -77,6 +79,8 @@ export const ConfigureStore = () => {
             allstudents: AllStudentsLoader,
             oneMonthlyFee:OneStudentMonthlyLoader,
             allParents:AllParentsLoader,
+            deleteCashier:deleteCashier,
+            deleteTeacher:deleteTeacher,
             ...createForms({
                 feedback: InitialFeedback
             })

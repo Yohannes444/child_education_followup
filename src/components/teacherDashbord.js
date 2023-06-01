@@ -11,6 +11,7 @@ import KitchenOutlinedIcon from '@mui/icons-material/KitchenOutlined';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import styles from "./styles.module.css";
+import { toast } from "react-toastify";
 
 const Dashboard = (props) => {
   const handleDashbordCliked =()=>{
@@ -18,6 +19,9 @@ const Dashboard = (props) => {
   const handleToggleAccount = async (id) => {
     props.activeToggler(id)
   };
+  const deleteTeacherAccount =async (teacherId)=>{
+    props.deleteTeacherAccount(teacherId)
+  }
   if (props.teachers.isLoading) {
   
     return(
@@ -33,6 +37,14 @@ const Dashboard = (props) => {
             </div>
         </div>
     );
+  }
+  else if(props.deleteTeacher.errMess){
+    toast.error(props.deleteTeacher.errMess)
+    props.refreshState()
+  }
+  else if(props.deleteTeacher.success){
+      toast.success("cashier accont has ben deleted successfuly")
+      props.refreshState()
   }
   else if (props.teachers.errMess) {
       return(
@@ -90,6 +102,7 @@ const Dashboard = (props) => {
             <th>Email</th>
             <th>Enabled</th>
             <th>Action</th>
+            <th>delete</th>
           </tr>
         </thead>
         <tbody>
@@ -99,12 +112,21 @@ const Dashboard = (props) => {
               <td>{teacher.email}</td>
               <td>{teacher.active ? 'Yes' : 'No'}</td>
               <td>
-                <Button
+                <Button color="warning"
                   onClick={() =>
                     handleToggleAccount(teacher._id)
                   }
                 >
                   {teacher.active ? 'Disable' : 'Enable'}
+                </Button>
+              </td>
+              <td>
+                <Button color="danger"
+                  onClick={() =>
+                    deleteTeacherAccount(teacher._id)
+                  }
+                >
+                 Delete
                 </Button>
               </td>
             </tr>

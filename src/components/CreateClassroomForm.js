@@ -181,7 +181,7 @@ class creatClassroom extends Component {
                           
                           </label>
                             <button type="submit" className={styles.green_btn}>
-                                Sing Up
+                                Add class Room
                             </button>
                         </LocalForm>
                     </div>

@@ -489,6 +489,18 @@ export const resetClassroomState = () => {
         type:ActionTypes.FETCH_CLASS_ROOM_GRADE_FAILD,
     }
 }
+export const deletTeacherFaild = ()=>{
+    return{
+        type:ActionTypes.DELETE_TEACHER_FAILD
+        
+    }
+}
+export const deletCashierFaild = ()=>{
+    return{
+        type:ActionTypes.DELETE_CASHIER_FAILD
+        
+    }
+}
   export const refreshState = () => {
     return dispatch => {
       dispatch(resetClassroomState());
@@ -506,6 +518,8 @@ export const resetClassroomState = () => {
       dispatch(resetMonthlyFeeTogglerState())
       dispatch(resetClassRoomGrade())
       dispatch(FeedBackDeleteFaild())
+      dispatch(deletTeacherFaild())
+      dispatch(deletCashierFaild())
     };
   };
   

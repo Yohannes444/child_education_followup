@@ -23,7 +23,7 @@ const ParentView= (props)=>{
     if (props.childStore?.childLists?.length > 0) {
       setIsChildsClicked(true);
     } else {
-      setregstering(true);
+        setClassRoo(true);
     }
   }, [props.childStore.childLists]);
     const handleToggleAccount = () => {

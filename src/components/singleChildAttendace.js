@@ -181,7 +181,6 @@ const AttendaceView= (props)=>{
                         <MaterialTable title="የተማሪው መገኘት" columns={columns} data={data} />;                            
                         </div>                      
             
-            
             </Col>
 
             <Modal isOpen={isOpen} toggle={toggleModal}>

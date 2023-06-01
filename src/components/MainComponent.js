@@ -14,7 +14,7 @@ import  {connect}  from 'react-redux';
 import About from './AboutComponent'
 import { actions } from 'react-redux-form';
 import { loginUser, parentSignup, cashierSignup, teacherSignup,  creatClassroom, logoutUser, postFeedback, fetchuser,refreshState, fetchOneChat ,fechOtherPersoneInfo,fetchUserChat,fetchFeedBack, deleteFeedBack } from '../redux/ActionCreaters';
-import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount, fetchClassRoomList,fetchAllParents} from '../redux/actions/adminActions'
+import { fetchCashier,toggleCashierAccount,fetchTeacher ,toggleTeacherAccount, fetchClassRoomList,fetchAllParents, deleteTeacherAccount,deleteCashierAccunt} from '../redux/actions/adminActions'
 import { postStudent,parentFetchClassRoom, fetchChildrens, fetchChildInfo, fetchMaterial, fetchAssignment, postMonthlyFee,fetchAttendace} from '../redux/actions/parentActions';
 import { wightListsToggler,fetchWithList ,fetchMonthlyFeeListes ,MonthlyFeeListToggler ,fetchMonthlyFeeList,AllStudentList,fetchOneMonthlyFee} from '../redux/actions/cashierAction';
 import { fetchTeacherClassRoom ,uploadMaterial, submitAttendance, uploadAssignment, handleSubmitGreed, fetchClassRoomGrade,fetchAttendaceTeacher} from '../redux/actions/teacherActions'
@@ -69,6 +69,8 @@ const mapStateToProps = state => {
     allstudents:state.allstudents ,
     oneMonthlyFee:state.oneMonthlyFee,
     allParents:state.allParents,
+    deleteTeacher:state.deleteTeacher,
+    deleteCashier:state.deleteCashier
 
   }
   
@@ -121,7 +123,9 @@ const mapDispatchToProps  = (dispatch) => ({
   fetchMonthlyFeeList:()=>dispatch(fetchMonthlyFeeList()),
   AllStudentList:()=>dispatch(AllStudentList()),
   fetchOneMonthlyFee:(studentId)=>dispatch(fetchOneMonthlyFee(studentId)),
-  fetchAllParents:()=>dispatch(fetchAllParents())
+  fetchAllParents:()=>dispatch(fetchAllParents()),
+  deleteTeacherAccount:(teacherId)=>dispatch(deleteTeacherAccount(teacherId)),
+  deleteCashierAccunt:(cashierId)=>dispatch(deleteCashierAccunt(cashierId))
 
 });
 
@@ -222,8 +226,8 @@ if(this.props.user.isLoading){
             <Route path= '/signupCashier' component={()=>this.props.auth.isAuthenticated && this.props.user.user.admin ? <SignupCash cashierSignup={this.props.cashierSignup} cashierSign={this.props.cashierSign} refreshState={this.props.refreshState}/>:<HOME   user={this.props.user}/>}/>
             <Route path='/signupTeacher' component={()=>this.props.auth.isAuthenticated && this.props.user.user.admin  ?  <SignupTeach teacherSignup={this.props.teacherSignup} teacherSign={this.props.teacherSign} refreshState={this.props.refreshState}/>:<HOME   user={this.props.user}/>}/>
             <Route path='/creatClassRoom' component={()=>this.props.auth.isAuthenticated && this.props.user.user.admin  ? <CreatClassroom fetchTeacher={this.props.fetchTeacher} teachers={this.props.teachers.teachers} classRoom={this.props.classRoom} creatClassroom={this.props.creatClassroom} refreshState={this.props.refreshState} />:<HOME   user={this.props.user}/>}/>
-            <Route path= '/cashierDashbord' component={()=>this.props.auth.isAuthenticated && this.props.user.user.admin  ? <CashierDashboard  cashiers={this.props.cashiers} activeToggler={this.props.toggleCashierAccount}/>:<HOME   user={this.props.user}/>}/>
-            <Route path= '/teacherDashbord' component = {()=>this.props.auth.isAuthenticated && this.props.user.user.admin  ? <TeacherDashboard  teachers={this.props.teachers} activeToggler = {this.props.toggleTeacherAccount}/>:<HOME   user={this.props.user}/>}/>
+            <Route path= '/cashierDashbord' component={()=>this.props.auth.isAuthenticated && this.props.user.user.admin  ? <CashierDashboard refreshState={this.props.refreshState} deleteCashier={this.props.deleteCashier} deleteCashierAccunt={this.props.deleteCashierAccunt}  cashiers={this.props.cashiers} activeToggler={this.props.toggleCashierAccount}/>:<HOME   user={this.props.user}/>}/>
+            <Route path= '/teacherDashbord' component = {()=>this.props.auth.isAuthenticated && this.props.user.user.admin  ? <TeacherDashboard refreshState={this.props.refreshState} deleteTeacherAccount={this.props.deleteTeacherAccount}  deleteTeacher= {this.props.deleteTeacher} teachers={this.props.teachers} activeToggler = {this.props.toggleTeacherAccount}/>:<HOME   user={this.props.user}/>}/>
             <Route path= '/childInfo' component={()=>this.props.auth.isAuthenticated && this.props.user.user.parent ? <ChildView fetchAttendace={this.props.fetchAttendace} setReceiverId={this.setReceiverId} paymentState={this.props.paymentState} postMonthlyFee={this.props.postMonthlyFee} fetchAssignment={this.props.fetchAssignment} fetchMaterial={this.props.fetchMaterial} student={this.state.childInfo}  childStore={this.props.childInfor} refreshState={this.props.refreshState} />:<HOME   user={this.props.user}/>}/>
             <Route path= '/childInfor/materials' component={()=>this.props.auth.isAuthenticated && this.props.user.user.parent ? <MaterialList  uploadState={this.props.uploadState} student={this.state.childInfo} fetchAssignment={this.props.fetchAssignment} fetchMaterial={this.props.fetchMaterial} fetchAttendace={this.props.fetchAttendace} postMonthlyFee={this.props.postMonthlyFee} /> :<HOME   user={this.props.user}  />}/>
             <Route path= '/childInfor/assignemt' component={()=>this.props.auth.isAuthenticated && this.props.user.user.parent ? <AssignmentView assignmentState={this.props.assignmentState} student={this.state.childInfo} fetchAssignment={this.props.fetchAssignment} fetchMaterial={this.props.fetchMaterial} fetchAttendace={this.props.fetchAttendace} postMonthlyFee={this.props.postMonthlyFee}  /> :<HOME user={this.props.user} />}  />
