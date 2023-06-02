@@ -112,7 +112,7 @@ const Dashboard = (props) => {
               <td>{teacher.email}</td>
               <td>{teacher.active ? 'Yes' : 'No'}</td>
               <td>
-                <Button color="warning"
+                <Button color="warning"  active={true}
                   onClick={() =>
                     handleToggleAccount(teacher._id)
                   }
@@ -121,7 +121,7 @@ const Dashboard = (props) => {
                 </Button>
               </td>
               <td>
-                <Button color="danger"
+                <Button color="danger"  active={true}
                   onClick={() =>
                     deleteTeacherAccount(teacher._id)
                   }

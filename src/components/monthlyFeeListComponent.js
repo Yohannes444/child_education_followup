@@ -46,7 +46,7 @@ const ParentView= (props)=>{
           render: MonthlyFeeList =>
             <Button
                 variant="contained"
-                color="primary"
+                color="primary" active={true}
                 onClick={() =>{
                     approved=true 
                     return handleApproveClick(approved, MonthlyFeeList.approveButton._id)
@@ -63,7 +63,7 @@ const ParentView= (props)=>{
           render: MonthlyFeeList =>
              <Button
                 variant="contained"
-                color="danger"
+                color="danger" active={true}
                 onClick={() =>{
                     approved=false
                     return handleApproveClick(approved, MonthlyFeeList.rejectButton._id)

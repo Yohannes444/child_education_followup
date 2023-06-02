@@ -76,28 +76,28 @@ const GradeForm = (props) => {
     
     // Validation checks
     let hasError = false;
-    if (assessment.some((value) => value > 30)) {
+    if (assessment.some((value) => value < 0)) {
       setAssessmentError(true);
       hasError = true;
     } else {
-      setAssessmentError(false);
+      setFinalExamError(false);
     }
 
-    if (quiz.some((value) => value > 5)) {
+    if (quiz.some((value) => value < 0)) {
       setQuizError(true);
       hasError = true;
     } else {
-      setQuizError(false);
+      setFinalExamError(false);
     }
 
-    if (midExam.some((value) => value > 15)) {
+    if (midExam.some((value) => value < 0)) {
       setMidExamError(true);
       hasError = true;
     } else {
-      setMidExamError(false);
+      setFinalExamError(false);
     }
 
-    if (finalExam.some((value) => value > 50)) {
+    if (finalExam.some((value) => value < 0)) {
       setFinalExamError(true);
       hasError = true;
     } else {
@@ -129,7 +129,10 @@ const GradeForm = (props) => {
 
   const handleGradeChange = (index, field, value) => {
     let newValue = value;
-    if (field === 'assessment') {
+    if(newValue < 0){
+      setFinalExamError(true);
+    }
+    else if (field === 'assessment') {
       newValue = Math.min(value, 30); // Limit assessment value to 30
     } else if (field === 'quiz') {
       newValue = Math.min(value, 5); // Limit quiz value to 5
@@ -202,7 +205,7 @@ const GradeForm = (props) => {
             <label htmlFor="semester">Semester:</label>
             <input
               type="text"
-              placeholder="1st "
+              placeholder="1st "active={true}
               id="semester"
               value={semester}
               onChange={(e) => setSemester(e.target.value)}
@@ -211,7 +214,7 @@ const GradeForm = (props) => {
             <input
               type="text"
               id="subject"
-              placeholder="maths "
+              placeholder="maths "  active={true}
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
             />
@@ -235,6 +238,7 @@ const GradeForm = (props) => {
                   <td>
                     <input
                       type="number"
+                      active={true}
                       id={`assessment-${studentId._id}`}
                       value={assessment[index]}
                       onChange={(e) =>
@@ -252,6 +256,7 @@ const GradeForm = (props) => {
                   <td>
                     <input
                       type="number"
+                      active={true}
                       id={`quiz-${studentId._id}`}
                       value={quiz[index]}
                       onChange={(e) =>
@@ -264,6 +269,7 @@ const GradeForm = (props) => {
                   </td>
                   <td>
                     <input
+                    active={true}
                       type="number"
                       id={`midExam-${studentId._id}`}
                       value={midExam[index]}
@@ -277,6 +283,7 @@ const GradeForm = (props) => {
                   </td>
                   <td>
                     <input
+                    active={true}
                       type="number"
                       id={`finalExam-${studentId._id}`}
                       value={finalExam[index]}
@@ -284,16 +291,17 @@ const GradeForm = (props) => {
                         handleGradeChange(index, 'finalExam', e.target.value)
                       }
                     />
-                    {finalExamError && (
-                      <span className={styles.error}>Invalid final exam value</span>
-                    )}
+                   
                   </td>
                 </tr>
               ))}
             </tbody>
           </Table>
+          {finalExamError && (
+                      <span className={styles.error}>grade can not be negatve </span>
+                    )}
           <div className="submit-buttons">
-            <Button type="submit">Submit</Button>
+            <Button active={true} color="success" type="submit">Submit</Button>
           </div>
         </form>
       </div>

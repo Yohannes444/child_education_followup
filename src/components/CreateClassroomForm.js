@@ -82,25 +82,12 @@ class creatClassroom extends Component {
             );
         }
         else if (this.props.classRoom.errMess) {
-            return(
-                <div className="container">
-                    <div className="row">
-                        <Breadcrumb>
-                            <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                            <BreadcrumbItem active>add class room </BreadcrumbItem>
-                        </Breadcrumb>
-                    </div>
-                    <div className="row">
-                        <h4>{this.props.classRoom.errMess}</h4>
-                    </div>
-                </div>
-            )
+            this.props.refreshState()
+            toast.success(this.props.classRoom.errMess);
         }
         else if (this.props.classRoom.classRoomADD){
             this.props.refreshState()
-            
             toast.success("New class room has been added");
-            
                 
         }
         else{

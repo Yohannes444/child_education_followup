@@ -42,7 +42,7 @@ const ParentView= (props)=>{
           field: 'approveButton',
           render: wightlist =>{
             console.log(wightlist)
-          return (<Button color="success" className="mx-3" onClick={() =>{ 
+          return (<Button color="success" className="mx-3"  active={true} onClick={() =>{ 
             approved=true
              handleApproveClick(approved, wightlist.approveButton._id)
             }}>
@@ -55,7 +55,7 @@ const ParentView= (props)=>{
           title: 'reject',
           field: 'rejectButton',
           render: wightlist =>
-          <Button color="danger" onClick={() =>{
+          <Button color="danger"  active={true} onClick={() =>{
             approved=false  
              handleApproveClick(approved, wightlist.rejectButton._id)
             }}>

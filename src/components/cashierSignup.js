@@ -88,19 +88,8 @@ class Signup extends Component {
             );
         }
         else if (this.props.cashierSign.errMess) {
-            return(
-                <div className="container">
-                    <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>add cashier</BreadcrumbItem>
-                    </Breadcrumb>
-                </div>
-                    <div className="row">
-                        <h4>{this.props.cashierADD.errMess}</h4>
-                    </div>
-                </div>
-            )
+            this.props.refreshState()
+            toast.success(this.props.cashierSign.errMess)
         }
         else if (this.props.cashierSign.cashierADD){
             this.props.refreshState()

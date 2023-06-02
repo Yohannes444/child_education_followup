@@ -230,7 +230,8 @@ else if (props.uploadGreedState.success){
                           <td>{classRooms.className}</td>
                           <td>{classRooms.clasSize}</td>
                           <td>
-                            <Button onClick={() =>{
+                            <Button active={true}
+ color="success" onClick={() =>{
                               return handleToggleAccount(classRooms)}}>
                               view class room
                             </Button>

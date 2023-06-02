@@ -97,19 +97,8 @@ class Signup extends Component {
             );
         }
         else if (this.props.teacherSign.errMess) {
-            return(
-                <div className="container">
-                    <div className="row">
-                        <Breadcrumb>
-                            <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                            <BreadcrumbItem active>add teacher </BreadcrumbItem>
-                        </Breadcrumb>
-                    </div>
-                    <div className="row">
-                        <h4>{this.props.teacherSign.errMess}</h4>
-                    </div>
-                </div>
-            )
+            this.props.refreshState()
+            toast.error(this.props.teacherSign.errMess);
         }
         else if (this.props.teacherSign.teacherADD){
             this.props.refreshState()

@@ -39,7 +39,7 @@ const Cashier= (props)=>{
             field: 'payment',
             render: student =>{
               
-            return (  <Link to="studnet/monthlyfee"  > <Button style={{color:"rgb(255,255,255)"}} color="success" className="mx-3" onClick={() =>{ 
+            return (  <Link to="studnet/monthlyfee"  > <Button  active={true} style={{color:"rgb(255,255,255)"}} color="success" className="mx-3" onClick={() =>{ 
                handleViewPyament(student.payment._id)
               }}>
               view payment

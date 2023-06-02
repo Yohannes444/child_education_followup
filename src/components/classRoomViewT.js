@@ -115,8 +115,9 @@ const calssRoomView = (props) => {
               <td>{`${student.firstName} ${student.lastName}`}</td>
               <td>{`TMN-${ Intl.DateTimeFormat('en-US', { year: 'numeric'}).format(new Date(Date.parse(student.createdAt))).substring(4, 2)}/${student._id.substring(0, 6)}`}</td>
               <td>
-              <Link  style={{ backgroundColor: 'rgb(65, 141, 65)',color: 'rgb(255,255,255' }} to='/chat'>
-                <Button
+              <Link  style={{ color: 'rgb(255,255,255' }} to='/chat'>
+                <Button active={true}
+ color="success"
                   onClick={() =>
                     handleContactParentClick(student.parent)
                   }

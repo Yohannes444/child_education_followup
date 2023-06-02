@@ -15,17 +15,35 @@ const Home = (props) => {
           </div>
         </div>
       </Jumbotron>
+      <div className="container">
+  <div className="row align-items-center">
+    <div className="col-md-6">
+      <div className="left-content">
+        <h2 className="section-header">Child Education Follow-up System</h2>
+        <p className="section-paragraph">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla ex ac tincidunt eleifend. Integer ullamcorper, odio a finibus commodo, elit odio tincidunt massa, vitae dignissim ligula lacus vel nisl. Quisque posuere libero ut nunc varius mollis. Curabitur euismod turpis ac interdum fermentum. Ut vestibulum convallis quam, ac gravida nisl vulputate eu. Nam et placerat lectus, at consequat mi. In nec consequat sapien. Proin ac massa quis est lacinia dignissim. Proin ultricies arcu velit, at posuere mi efficitur eu. Integer feugiat tellus neque, at dignissim odio commodo sit amet. Curabitur vehicula nisi quis sagittis fermentum.
 
-      <section>
-        <div>
+
+        </p>
+      </div>
+    </div>
+    <div className="col-md-6 d-flex justify-content-end">
+    <div className="right-content">
+  <img className="pulsating-image" src="assets/images/logo.png" width="150px" alt="Image" />
+</div>
+    </div>
+  </div>
+</div>
+
+
+      <section className="py-10">
+        <div className="container">
           <h2 className="section-header">A Brief Overview of the System's Features</h2>
-          <h3 className="section-header">
-          ስርዓታችን ወላጆች በልጃቸው የትምህርት ጉዞ ለመደገፍ የተነደፉ የተለያዩ አገልገልግሎቶች ያቀርባል። 
-          ምናቀርባቸው አገልግሎቶች የሚከተሉትን ያካትታል</h3>
+          <h3 className="section-header">Our system offers a variety of services designed to support your child's education. The services they offer include</h3>
 
           <Container>
             <Row>
-              <Col  md={6}>
+              <Col md={6}>
                 <Card className="card-itself">
                   <CardImg top src="assets/images/Screenshot 2023-05-31 023830.png" alt="Attendance" />
                   <CardBody>
@@ -34,7 +52,7 @@ const Home = (props) => {
                   </CardBody>
                 </Card>
               </Col>
-              <Col  md={6}>
+              <Col md={6}>
                 <Card className="card-itself">
                   <CardImg top src="assets/images/Screenshot 2023-05-31 220046.png" alt="Education Materials" />
                   <CardBody>
@@ -45,7 +63,7 @@ const Home = (props) => {
               </Col>
             </Row>
             <Row>
-              <Col  md={8}>
+              <Col md={8}>
                 <Card className="card-itself">
                   <CardImg top src="assets/images/Screenshot 2023-05-31 025118.png" alt="Assignments and Grades" />
                   <CardBody>
@@ -54,7 +72,7 @@ const Home = (props) => {
                   </CardBody>
                 </Card>
               </Col>
-              <Col  md={4}>
+              <Col md={4}>
                 <Card className="card-itself">
                   <CardImg top src="assets/images/Screenshot 2023-05-30 203426.png" alt="Monthly Fee Payments" />
                   <CardBody>
@@ -65,7 +83,7 @@ const Home = (props) => {
               </Col>
             </Row>
             <Row>
-              <Col  md={6}>
+              <Col md={6}>
                 <Card className="card-itself">
                   <CardImg top src="assets/images/Screenshot 2023-05-30 220535.png" alt="Child Registration" />
                   <CardBody>
@@ -74,7 +92,7 @@ const Home = (props) => {
                   </CardBody>
                 </Card>
               </Col>
-              <Col  md={6}>
+              <Col md={6}>
                 <Card className="card-itself">
                   <CardImg top src="assets/images/Screenshot 2023-05-31 142826.png" alt="Contact Teachers" />
                   <CardBody>
@@ -89,6 +107,20 @@ const Home = (props) => {
       </section>
 
       {/* Remaining sections */}
+      <style jsx>{`
+        .card-itself:hover {
+          transform: scale(1.1);
+          transition: transform 0.2s ease-in-out;
+        }
+
+        .section-header {
+          /* Add your custom styles for section headers */
+        }
+
+        .section-header-2 {
+          /* Add your custom styles for the second section header */
+        }
+      `}</style>
     </div>
   );
 };

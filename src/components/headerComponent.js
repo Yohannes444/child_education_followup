@@ -144,14 +144,8 @@ class Header extends Component {
                                 <Input type="password" id="password" name="password"required
                                     innerRef={(input) => this.password = input}  />
                             </FormGroup>
-                            <FormGroup check>
-                                <Label check>
-                                    <Input type="checkbox" name="remember"
-                                    innerRef={(input) => this.remember = input}  />
-                                    Remember me
-                                </Label>
-                            </FormGroup>
-                            <Button type="submit" value="submit" color="primary">Login</Button>
+                          
+                            <Button type="submit" value="submit"  active={true} color="primary">Login</Button>
                         </Form>
                     </ModalBody>
                 </Modal>

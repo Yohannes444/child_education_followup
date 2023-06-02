@@ -31,7 +31,7 @@
   }
   
   .card-itself {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2); 
     background-color:  rgba(202, 212, 223, 0.952);
 
@@ -48,9 +48,11 @@
     text-align: center;
     color: rgba(248, 190, 30, 0.918);
     font-weight: bold;
+    font-size: 40px; 
    
     border-radius: 10px;
   }
+ 
   
   
   .card-title {
@@ -77,3 +79,30 @@
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   font-family: 'Venarda', sans-serif; /* Specify Vedana font and fallback to sans-serif */
 }
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pulsating-image {
+  animation: pulse 2s ease-in-out infinite;
+}
+.right-content {
+  margin-right: 20%;
+}
+.section-paragraph {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+}
+

@@ -19,7 +19,7 @@ const Dashboard = (props) => {
   const handleToggleAccount = async (id) => {
     props.activeToggler(id)
   };
-  const handleDelteCashier =async(cashierId)=>{
+  const handleDelteCashier =(cashierId)=>{
     props.deleteCashierAccunt(cashierId)
   }
   if (props.cashiers.isLoading || props.deleteCashier.isLoading) {
@@ -108,7 +108,7 @@ const Dashboard = (props) => {
               <td>{cashier.email}</td>
               <td>{cashier.active ? 'Yes' : 'No'}</td>
               <td>
-                <Button color="warning"
+                <Button color="warning"  active={true}
                   onClick={() =>
                     handleToggleAccount(cashier._id)
                   }
@@ -116,7 +116,7 @@ const Dashboard = (props) => {
                   {cashier.active ? 'Disable' : 'Enable'}
                 </Button>
               </td>
-              <td><Button color="danger" onClick= {()=>handleDelteCashier(cashier._id)} >Delete</Button></td>
+              <td><Button color="danger"  active={true} onClick= {()=>handleDelteCashier(cashier._id)} >Delete</Button></td>
             </tr>
           ))}
         </tbody>
