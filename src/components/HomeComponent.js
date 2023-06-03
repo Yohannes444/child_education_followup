@@ -22,8 +22,6 @@ const Home = (props) => {
         <h2 className="section-header">Child Education Follow-up System</h2>
         <p className="section-paragraph">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla ex ac tincidunt eleifend. Integer ullamcorper, odio a finibus commodo, elit odio tincidunt massa, vitae dignissim ligula lacus vel nisl. Quisque posuere libero ut nunc varius mollis. Curabitur euismod turpis ac interdum fermentum. Ut vestibulum convallis quam, ac gravida nisl vulputate eu. Nam et placerat lectus, at consequat mi. In nec consequat sapien. Proin ac massa quis est lacinia dignissim. Proin ultricies arcu velit, at posuere mi efficitur eu. Integer feugiat tellus neque, at dignissim odio commodo sit amet. Curabitur vehicula nisi quis sagittis fermentum.
-
-
         </p>
       </div>
     </div>

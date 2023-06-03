@@ -49,7 +49,7 @@
     color: rgba(248, 190, 30, 0.918);
     font-weight: bold;
     font-size: 40px; 
-   
+    /* color: #9f3e14; */ 
     border-radius: 10px;
   }
  
@@ -68,7 +68,7 @@
 
   .section-header {
   text-align: center;
-  background-color:  rgba(202, 212, 223, 0.952);
+  background-color: #61d23f;
   color: rgb(6, 59, 102);
   padding: 10px;
   font-weight: bold;
